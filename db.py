@@ -4,9 +4,8 @@ import sqlite3
 CREATE_TABLE_PATIENT = """
     CREATE TABLE IF NOT EXISTS patient (
         id          INTEGER PRIMARY KEY,
-        first_name  TEXT NOT NULL,
-        middle_name TEXT,
-        CHECK       (first_name != '')
+        first_name  TEXT NOT NULL CHECK (first_name != ''),
+        middle_name TEXT
     )
 """
 
