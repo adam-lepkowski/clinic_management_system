@@ -15,6 +15,12 @@ class DB:
     """
 
     def __init__(self, db):
+        """
+        Parameters
+        ---------------
+        db : str
+            path to sqlite3 database file
+        """
         self.con = sqlite3.connect(db)
         self.cur = self.con.cursor()
         self.cur.execute(CREATE_TABLE_PATIENT)
