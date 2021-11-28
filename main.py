@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.messagebox as msg
 
 from db import DB
+from registration_frame import RegistrationFrame
 
 
 class ClinicManagementSystem(tk.Tk):
@@ -19,23 +20,13 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
-        self.frm_registration = tk.Frame(self)
-        self.frm_registration.grid(row=0, column=1, sticky='nsew')
-        self.frm_registration.columnconfigure(0, weight=1)
-        self.lbl_pat_details = tk.Label(
-            self.frm_registration, text='Patient Details')
-        self.lbl_pat_details.grid(row=0, column=0, sticky='we')
-        self.lbl_f_name = tk.Label(self.frm_registration, text='First Name')
-        self.lbl_f_name.grid(row=1, column=0, sticky='e')
-        self.ent_f_name = tk.Entry(self.frm_registration)
-        self.ent_f_name.grid(row=1, column=1, sticky='w')
-        self.btn_register = tk.Button(self.frm_registration, text='Register',
-            command=self.register)
-        self.btn_register.grid(row=2, column=0)
+        self.frm_reg = RegistrationFrame(self)
+        self.frm_reg.grid(row=0, column=1, sticky='nsew')
+        self.frm_reg.btn_register.configure(command=self.register)
 
     def register(self):
-        first_name = self.ent_f_name.get()
-        self.ent_f_name.delete(0, tk.END)
+        first_name = self.frm_reg.ent_f_name.get()
+        self.frm_reg.ent_f_name.delete(0, tk.END)
         if first_name != '':
             self.db.register_patient(first_name)
             message = 'Patient registered successfully'
