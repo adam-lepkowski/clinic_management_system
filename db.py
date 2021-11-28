@@ -19,3 +19,4 @@ class DB:
     def register_patient(self, first_name):
         sql = "INSERT INTO patient (first_name) VALUES (?)"
         self.cur.execute(sql, (first_name,))
+        self.cur.connection.commit()
