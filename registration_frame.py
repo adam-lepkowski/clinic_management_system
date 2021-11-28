@@ -30,3 +30,9 @@ class RegistrationFrame(tk.Frame):
         columns, rows = self.grid_size()
         for column in range(columns):
             self.columnconfigure(column, weight=1)
+
+    def get_patient(self):
+        patient_details = {}
+        for col_name, widget in self.patient_ent.items():
+            patient_details[col_name] = widget.get()
+        return patient_details
