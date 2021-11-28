@@ -25,3 +25,5 @@ class ClinicManagementSystem(tk.Tk):
         self.lbl_f_name.grid(row=1, column=0, sticky='e')
         self.ent_f_name = tk.Entry(self.frm_registration)
         self.ent_f_name.grid(row=1, column=1, sticky='w')
+        self.btn_register = tk.Button(self.frm_registration, text='Register')
+        self.btn_register.grid(row=2, column=0)
