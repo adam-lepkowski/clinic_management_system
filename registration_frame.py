@@ -21,6 +21,10 @@ class RegistrationFrame(tk.Frame):
         self.btn_register = tk.Button(self, text='Register')
         self.btn_register.grid(row=2, column=0)
         self._configure_columns()
+        self.patient_ent = {
+            'first_name': self.ent_f_name,
+            'middle_name': self.ent_m_name
+        }
 
     def _configure_columns(self):
         columns, rows = self.grid_size()
