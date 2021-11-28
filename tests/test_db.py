@@ -1,4 +1,5 @@
 import unittest
+from sqlite3 import IntegrityError
 
 from db import DB
 
@@ -34,3 +35,7 @@ class TestRegisterPatient(unittest.TestCase):
         result = self.db.cur.execute("SELECT * FROM patient").fetchone()
         expected = (1, 'First', 'Middle')
         self.assertEqual(expected, result)
+
+    def test_f_name_empty_string_raises_error(self):
+        with self.assertRaises(IntegrityError):
+            self.db.register_patient(first_name='')
