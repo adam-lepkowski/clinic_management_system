@@ -21,3 +21,7 @@ class ClinicManagementSystem(tk.Tk):
         self.lbl_pat_details = tk.Label(
             self.frm_registration, text='Patient Details')
         self.lbl_pat_details.grid(row=0, column=0, sticky='we')
+        self.lbl_f_name = tk.Label(self.frm_registration, text='First Name')
+        self.lbl_f_name.grid(row=1, column=0, sticky='e')
+        self.ent_f_name = tk.Entry(self.frm_registration)
+        self.ent_f_name.grid(row=1, column=1, sticky='w')
