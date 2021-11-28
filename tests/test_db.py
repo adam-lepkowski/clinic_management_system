@@ -30,7 +30,7 @@ class TestRegisterPatient(unittest.TestCase):
         self.db = DB(':memory:')
 
     def test_register_patient_valid(self):
-        self.db.register_patient('Test')
+        self.db.register_patient(first_name='First', middle_name='Middle')
         result = self.db.cur.execute("SELECT * FROM patient").fetchone()
-        expected = (1, 'Test')
+        expected = (1, 'First', 'Middle')
         self.assertEqual(expected, result)
