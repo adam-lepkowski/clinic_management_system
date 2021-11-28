@@ -12,5 +12,9 @@ class ClinicManagementSystem(tk.Tk):
         width = self.winfo_screenwidth() // 2
         height = self.winfo_screenheight() // 2
         self.geometry(f'{width}x{height}+{width // 2}+{height // 2}')
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
         self.frm_registration = tk.Frame(self)
-        self.frm_registration.grid(row=0, column=0, sticky='nsew')
+        self.frm_registration.grid(row=0, column=1, sticky='nsew')
+        self.frm_registration.columnconfigure(0, weight=1)
