@@ -35,3 +35,5 @@ class ClinicManagementSystem(tk.Tk):
     def register(self):
         first_name = self.ent_f_name.get()
         self.ent_f_name.delete(0, tk.END)
+        if first_name != '':
+            self.db.register_patient(first_name)
