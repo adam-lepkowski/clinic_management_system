@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as msg
 
 from db import DB
 
@@ -37,3 +38,8 @@ class ClinicManagementSystem(tk.Tk):
         self.ent_f_name.delete(0, tk.END)
         if first_name != '':
             self.db.register_patient(first_name)
+            message = 'Patient registered successfully'
+            msg.showinfo('Patient registered', message=message)
+        else:
+            message = "Invalid input"
+            msg.showerror('Patient not registered', message=message)
