@@ -25,10 +25,9 @@ class ClinicManagementSystem(tk.Tk):
         self.frm_reg.btn_register.configure(command=self.register)
 
     def register(self):
-        first_name = self.frm_reg.ent_f_name.get()
-        self.frm_reg.ent_f_name.delete(0, tk.END)
-        if first_name != '':
-            self.db.register_patient()
+        patient_details = self.frm_reg.get_patient()
+        if patient_details:
+            self.db.register_patient(**patient_details)
             message = 'Patient registered successfully'
             msg.showinfo('Patient registered', message=message)
         else:
