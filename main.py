@@ -18,3 +18,6 @@ class ClinicManagementSystem(tk.Tk):
         self.frm_registration = tk.Frame(self)
         self.frm_registration.grid(row=0, column=1, sticky='nsew')
         self.frm_registration.columnconfigure(0, weight=1)
+        self.lbl_pat_details = tk.Label(
+            self.frm_registration, text='Patient Details')
+        self.lbl_pat_details.grid(row=0, column=0, sticky='we')
