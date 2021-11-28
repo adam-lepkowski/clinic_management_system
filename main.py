@@ -15,11 +15,11 @@ class ClinicManagementSystem(tk.Tk):
         # set geometry and centre the window
         width = self.winfo_screenwidth() // 2
         height = self.winfo_screenheight() // 2
-        self.db = db
         self.geometry(f'{width}x{height}+{width // 2}+{height // 2}')
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
+        self.db = db
         self.frm_reg = RegistrationFrame(self)
         self.frm_reg.grid(row=0, column=1, sticky='nsew')
         self.frm_reg.btn_register.configure(command=self.register)
