@@ -13,6 +13,17 @@ class TestDBInit(unittest.TestCase):
         self.assertEqual(expected, result)
 
 
+class TestDBGetColumnNames(unittest.TestCase):
+
+    def setUp(self):
+        self.db = DB(':memory:')
+
+    def test_get_columns_patient(self):
+        expected = ['id', 'first_name']
+        result = self.db._get_columns_patient()
+        self.assertEqual(expected, result)
+
+
 class TestRegisterPatient(unittest.TestCase):
 
     def setUp(self):
