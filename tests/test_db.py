@@ -19,7 +19,7 @@ class TestDBGetColumnNames(unittest.TestCase):
         self.db = DB(':memory:')
 
     def test_get_columns_patient(self):
-        expected = ['id', 'first_name']
+        expected = ['id', 'first_name', 'middle_name']
         result = self.db._get_columns_patient()
         self.assertEqual(expected, result)
 
