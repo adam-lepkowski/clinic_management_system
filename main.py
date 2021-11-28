@@ -1,16 +1,19 @@
 import tkinter as tk
 
+from db import DB
+
 
 class ClinicManagementSystem(tk.Tk):
     """
     Root window for ClinicManagementSystem GUI
     """
-    def __init__(self):
+    def __init__(self, db):
         super().__init__()
         self.title("Clinic Management System")
         # set geometry and centre the window
         width = self.winfo_screenwidth() // 2
         height = self.winfo_screenheight() // 2
+        self.db = db
         self.geometry(f'{width}x{height}+{width // 2}+{height // 2}')
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
