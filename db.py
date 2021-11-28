@@ -9,6 +9,9 @@ CREATE_TABLE_PATIENT = """
 """
 
 class DB:
+    """
+    Class used to represent a connection to sqlite3 database
+    """
 
     def __init__(self, db):
         self.con = sqlite3.connect(db)
