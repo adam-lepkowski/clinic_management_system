@@ -20,7 +20,7 @@ class TestDBGetColumnNames(unittest.TestCase):
         self.db = DB(':memory:')
 
     def test_get_columns_patient(self):
-        expected = ['id', 'first_name', 'middle_name']
+        expected = ['id', 'first_name', 'middle_name', 'last_name']
         result = self.db._get_columns_patient()
         self.assertEqual(expected, result)
 
@@ -31,9 +31,9 @@ class TestRegisterPatient(unittest.TestCase):
         self.db = DB(':memory:')
 
     def test_register_patient_valid(self):
-        self.db.register_patient(first_name='First', middle_name='Middle')
+        self.db.register_patient(first_name='First', middle_name='Middle', last_name='Last')
         result = self.db.cur.execute("SELECT * FROM patient").fetchone()
-        expected = (1, 'First', 'Middle')
+        expected = (1, 'First', 'Middle', 'Last')
         self.assertEqual(expected, result)
 
     def test_f_name_empty_string_raises_error(self):
