@@ -2,6 +2,7 @@ import unittest
 from sqlite3 import IntegrityError
 
 from db import DB
+from tests.test_input import PATIENT_INPUT_1
 
 
 class TestDBInit(unittest.TestCase):
@@ -29,7 +30,7 @@ class TestRegisterPatient(unittest.TestCase):
 
     def setUp(self):
         self.db = DB(':memory:')
-
+        
     def test_register_patient_valid(self):
         self.db.register_patient(first_name='First', middle_name='Middle', last_name='Last')
         result = self.db.cur.execute("SELECT * FROM patient").fetchone()
