@@ -18,12 +18,17 @@ class RegistrationFrame(tk.Frame):
         self.lbl_m_name.grid(row=1, column=2, sticky='e')
         self.ent_m_name = tk.Entry(self)
         self.ent_m_name.grid(row=1, column=3, sticky='w')
+        self.lbl_l_name = tk.Label(self, text='Last Name')
+        self.lbl_l_name.grid(row=1, column=4, sticky='e')
+        self.ent_l_name = tk.Entry(self)
+        self.ent_l_name.grid(row=1, column=5, sticky='w')
         self.btn_register = tk.Button(self, text='Register')
         self.btn_register.grid(row=2, column=0)
         self._configure_columns()
         self.patient_ent = {
             'first_name': self.ent_f_name,
-            'middle_name': self.ent_m_name
+            'middle_name': self.ent_m_name,
+            'last_name': self.ent_l_name
         }
 
     def _configure_columns(self):
