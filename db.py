@@ -5,7 +5,8 @@ CREATE_TABLE_PATIENT = """
     CREATE TABLE IF NOT EXISTS patient (
         id          INTEGER PRIMARY KEY,
         first_name  TEXT NOT NULL CHECK (first_name != ''),
-        middle_name TEXT
+        middle_name TEXT,
+        last_name   TEXT NOT NULL CHECK (last_name != '')
     )
 """
 
