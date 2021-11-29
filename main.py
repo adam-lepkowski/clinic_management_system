@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as msg
+from sqlite3 import IntegrityError
 
 from db import DB
 from registration_frame import RegistrationFrame
@@ -26,10 +27,10 @@ class ClinicManagementSystem(tk.Tk):
 
     def register(self):
         patient_details = self.frm_reg.get_patient()
-        if patient_details:
+        try:
             self.db.register_patient(**patient_details)
             message = 'Patient registered successfully'
             msg.showinfo('Patient registered', message=message)
-        else:
-            message = "Invalid input"
+        except IntegrityError as error:
+            message = str(error)
             msg.showerror('Patient not registered', message=message)
