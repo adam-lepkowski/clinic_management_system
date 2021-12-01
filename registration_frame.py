@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from tkcalendar import DateEntry
+
 
 class RegistrationFrame(tk.Frame):
     """
@@ -22,8 +24,12 @@ class RegistrationFrame(tk.Frame):
         self.lbl_l_name.grid(row=1, column=4, sticky='e')
         self.ent_l_name = tk.Entry(self)
         self.ent_l_name.grid(row=1, column=5, sticky='w')
+        self.lbl_dob = tk.Label(self, text='Date Of Birth')
+        self.lbl_dob.grid(row=2, column=0, sticky='e')
+        self.ent_dob = DateEntry(self, date_pattern='y-mm-dd')
+        self.ent_dob.grid(row=2, column=1, sticky='we')
         self.btn_register = tk.Button(self, text='Register')
-        self.btn_register.grid(row=2, column=0)
+        self.btn_register.grid(row=3, column=0)
         self._configure_columns()
         self.patient_ent = {
             'first_name': self.ent_f_name,
