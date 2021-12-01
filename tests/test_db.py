@@ -1,6 +1,8 @@
 import unittest
 from sqlite3 import IntegrityError
 
+from parameterized import parameterized
+
 from db import DB
 from tests.test_input import PATIENT_INPUT_1
 
@@ -38,6 +40,10 @@ class TestRegisterPatient(unittest.TestCase):
         expected = (1, 'First', 'Middle', 'Last')
         self.assertEqual(expected, result)
 
-    def test_f_name_empty_string_raises_error(self):
+    @parameterized.expand([
+        ("first_name", {'first_name': ''}),
+        ('last_name', {'last_name': ''})
+    ])
+    def test_empty_string_raises_error(self, name, column):
         with self.assertRaises(IntegrityError):
-            self.db.register_patient(first_name='')
+            self.db.register_patient(**column)
