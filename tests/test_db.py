@@ -1,5 +1,6 @@
 import unittest
 from sqlite3 import IntegrityError
+import datetime
 
 from parameterized import parameterized
 
@@ -49,4 +50,5 @@ class TestRegisterPatient(unittest.TestCase):
     ])
     def test_empty_string_raises_error(self, name, column):
         with self.assertRaises(IntegrityError):
-            self.db.register_patient(**column)
+            self.pat_1[name] = column[name]
+            self.db.register_patient(**self.pat_1)
