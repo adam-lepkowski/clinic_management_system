@@ -44,7 +44,8 @@ class TestRegisterPatient(unittest.TestCase):
 
     @parameterized.expand([
         ("first_name", {'first_name': ''}),
-        ('last_name', {'last_name': ''})
+        ('last_name', {'last_name': ''}),
+        ('date_of_birth', {'date_of_birth': ''})
     ])
     def test_empty_string_raises_error(self, name, column):
         with self.assertRaises(IntegrityError):
