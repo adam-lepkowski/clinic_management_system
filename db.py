@@ -3,10 +3,11 @@ import sqlite3
 
 CREATE_TABLE_PATIENT = """
     CREATE TABLE IF NOT EXISTS patient (
-        id          INTEGER PRIMARY KEY,
-        first_name  TEXT NOT NULL CHECK (first_name != ''),
-        middle_name TEXT,
-        last_name   TEXT NOT NULL CHECK (last_name != '')
+        id              INTEGER PRIMARY KEY,
+        first_name      TEXT NOT NULL CHECK (first_name != ''),
+        middle_name     TEXT,
+        last_name       TEXT NOT NULL CHECK (last_name != ''),
+        date_of_birth   TEXT NOT NULL CHECK (date_of_birth != '')
     )
 """
 
