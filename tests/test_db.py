@@ -23,7 +23,9 @@ class TestDBGetColumnNames(unittest.TestCase):
         self.db = DB(':memory:')
 
     def test_get_columns_patient(self):
-        expected = ['id', 'first_name', 'middle_name', 'last_name']
+        expected = [
+            'id', 'first_name', 'middle_name', 'last_name', 'date_of_birth'
+        ]
         result = self.db._get_columns_patient()
         self.assertEqual(expected, result)
 
@@ -37,7 +39,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_register_patient_valid(self):
         self.db.register_patient(**self.pat_1)
         result = self.db.cur.execute("SELECT * FROM patient").fetchone()
-        expected = (1, 'First', 'Middle', 'Last')
+        expected = tuple(self.pat_1.values())
         self.assertEqual(expected, result)
 
     @parameterized.expand([
