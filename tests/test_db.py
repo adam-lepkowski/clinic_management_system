@@ -52,3 +52,11 @@ class TestRegisterPatient(unittest.TestCase):
         with self.assertRaises(IntegrityError):
             self.pat_1[name] = column[name]
             self.db.register_patient(**self.pat_1)
+
+    def test_date_of_birth_trigger_future_date_raises_error(self):
+        delta = datetime.timedelta(days=1)
+        today = datetime.date.today()
+        future_date = today + delta
+        self.pat_1['date_of_birth'] = future_date.strftime('%Y-%m-%d')
+        with self.assertRaises(IntegrityError):
+            self.db.register_patient(**self.pat_1)
