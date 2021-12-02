@@ -34,7 +34,8 @@ class RegistrationFrame(tk.Frame):
         self.patient_ent = {
             'first_name': self.ent_f_name,
             'middle_name': self.ent_m_name,
-            'last_name': self.ent_l_name
+            'last_name': self.ent_l_name,
+            'date_of_birth': self.ent_dob
         }
 
     def _configure_columns(self):
