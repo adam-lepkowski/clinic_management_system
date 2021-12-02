@@ -11,6 +11,18 @@ CREATE_TABLE_PATIENT = """
     )
 """
 
+CREATE_TRIGGER_DOB = """
+    CREATE TRIGGER IF NOT EXISTS validate_dob BEFORE INSERT
+    ON patient
+    BEGIN
+        SELECT CASE
+            WHEN NEW.date_of_birth > DATE('now') THEN
+            RAISE(ABORT, 'Date of birth cannot be a date from the future')
+        END;
+    END;
+"""
+
+
 class DB:
     """
     Class used to represent a connection to sqlite3 database
@@ -26,6 +38,7 @@ class DB:
         self.con = sqlite3.connect(db)
         self.cur = self.con.cursor()
         self.cur.execute(CREATE_TABLE_PATIENT)
+        self.cur.execute(CREATE_TRIGGER_DOB)
         self.cur.connection.commit()
 
     def _get_columns_patient(self):
