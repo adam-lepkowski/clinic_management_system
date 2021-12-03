@@ -16,8 +16,13 @@ CREATE_TRIGGER_DOB = """
     ON patient
     BEGIN
         SELECT CASE
-            WHEN NEW.date_of_birth > DATE('now') THEN
-            RAISE(ABORT, 'Date of birth cannot be a date from the future')
+            WHEN STRFTIME('%Y-%m-%d', NEW.date_of_birth) IS NULL
+                OR DATE(NEW.date_of_birth) > DATE('now') IS NULL
+            THEN RAISE(ABORT, 'Invalid date, should be YYYY-MM-DD')
+            WHEN DATE(NEW.date_of_birth) < DATE('1900-01-01')
+            THEN RAISE(ABORT, 'Date can not be older than 1900-01-01')
+            WHEN DATE(NEW.date_of_birth) > DATE('now')
+            THEN RAISE(ABORT, 'Birth date can not be a date from the future')
         END;
     END;
 """
