@@ -60,3 +60,16 @@ class TestRegisterPatient(unittest.TestCase):
         self.pat_1['date_of_birth'] = future_date.strftime('%Y-%m-%d')
         with self.assertRaises(IntegrityError):
             self.db.register_patient(**self.pat_1)
+
+    @parameterized.expand([
+        ('invalid_format', '10-10-1990'),
+        ('string_not_date', 'test'),
+        ('integer', 1),
+        ('float', 1.2),
+        ('string_int', '1'),
+        ('string_float', '1.2'),
+    ])
+    def test_date_invalid_type_raises_error(self, name, value):
+        self.pat_1['date_of_birth'] = value
+        with self.assertRaises(IntegrityError):
+            self.db.register_patient(**self.pat_1)
