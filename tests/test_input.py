@@ -4,5 +4,6 @@ PATIENT_INPUT_1 = {
     'middle_name': 'Middle',
     'last_name': 'Last',
     'date_of_birth': '1900-10-10',
-    'gender': 'Male'
+    'gender': 'Male',
+    'marital_status': 'Single'
 }
