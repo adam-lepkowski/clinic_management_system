@@ -75,3 +75,13 @@ class TestRegisterPatient(unittest.TestCase):
         self.pat_1['date_of_birth'] = value
         with self.assertRaises(IntegrityError):
             self.db.register_patient(**self.pat_1)
+
+    @parameterized.expand([
+        ('invalid_str', 'value'),
+        ('int', 1),
+        ('float', 1.1)
+    ])
+    def test_invalid_gender_raises_error(self, name, value):
+        self.pat_1['gender'] = value
+        with self.assertRaises(IntegrityError):
+            self.db.register_patient(**self.pat_1)
