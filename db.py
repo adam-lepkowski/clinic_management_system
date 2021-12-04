@@ -34,7 +34,7 @@ CREATE_TRIGGER_GENDER = """
     ON patient
     BEGIN
         SELECT CASE
-            WHEN NEW.gender NOT LIKE 'male' AND NEW.gender NOT LIKE 'female'
+            WHEN NEW.gender COLLATE NOCASE NOT IN ('male', 'female')
             THEN RAISE(ABORT, 'Invalid gender')
         END;
     END;
