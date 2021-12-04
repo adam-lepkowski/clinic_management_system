@@ -28,6 +28,17 @@ CREATE_TRIGGER_DOB = """
     END;
 """
 
+CREATE_TRIGGER_GENDER = """
+    CREATE TRIGGER IF NOT EXISTS validate_gender BEFORE INSERT
+    ON patient
+    BEGIN
+        SELECT CASE
+            WHEN NEW.gender NOT LIKE 'male' AND NEW.gender NOT LIKE 'female'
+            THEN RAISE(ABORT, 'Invalid gender')
+        END;
+    END;
+"""
+
 
 class DB:
     """
@@ -45,6 +56,7 @@ class DB:
         self.cur = self.con.cursor()
         self.cur.execute(CREATE_TABLE_PATIENT)
         self.cur.execute(CREATE_TRIGGER_DOB)
+        self.cur.execute(CREATE_TRIGGER_GENDER)
         self.cur.connection.commit()
 
     def _get_columns_patient(self):
