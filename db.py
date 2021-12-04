@@ -8,7 +8,8 @@ CREATE_TABLE_PATIENT = """
         middle_name     TEXT,
         last_name       TEXT NOT NULL CHECK (last_name != ''),
         date_of_birth   TEXT NOT NULL CHECK (date_of_birth != ''),
-        gender          TEXT NOT NULL CHECK (gender != '')
+        gender          TEXT NOT NULL CHECK (gender != ''),
+        marital_status  TEXT NOT NULL CHECK (marital_status != '')
     )
 """
 
