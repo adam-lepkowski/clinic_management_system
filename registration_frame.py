@@ -55,7 +55,8 @@ class RegistrationFrame(tk.Frame):
             'last_name': self.ent_l_name,
             'date_of_birth': self.ent_dob,
             'gender': self.var_gender,
-            'marital_status': self.var_marital
+            'marital_status': self.var_marital,
+            'nationality': self.ent_nation
         }
 
     def _configure_columns(self):
