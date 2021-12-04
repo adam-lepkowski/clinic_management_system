@@ -41,6 +41,19 @@ CREATE_TRIGGER_GENDER = """
 """
 
 
+CREATE_TRIGGER_MARITAL = """
+    CREATE TRIGGER IF NOT EXISTS validate_marital BEFORE INSERT
+    ON patient
+    BEGIN
+        SELECT CASE
+            WHEN NEW.marital_status COLLATE NOCASE NOT IN (
+                'single', 'widowed', 'married', 'divorced', 'separated')
+            THEN RAISE(ABORT, 'Invalid marital status')
+        END;
+    END;
+"""
+
+
 class DB:
     """
     Class used to represent a connection to sqlite3 database
@@ -58,6 +71,7 @@ class DB:
         self.cur.execute(CREATE_TABLE_PATIENT)
         self.cur.execute(CREATE_TRIGGER_DOB)
         self.cur.execute(CREATE_TRIGGER_GENDER)
+        self.cur.execute(CREATE_TRIGGER_MARITAL)
         self.cur.connection.commit()
 
     def _get_columns_patient(self):
