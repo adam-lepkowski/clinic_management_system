@@ -34,6 +34,14 @@ class RegistrationFrame(tk.Frame):
         self.var_gender = tk.StringVar(self)
         self.opt_gender = tk.OptionMenu(self, self.var_gender, *genders)
         self.opt_gender.grid(row=2, column=3, sticky='we')
+        self.lbl_marital = tk.Label(self, text='Marital Status')
+        self.lbl_marital.grid(row=2, column=4, sticky='e')
+        maritals = [
+            '', 'Single', 'Married', 'Widowed', 'Divorced', 'Separated'
+        ]
+        self.var_marital = tk.StringVar(self)
+        self.opt_marital = tk.OptionMenu(self, self.var_marital, *maritals)
+        self.opt_marital.grid(row=2, column=5, sticky='we')
         self.btn_register = tk.Button(self, text='Register')
         self.btn_register.grid(row=3, column=0)
         self._configure_columns()
@@ -42,7 +50,8 @@ class RegistrationFrame(tk.Frame):
             'middle_name': self.ent_m_name,
             'last_name': self.ent_l_name,
             'date_of_birth': self.ent_dob,
-            'gender': self.var_gender
+            'gender': self.var_gender,
+            'marital_status': self.var_marital
         }
 
     def _configure_columns(self):
