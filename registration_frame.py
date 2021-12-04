@@ -42,8 +42,12 @@ class RegistrationFrame(tk.Frame):
         self.var_marital = tk.StringVar(self)
         self.opt_marital = tk.OptionMenu(self, self.var_marital, *maritals)
         self.opt_marital.grid(row=2, column=5, sticky='we')
+        self.lbl_nation = tk.Label(self, text='Nationality')
+        self.lbl_nation.grid(row=3, column=0, sticky='e')
+        self.ent_nation = tk.Entry(self)
+        self.ent_nation.grid(row=3, column=1, sticky='we')
         self.btn_register = tk.Button(self, text='Register')
-        self.btn_register.grid(row=3, column=0)
+        self.btn_register.grid(row=4, column=0)
         self._configure_columns()
         self.patient_ent = {
             'first_name': self.ent_f_name,
