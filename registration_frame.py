@@ -28,6 +28,12 @@ class RegistrationFrame(tk.Frame):
         self.lbl_dob.grid(row=2, column=0, sticky='e')
         self.ent_dob = DateEntry(self, date_pattern='y-mm-dd')
         self.ent_dob.grid(row=2, column=1, sticky='we')
+        self.lbl_gender = tk.Label(self, text='Gender')
+        self.lbl_gender.grid(row=2, column=2, sticky='e')
+        genders = ['', 'Male', 'Female']
+        self.var_gender = tk.StringVar(self)
+        self.opt_gender = tk.OptionMenu(self, self.var_gender, *genders)
+        self.opt_gender.grid(row=2, column=3, sticky='we')
         self.btn_register = tk.Button(self, text='Register')
         self.btn_register.grid(row=3, column=0)
         self._configure_columns()
@@ -35,7 +41,8 @@ class RegistrationFrame(tk.Frame):
             'first_name': self.ent_f_name,
             'middle_name': self.ent_m_name,
             'last_name': self.ent_l_name,
-            'date_of_birth': self.ent_dob
+            'date_of_birth': self.ent_dob,
+            'gender': self.var_gender
         }
 
     def _configure_columns(self):
