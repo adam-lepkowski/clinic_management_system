@@ -12,7 +12,9 @@ CREATE_TABLE_PATIENT = """
         marital_status  TEXT NOT NULL CHECK (marital_status != ''),
         nationality     TEXT NOT NULL CHECK (nationality != ''),
         email           TEXT,
-        phone           TEXT NOT NULL CHECK (phone != '' AND LENGTH(phone) > 3)
+        phone           TEXT NOT NULL
+                        CHECK (phone != '' AND LENGTH(phone) > 3),
+        document_no     TEXT NOT NULL CHECK (document_no != '')
     )
 """
 
