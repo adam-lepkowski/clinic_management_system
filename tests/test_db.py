@@ -26,7 +26,8 @@ class TestDBGetColumnNames(unittest.TestCase):
     def test_get_columns_patient(self):
         expected = [
             'id', 'first_name', 'middle_name', 'last_name', 'date_of_birth',
-            'gender', 'marital_status', 'nationality', 'email', 'phone'
+            'gender', 'marital_status', 'nationality', 'email', 'phone',
+            'document_no'
         ]
         result = self.db._get_columns_patient()
         self.assertEqual(expected, result)
@@ -62,7 +63,8 @@ class TestRegisterPatient(unittest.TestCase):
         ('gender', {'gender': None}),
         ('marital_status', {'marital_status': None}),
         ('nationality', {'nationality': None}),
-        ('phone', {'phone': None})
+        ('phone', {'phone': None}),
+        ('document_no', {'document_no': None})
     ])
     def test_register_patient_null_raises_error(self, name, column):
         with self.assertRaises(IntegrityError):
@@ -77,7 +79,8 @@ class TestRegisterPatient(unittest.TestCase):
         ('marital_status', {'marital_status': ''}),
         ('nationality', {'nationality': ''}),
         ('email', {'email': ''}),
-        ('phone', {'phone': ''})
+        ('phone', {'phone': ''}),
+        ('document_no', {'document_no': ''})
     ])
     def test_empty_string_raises_error(self, name, column):
         with self.assertRaises(IntegrityError):
@@ -98,7 +101,7 @@ class TestRegisterPatient(unittest.TestCase):
         ('integer', 1),
         ('float', 1.2),
         ('string_int', '1'),
-        ('string_float', '1.2'),
+        ('string_float', '1.2')
     ])
     def test_date_invalid_type_raises_error(self, name, value):
         self.pat_1['date_of_birth'] = value
