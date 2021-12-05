@@ -26,7 +26,7 @@ class TestDBGetColumnNames(unittest.TestCase):
     def test_get_columns_patient(self):
         expected = [
             'id', 'first_name', 'middle_name', 'last_name', 'date_of_birth',
-            'gender', 'marital_status', 'nationality'
+            'gender', 'marital_status', 'nationality', 'email'
         ]
         result = self.db._get_columns_patient()
         self.assertEqual(expected, result)
@@ -50,7 +50,8 @@ class TestRegisterPatient(unittest.TestCase):
         ('date_of_birth', {'date_of_birth': ''}),
         ('gender', {'gender': ''}),
         ('marital_status', {'marital_status': ''}),
-        ('nationality', {'nationality': ''})
+        ('nationality', {'nationality': ''}),
+        ('email', {'email': ''})
     ])
     def test_empty_string_raises_error(self, name, column):
         with self.assertRaises(IntegrityError):
