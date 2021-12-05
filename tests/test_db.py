@@ -45,6 +45,17 @@ class TestRegisterPatient(unittest.TestCase):
         self.assertEqual(expected, result)
 
     @parameterized.expand([
+        ('middle_name', {'middle_name': None}),
+        ('email', {'email': None})
+    ])
+    def test_register_patient_null_fields_valid(self, name, column):
+        self.pat_1[name] = column[name]
+        self.db.register_patient(**self.pat_1)
+        result = self.db.cur.execute("SELECT * FROM patient").fetchone()
+        expected = tuple(self.pat_1.values())
+        self.assertEqual(expected, result)
+
+    @parameterized.expand([
         ("first_name", {'first_name': ''}),
         ('last_name', {'last_name': ''}),
         ('date_of_birth', {'date_of_birth': ''}),
