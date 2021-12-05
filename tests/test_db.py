@@ -98,3 +98,14 @@ class TestRegisterPatient(unittest.TestCase):
         self.pat_1['marital_status'] = value
         with self.assertRaises(IntegrityError):
             self.db.register_patient(**self.pat_1)
+
+    @parameterized.expand([
+        ('no_chars_before_@', '@email.com'),
+        ('no_chars_after_@', 'test@'),
+        ('no_chars_before_dot', 'test@.test'),
+        ('no_chars_after_dot', 'test@test.')
+    ])
+    def test_invalid_email_raises_error(self, name, email):
+        self.pat_1['email'] = email
+        with self.assertRaises(IntegrityError):
+            self.db.register_patient(**self.pat_1)
