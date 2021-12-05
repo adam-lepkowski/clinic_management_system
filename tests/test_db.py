@@ -135,3 +135,14 @@ class TestRegisterPatient(unittest.TestCase):
         self.pat_1['email'] = email
         with self.assertRaises(IntegrityError):
             self.db.register_patient(**self.pat_1)
+
+    @parameterized.expand([
+        ('not_numeric', 'abcdefghijklm'),
+        ('alphanumeric', '1234abdc123'),
+        ('too_short', '12'),
+        ('special_characters', '+1111111-')
+    ])
+    def test_invalid_phone_raises_error(self, name, phone):
+        self.pat_1['phone'] = phone
+        with self.assertRaises(IntegrityError):
+            self.db.register_patient(**self.pat_1)
