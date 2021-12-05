@@ -72,5 +72,6 @@ class RegistrationFrame(tk.Frame):
     def get_patient(self):
         patient_details = {}
         for col_name, widget in self.patient_ent.items():
-            patient_details[col_name] = widget.get()
+            value = widget.get() if widget.get() != '' else None
+            patient_details[col_name] = value
         return patient_details
