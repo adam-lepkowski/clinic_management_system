@@ -6,5 +6,6 @@ PATIENT_INPUT_1 = {
     'date_of_birth': '1900-10-10',
     'gender': 'Male',
     'marital_status': 'Single',
-    'nationality': 'TestNation'
+    'nationality': 'TestNation',
+    'email': 'test@email.com'
 }
