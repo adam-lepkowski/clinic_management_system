@@ -12,7 +12,7 @@ CREATE_TABLE_PATIENT = """
         marital_status  TEXT NOT NULL CHECK (marital_status != ''),
         nationality     TEXT NOT NULL CHECK (nationality != ''),
         email           TEXT,
-        phone           TEXT NOT NULL CHECK (phone != '')
+        phone           TEXT NOT NULL CHECK (phone != '' AND LENGTH(phone) > 3)
     )
 """
 
@@ -43,7 +43,6 @@ CREATE_TRIGGER_GENDER = """
     END;
 """
 
-
 CREATE_TRIGGER_MARITAL = """
     CREATE TRIGGER IF NOT EXISTS validate_marital BEFORE INSERT
     ON patient
@@ -68,6 +67,17 @@ CREATE_TRIGGER_EMAIL = """
 """
 
 
+CREATE_TRIGGER_PHONE = """
+    CREATE TRIGGER IF NOT EXISTS validate_phone BEFORE INSERT
+    ON patient
+    BEGIN
+        SELECT CASE
+            WHEN NEW.phone GLOB '*[^0-9]*' THEN
+            RAISE(ABORT, 'Only numbers allowed in phone field')
+        END;
+    END;
+"""
+
 class DB:
     """
     Class used to represent a connection to sqlite3 database
@@ -87,6 +97,7 @@ class DB:
         self.cur.execute(CREATE_TRIGGER_GENDER)
         self.cur.execute(CREATE_TRIGGER_MARITAL)
         self.cur.execute(CREATE_TRIGGER_EMAIL)
+        self.cur.execute(CREATE_TRIGGER_PHONE)
         self.cur.connection.commit()
 
     def _get_columns_patient(self):
