@@ -7,5 +7,6 @@ PATIENT_INPUT_1 = {
     'gender': 'Male',
     'marital_status': 'Single',
     'nationality': 'TestNation',
-    'email': 'test@email.com'
+    'email': 'test@email.com',
+    'phone': '123456789'
 }
