@@ -55,6 +55,17 @@ CREATE_TRIGGER_MARITAL = """
     END;
 """
 
+CREATE_TRIGGER_EMAIL = """
+    CREATE TRIGGER IF NOT EXISTS validate_email BEFORE INSERT
+    ON patient
+    BEGIN
+        SELECT CASE
+            WHEN NEW.email NOT LIKE '%_@__%.__%' THEN
+            RAISE(ABORT, 'Invalid email address')
+        END;
+    END;
+"""
+
 
 class DB:
     """
@@ -74,6 +85,7 @@ class DB:
         self.cur.execute(CREATE_TRIGGER_DOB)
         self.cur.execute(CREATE_TRIGGER_GENDER)
         self.cur.execute(CREATE_TRIGGER_MARITAL)
+        self.cur.execute(CREATE_TRIGGER_EMAIL)
         self.cur.connection.commit()
 
     def _get_columns_patient(self):
