@@ -54,8 +54,12 @@ class RegistrationFrame(tk.Frame):
         self.lbl_phone.grid(row=3, column=4, sticky='e')
         self.ent_phone = tk.Entry(self)
         self.ent_phone.grid(row=3, column=5, sticky='we')
+        self.lbl_document = tk.Label(self, text='Document')
+        self.lbl_document.grid(row=4, column=0, sticky='e')
+        self.ent_document = tk.Entry(self)
+        self.ent_document.grid(row=4, column=1, sticky='we')
         self.btn_register = tk.Button(self, text='Register')
-        self.btn_register.grid(row=4, column=0)
+        self.btn_register.grid(row=5, column=0)
         self._configure_columns()
         self.patient_ent = {
             'first_name': self.ent_f_name,
@@ -66,7 +70,8 @@ class RegistrationFrame(tk.Frame):
             'marital_status': self.var_marital,
             'nationality': self.ent_nation,
             'email': self.ent_email,
-            'phone': self.ent_phone
+            'phone': self.ent_phone,
+            'document_no': self.ent_document
         }
 
     def _configure_columns(self):
