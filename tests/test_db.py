@@ -56,6 +56,19 @@ class TestRegisterPatient(unittest.TestCase):
         self.assertEqual(expected, result)
 
     @parameterized.expand([
+        ("first_name", {'first_name': None}),
+        ('last_name', {'last_name': None}),
+        ('date_of_birth', {'date_of_birth': None}),
+        ('gender', {'gender': None}),
+        ('marital_status', {'marital_status': None}),
+        ('nationality', {'nationality': None}),
+    ])
+    def test_register_patient_null_raises_error(self, name, column):
+        with self.assertRaises(IntegrityError):
+            self.pat_1[name] = column[name]
+            self.db.register_patient(**self.pat_1)
+
+    @parameterized.expand([
         ("first_name", {'first_name': ''}),
         ('last_name', {'last_name': ''}),
         ('date_of_birth', {'date_of_birth': ''}),
