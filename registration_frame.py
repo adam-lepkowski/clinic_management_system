@@ -50,6 +50,10 @@ class RegistrationFrame(tk.Frame):
         self.lbl_email.grid(row=3, column=2, sticky='e')
         self.ent_email = tk.Entry(self)
         self.ent_email.grid(row=3, column=3, sticky='we')
+        self.lbl_phone = tk.Label(self, text='Phone')
+        self.lbl_phone.grid(row=3, column=4, sticky='e')
+        self.ent_phone = tk.Entry(self)
+        self.ent_phone.grid(row=3, column=5, sticky='we')
         self.btn_register = tk.Button(self, text='Register')
         self.btn_register.grid(row=4, column=0)
         self._configure_columns()
@@ -61,7 +65,8 @@ class RegistrationFrame(tk.Frame):
             'gender': self.var_gender,
             'marital_status': self.var_marital,
             'nationality': self.ent_nation,
-            'email': self.ent_email
+            'email': self.ent_email,
+            'phone': self.ent_phone
         }
 
     def _configure_columns(self):
