@@ -8,5 +8,6 @@ PATIENT_INPUT_1 = {
     'marital_status': 'Single',
     'nationality': 'TestNation',
     'email': 'test@email.com',
-    'phone': '123456789'
+    'phone': '123456789',
+    'document_no': 'ABCD12345'
 }
