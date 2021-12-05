@@ -11,7 +11,7 @@ CREATE_TABLE_PATIENT = """
         gender          TEXT NOT NULL CHECK (gender != ''),
         marital_status  TEXT NOT NULL CHECK (marital_status != ''),
         nationality     TEXT NOT NULL CHECK (nationality != ''),
-        email           TEXT NOT NULL CHECK (email != '')
+        email           TEXT
     )
 """
 
