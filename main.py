@@ -21,6 +21,10 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
+        self.frames = {
+            0: TitleScreen(self),
+            1: RegistrationFrame(self)
+        }
         self.db = db
         self.frm_title = TitleScreen(self)
         # self.frm_reg = RegistrationFrame(self)
