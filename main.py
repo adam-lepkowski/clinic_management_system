@@ -27,10 +27,7 @@ class ClinicManagementSystem(tk.Tk):
         }
         self.db = db
         self.frm_current = None
-        self.frm_title = TitleScreen(self)
-        # self.frm_reg = RegistrationFrame(self)
-        self.frm_title.grid(row=0, column=1, sticky='nsew')
-        # self.frm_reg.btn_register.configure(command=self.register)
+        self.change_frame(0)
 
     def register(self):
         patient_details = self.frm_reg.get_patient()

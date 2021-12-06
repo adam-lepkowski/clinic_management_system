@@ -73,6 +73,7 @@ class RegistrationFrame(tk.Frame):
             'phone': self.ent_phone,
             'document_no': self.ent_document
         }
+        self.grid(row=0, column=1, sticky='nsew')
 
     def _configure_columns(self):
         columns, rows = self.grid_size()

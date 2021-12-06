@@ -15,3 +15,4 @@ class TitleScreen(tk.Frame):
             self.frm_buttons, text='Register', image=self.img_reg,
             compound=tk.TOP)
         self.btn_reg.grid(row=0, column=0)
+        self.grid(row=0, column=1, sticky='nsew')
