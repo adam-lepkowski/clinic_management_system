@@ -3,8 +3,7 @@ import tkinter.messagebox as msg
 from sqlite3 import IntegrityError
 
 from db import DB
-from registration_frame import RegistrationFrame
-from title_screen import TitleScreen
+from frames import RegistrationFrame, TitleScreen
 
 
 class ClinicManagementSystem(tk.Tk):
