@@ -41,3 +41,8 @@ class ClinicManagementSystem(tk.Tk):
         except IntegrityError as error:
             message = str(error)
             msg.showerror('Patient not registered', message=message)
+
+    def change_frame(self, index):
+        frame = self.frames[index]
+        self.frm_current = frame
+        frame.tkraise()
