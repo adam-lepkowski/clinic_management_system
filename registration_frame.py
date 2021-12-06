@@ -63,6 +63,11 @@ class RegistrationFrame(tk.Frame):
         self.btn_register = tk.Button(
             self.frm_buttons, text='Register', command=master.register)
         self.btn_register.grid(row=0, column=0)
+        self.btn_return = tk.Button(
+            self.frm_buttons, text='Return',
+            command=lambda: master.change_frame(0)
+        )
+        self.btn_return.grid(row=0, column=1)
         self._configure_columns()
         self.patient_ent = {
             'first_name': self.ent_f_name,
