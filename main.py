@@ -30,7 +30,7 @@ class ClinicManagementSystem(tk.Tk):
         self.change_frame(0)
 
     def register(self):
-        patient_details = self.frm_reg.get_patient()
+        patient_details = self.frm_current.get_patient()
         try:
             self.db.register_patient(**patient_details)
             message = 'Patient registered successfully'
