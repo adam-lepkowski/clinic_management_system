@@ -13,6 +13,6 @@ class TitleScreen(tk.Frame):
         self.frm_buttons.grid(row=1, column=0, sticky='nsew')
         self.btn_reg = tk.Button(
             self.frm_buttons, text='Register', image=self.img_reg,
-            compound=tk.TOP)
+            compound=tk.TOP, command=lambda: master.change_frame(1))
         self.btn_reg.grid(row=0, column=0)
         self.grid(row=0, column=1, sticky='nsew')
