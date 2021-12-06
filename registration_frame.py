@@ -58,9 +58,11 @@ class RegistrationFrame(tk.Frame):
         self.lbl_document.grid(row=4, column=0, sticky='e')
         self.ent_document = tk.Entry(self)
         self.ent_document.grid(row=4, column=1, sticky='we')
+        self.frm_buttons = tk.Frame(self)
+        self.frm_buttons.grid(row=5, column=0, sticky='we')
         self.btn_register = tk.Button(
-            self, text='Register', command=master.register)
-        self.btn_register.grid(row=5, column=0)
+            self.frm_buttons, text='Register', command=master.register)
+        self.btn_register.grid(row=0, column=0)
         self._configure_columns()
         self.patient_ent = {
             'first_name': self.ent_f_name,
