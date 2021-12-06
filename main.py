@@ -26,6 +26,7 @@ class ClinicManagementSystem(tk.Tk):
             1: RegistrationFrame(self)
         }
         self.db = db
+        self.frm_current = None
         self.frm_title = TitleScreen(self)
         # self.frm_reg = RegistrationFrame(self)
         self.frm_title.grid(row=0, column=1, sticky='nsew')
