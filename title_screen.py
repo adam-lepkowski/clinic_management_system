@@ -5,6 +5,7 @@ class TitleScreen(tk.Frame):
 
     def __init__(self, master):
         super().__init__(master)
+        self.columnconfigure(0, weight=1)
         self.lbl_title = tk.Label(self, text='Clinic Management System')
         self.lbl_title.grid(row=0, column=0, sticky='we', pady=10)
         self.img_reg = tk.PhotoImage(file=r'images\resized\register.png')
