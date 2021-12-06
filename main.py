@@ -4,6 +4,7 @@ from sqlite3 import IntegrityError
 
 from db import DB
 from registration_frame import RegistrationFrame
+from title_screen import TitleScreen
 
 
 class ClinicManagementSystem(tk.Tk):
@@ -21,9 +22,10 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.db = db
-        self.frm_reg = RegistrationFrame(self)
-        self.frm_reg.grid(row=0, column=1, sticky='nsew')
-        self.frm_reg.btn_register.configure(command=self.register)
+        self.frm_title = TitleScreen(self)
+        # self.frm_reg = RegistrationFrame(self)
+        self.frm_title.grid(row=0, column=1, sticky='nsew')
+        # self.frm_reg.btn_register.configure(command=self.register)
 
     def register(self):
         patient_details = self.frm_reg.get_patient()
