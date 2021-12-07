@@ -15,4 +15,9 @@ class SearchFrame(tk.Frame):
         self.frm_buttons.grid(row=2, column=0, sticky='we')
         self.btn_find = tk.Button(self.frm_buttons, text='Find')
         self.btn_find.grid(row=0, column=0)
+        self.btn_return = tk.Button(
+            self.frm_buttons, text='Return',
+            command=lambda: master.change_frame(0)
+        )
+        self.btn_return.grid(row=0, column=1)
         self.grid(row=0, column=1, sticky='nsew')
