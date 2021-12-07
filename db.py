@@ -124,3 +124,8 @@ class DB:
         sql = f"INSERT INTO patient ({columns}) VALUES ({placeholders})"
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
+
+    def find_patient(self, first_name):
+        sql = "SELECT * FROM patient WHERE first_name LIKE ?"
+        results = self.cur.execute(sql, (first_name,)).fetchall()
+        return results
