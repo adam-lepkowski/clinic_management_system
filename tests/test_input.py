@@ -11,3 +11,8 @@ PATIENT_INPUT_1 = {
     'phone': '123456789',
     'document_no': 'ABCD12345'
 }
+
+PATIENT_INPUT_2 = [
+    1, 'First', None , 'Last', '1900-10-10', 'Male', 'Single', 'TestNation',
+    'test@email.com', '123456789', 'ABCD12345'
+]
