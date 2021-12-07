@@ -17,7 +17,7 @@ class TitleScreen(tk.Frame):
             compound=tk.TOP, command=lambda: master.change_frame(1))
         self.btn_reg.grid(row=0, column=0)
         self.btn_find = tk.Button(
-            self.frm_buttons, text='Find', image=self.img_find, compound=tk.TOP
-        )
+            self.frm_buttons, text='Find', image=self.img_find,
+            compound=tk.TOP, command=lambda: master.change_frame(2))
         self.btn_find.grid(row=0, column=1)
         self.grid(row=0, column=1, sticky='nsew')
