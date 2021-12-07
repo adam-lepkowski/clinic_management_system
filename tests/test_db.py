@@ -5,7 +5,7 @@ import datetime
 from parameterized import parameterized
 
 from db import DB
-from tests.test_input import PATIENT_INPUT_1
+from tests.test_input import PATIENT_INPUT_1, PATIENT_INPUT_2
 
 
 class TestDBInit(unittest.TestCase):
@@ -149,3 +149,19 @@ class TestRegisterPatient(unittest.TestCase):
         self.pat_1['phone'] = phone
         with self.assertRaises(IntegrityError):
             self.db.register_patient(**self.pat_1)
+
+
+class TestFindPatient(unittest.TestCase):
+
+    def setUp(self):
+        self.pat_1 = PATIENT_INPUT_2.copy()
+        placeholders = '?, ' * len(self.pat_1)
+        self.db = DB(':memory:')
+        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
+        self.db.cur.execute(sql, tuple(self.pat_1))
+        self.db.cur.connection.commit()
+
+    def test_find(self):
+        result = self.db.find_patient(first_name='First')
+        expected = [tuple(self.pat_1)]
+        self.assertEqual(result, expected)
