@@ -3,7 +3,7 @@ import tkinter.messagebox as msg
 from sqlite3 import IntegrityError
 
 from db import DB
-from frames import RegistrationFrame, TitleScreen
+from frames import RegistrationFrame, TitleScreen, SearchFrame
 
 
 class ClinicManagementSystem(tk.Tk):
@@ -22,7 +22,8 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(2, weight=1)
         self.frames = {
             0: TitleScreen(self),
-            1: RegistrationFrame(self)
+            1: RegistrationFrame(self),
+            2: SearchFrame(self)
         }
         self.db = db
         self.frm_current = None
