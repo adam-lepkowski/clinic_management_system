@@ -125,7 +125,15 @@ class DB:
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
 
-    def find_patient(self, first_name):
-        sql = "SELECT * FROM patient WHERE first_name LIKE ?"
-        results = self.cur.execute(sql, (first_name,)).fetchall()
+    def find_patient(self, **kwargs):
+        sql = "SELECT * FROM patient WHERE "
+        columns = self._get_columns_patient()
+        search_conditions = {column: value for column, value in kwargs.items()
+                   if column in columns}
+        values = []
+        for column, value in search_conditions.items():
+            sql += f'{column} LIKE ? AND '
+            values.append(value)
+        sql = sql.strip('AND ')
+        results = self.cur.execute(sql, tuple(values)).fetchall()
         return results
