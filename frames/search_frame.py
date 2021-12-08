@@ -6,6 +6,7 @@ class SearchFrame(tk.Frame):
 
     def __init__(self, master):
         super().__init__(master)
+        self.master = master
         self.lbl_title = tk.Label(self, text='Find Patients')
         self.lbl_title.grid(row=0, column=0, sticky='nsew')
         self.lbl_f_name = tk.Label(self, text='First Name')
@@ -31,3 +32,8 @@ class SearchFrame(tk.Frame):
         for column, widget in self.search_ent.items():
             search_conditions[column] = widget.get()
         return search_conditions
+
+    def find_patient(self):
+        search_conditions = self.get_search_cond()
+        result = self.master.db.find_patient(search_conditions['first_name'])
+        msg.showinfo(title='Search Results', message=result)
