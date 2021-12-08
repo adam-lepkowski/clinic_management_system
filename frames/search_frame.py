@@ -17,6 +17,10 @@ class SearchFrame(tk.Frame):
         self.lbl_l_name.grid(row=1, column=2, sticky='e')
         self.ent_l_name = tk.Entry(self)
         self.ent_l_name.grid(row=1, column=3, sticky='we')
+        self.lbl_document = tk.Label(self, text='Document')
+        self.lbl_document.grid(row=1, column=4, sticky='e')
+        self.ent_document = tk.Entry(self)
+        self.ent_document.grid(row=1, column=5, sticky='we')
         self.frm_buttons = tk.Frame(self)
         self.frm_buttons.grid(row=2, column=0, sticky='we')
         self.btn_find = tk.Button(self.frm_buttons, text='Find',
@@ -30,7 +34,8 @@ class SearchFrame(tk.Frame):
         self.grid(row=0, column=1, sticky='nsew')
         self.search_ent = {
             'first_name': self.ent_f_name,
-            'last_name': self.ent_l_name
+            'last_name': self.ent_l_name,
+            'document_no': self.ent_document
         }
 
     def get_search_cond(self):
