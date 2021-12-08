@@ -21,3 +21,6 @@ class SearchFrame(tk.Frame):
         )
         self.btn_return.grid(row=0, column=1)
         self.grid(row=0, column=1, sticky='nsew')
+        self.search_ent = {
+            'first_name': self.ent_f_name
+        }
