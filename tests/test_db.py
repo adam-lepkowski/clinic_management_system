@@ -155,6 +155,7 @@ class TestFindPatient(unittest.TestCase):
 
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
+        self.pat_1 = PATIENT_INPUT_1.copy()
         placeholders = '?, ' * len(self.pat)
         self.db = DB(':memory:')
         sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
@@ -177,3 +178,18 @@ class TestFindPatient(unittest.TestCase):
         result = self.db.find_patient(**search_condition)
         expected = [tuple(self.pat)]
         self.assertEqual(result, expected)
+
+
+    def test_find_patient_multiple_conditions(self):
+        result = self.db.find_patient(**self.pat_1)
+        expected = [tuple(self.pat)]
+        self.assertEqual(result, expected)
+
+    @parameterized.expand([
+        ('invalid_column', {'invalid': 'First'}),
+        ('non_existent_patient', {'first_name': 'NonExistent'})
+    ])
+    def test_find_patient_invalid_values(self, name, search_conditions):
+        result = self.db.find_patient(**search_conditions)
+        expected = []
+        self.assertEqual(expected, result)
