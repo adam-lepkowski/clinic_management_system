@@ -154,11 +154,11 @@ class TestRegisterPatient(unittest.TestCase):
 class TestFindPatient(unittest.TestCase):
 
     def setUp(self):
-        self.pat_1 = PATIENT_INPUT_2.copy()
-        placeholders = '?, ' * len(self.pat_1)
+        self.pat = PATIENT_INPUT_2.copy()
+        placeholders = '?, ' * len(self.pat)
         self.db = DB(':memory:')
         sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
-        self.db.cur.execute(sql, tuple(self.pat_1))
+        self.db.cur.execute(sql, tuple(self.pat))
         self.db.cur.connection.commit()
 
     @parameterized.expand([
@@ -175,5 +175,5 @@ class TestFindPatient(unittest.TestCase):
     ])
     def test_find_patient(self, name, search_condition):
         result = self.db.find_patient(**search_condition)
-        expected = [tuple(self.pat_1)]
+        expected = [tuple(self.pat)]
         self.assertEqual(result, expected)
