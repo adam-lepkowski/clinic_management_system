@@ -15,7 +15,8 @@ class SearchFrame(tk.Frame):
         self.ent_f_name.grid(row=1, column=1, sticky='we')
         self.frm_buttons = tk.Frame(self)
         self.frm_buttons.grid(row=2, column=0, sticky='we')
-        self.btn_find = tk.Button(self.frm_buttons, text='Find')
+        self.btn_find = tk.Button(self.frm_buttons, text='Find',
+            command=self.find_patient)
         self.btn_find.grid(row=0, column=0)
         self.btn_return = tk.Button(
             self.frm_buttons, text='Return',
@@ -35,5 +36,5 @@ class SearchFrame(tk.Frame):
 
     def find_patient(self):
         search_conditions = self.get_search_cond()
-        result = self.master.db.find_patient(search_conditions['first_name'])
+        result = self.master.db.find_patient(**search_conditions)
         msg.showinfo(title='Search Results', message=result)
