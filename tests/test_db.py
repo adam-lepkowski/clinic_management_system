@@ -161,7 +161,19 @@ class TestFindPatient(unittest.TestCase):
         self.db.cur.execute(sql, tuple(self.pat_1))
         self.db.cur.connection.commit()
 
-    def test_find(self):
-        result = self.db.find_patient(first_name='First')
+    @parameterized.expand([
+        ("first_name", {'first_name': 'First'}),
+        ('last_name', {'last_name': 'Last'}),
+        ('middle_name', {'middle_name': 'Middle'}),
+        ('date_of_birth', {'date_of_birth': '1900-10-10'}),
+        ('gender', {'gender': 'Male'}),
+        ('marital_status', {'marital_status': 'Single'}),
+        ('nationality', {'nationality': 'TestNation'}),
+        ('email', {'email': 'test@email.com'}),
+        ('phone', {'phone': '123456789'}),
+        ('document_no', {'document_no': 'ABCD12345'})
+    ])
+    def test_find_patient(self, name, search_condition):
+        result = self.db.find_patient(**search_condition)
         expected = [tuple(self.pat_1)]
         self.assertEqual(result, expected)
