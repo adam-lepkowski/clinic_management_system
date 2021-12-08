@@ -14,7 +14,8 @@ class RegistrationFrame(tk.Frame):
         super().__init__(master)
         self.master = master
         self.lbl_pat_details = tk.Label(self, text='Patient Details')
-        self.lbl_pat_details.grid(row=0, column=0, sticky='we', columnspan=6)
+        self.lbl_pat_details.grid(
+            row=0, column=0, sticky='we', columnspan=6, pady=10)
         self.lbl_f_name = tk.Label(self, text='First Name')
         self.lbl_f_name.grid(row=1, column=0, sticky='e')
         self.ent_f_name = tk.Entry(self)
