@@ -1,6 +1,4 @@
 import tkinter as tk
-import tkinter.messagebox as msg
-from sqlite3 import IntegrityError
 
 from db import DB
 from frames import RegistrationFrame, TitleScreen, SearchFrame
@@ -28,16 +26,6 @@ class ClinicManagementSystem(tk.Tk):
         self.db = db
         self.frm_current = None
         self.change_frame(0)
-
-    def register(self):
-        patient_details = self.frm_current.get_patient()
-        try:
-            self.db.register_patient(**patient_details)
-            message = 'Patient registered successfully'
-            msg.showinfo('Patient registered', message=message)
-        except IntegrityError as error:
-            message = str(error)
-            msg.showerror('Patient not registered', message=message)
 
     def change_frame(self, index):
         frame = self.frames[index]

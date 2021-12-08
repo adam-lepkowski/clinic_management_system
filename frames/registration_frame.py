@@ -1,4 +1,6 @@
 import tkinter as tk
+import tkinter.messagebox as msg
+from sqlite3 import IntegrityError
 
 from tkcalendar import DateEntry
 
@@ -10,6 +12,7 @@ class RegistrationFrame(tk.Frame):
 
     def __init__(self, master):
         super().__init__(master)
+        self.master = master
         self.lbl_pat_details = tk.Label(self, text='Patient Details')
         self.lbl_pat_details.grid(row=0, column=0, sticky='we', columnspan=6)
         self.lbl_f_name = tk.Label(self, text='First Name')
@@ -61,7 +64,7 @@ class RegistrationFrame(tk.Frame):
         self.frm_buttons = tk.Frame(self)
         self.frm_buttons.grid(row=5, column=0, sticky='we')
         self.btn_register = tk.Button(
-            self.frm_buttons, text='Register', command=master.register)
+            self.frm_buttons, text='Register', command=self.register)
         self.btn_register.grid(row=0, column=0)
         self.btn_return = tk.Button(
             self.frm_buttons, text='Return',
@@ -94,3 +97,13 @@ class RegistrationFrame(tk.Frame):
             value = widget.get() if widget.get() != '' else None
             patient_details[col_name] = value
         return patient_details
+
+    def register(self):
+        patient_details = self.get_patient()
+        try:
+            self.master.db.register_patient(**patient_details)
+            message = 'Patient registered successfully'
+            msg.showinfo('Patient registered', message=message)
+        except IntegrityError as error:
+            message = str(error)
+            msg.showerror('Patient not registered', message=message)
