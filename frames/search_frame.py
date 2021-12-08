@@ -36,8 +36,9 @@ class SearchFrame(tk.Frame):
     def get_search_cond(self):
         search_conditions = {}
         for column, widget in self.search_ent.items():
-            value = widget.get() if widget.get() != '' else None
-            search_conditions[column] = value
+            if widget.get() == '':
+                continue
+            search_conditions[column] = widget.get()
         return search_conditions
 
     def find_patient(self):
