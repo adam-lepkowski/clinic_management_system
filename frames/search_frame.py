@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as msg
 
 
 class SearchFrame(tk.Frame):
@@ -24,3 +25,9 @@ class SearchFrame(tk.Frame):
         self.search_ent = {
             'first_name': self.ent_f_name
         }
+
+    def get_search_cond(self):
+        search_conditions = {}
+        for column, widget in self.search_ent.items():
+            search_conditions[column] = widget.get()
+        return search_conditions
