@@ -54,6 +54,12 @@ class SearchFrame(tk.Frame):
             self.columnconfigure(column, weight=1)
         self.frm_results.columnconfigure(0, weight=1)
 
+    def _config_tree_columns(self):
+        for column in self.columns:
+            width = self.master.winfo_width() // len(self.columns) // 3
+            self.tree.column(column, width=width)
+            self.tree.heading(column, text=column)
+
     def get_search_cond(self):
         search_conditions = {}
         for column, widget in self.search_ent.items():
@@ -66,9 +72,3 @@ class SearchFrame(tk.Frame):
         search_conditions = self.get_search_cond()
         result = self.master.db.find_patient(**search_conditions)
         msg.showinfo(title='Search Results', message=result)
-
-    def _config_tree_columns(self):
-        for column in self.columns:
-            width = self.master.winfo_width() // len(self.columns) // 3
-            self.tree.column(column, width=width)
-            self.tree.heading(column, text=column)
