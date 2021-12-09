@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as msg
+from tkinter.ttk import Treeview
 
 
 class SearchFrame(tk.Frame):
@@ -23,7 +24,7 @@ class SearchFrame(tk.Frame):
         self.ent_document = tk.Entry(self)
         self.ent_document.grid(row=1, column=5, sticky='we')
         self.frm_buttons = tk.Frame(self)
-        self.frm_buttons.grid(row=2, column=0, sticky='we')
+        self.frm_buttons.grid(row=2, column=0, sticky='we', columnspan=6)
         self.btn_find = tk.Button(self.frm_buttons, text='Find',
             command=self.find_patient)
         self.btn_find.grid(row=0, column=0)
@@ -32,6 +33,12 @@ class SearchFrame(tk.Frame):
             command=lambda: master.change_frame(0)
         )
         self.btn_return.grid(row=0, column=1)
+        self.frm_results = tk.Frame(self)
+        self.frm_results.grid(row=3, column=0, sticky='nsew', columnspan=6)
+        self.columns = self.master.db._get_columns_patient()
+        self.tree = Treeview(
+            self.frm_results, columns=self.columns, show='headings')
+        self.tree.grid(row=0, column=0, sticky='nsew')
         self.grid(row=0, column=1, sticky='nsew')
         self._configure_columns()
         self.search_ent = {
