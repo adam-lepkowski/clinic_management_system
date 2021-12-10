@@ -18,12 +18,12 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
+        self.db = db
         self.frames = {
             0: TitleScreen(self),
             1: RegistrationFrame(self),
             2: SearchFrame(self)
         }
-        self.db = db
         self.frm_current = None
         self.change_frame(0)
 
