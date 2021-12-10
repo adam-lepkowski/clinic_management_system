@@ -39,6 +39,10 @@ class SearchFrame(tk.Frame):
         self.tree = Treeview(
             self.frm_results, columns=self.columns, show='headings')
         self.tree.grid(row=0, column=0, sticky='nsew')
+        self.tree_scroll = tk.Scrollbar(self.frm_results)
+        self.tree_scroll.grid(row=0, column=1, sticky='nsw')
+        self.tree.configure(yscrollcommand=self.tree_scroll.set)
+        self.tree_scroll.configure(command=self.tree.yview)
         self._config_tree_columns()
         self.grid(row=0, column=1, sticky='nsew')
         self._configure_columns()
