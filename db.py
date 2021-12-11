@@ -135,6 +135,7 @@ class DB:
             sql = "SELECT * FROM patient WHERE "
             for column, value in search_conditions.items():
                 sql += f'{column} LIKE ? AND '
+                value = f'%{value}%'
                 values.append(value)
             sql = sql.strip('AND ')
             results = self.cur.execute(sql, tuple(values)).fetchall()
