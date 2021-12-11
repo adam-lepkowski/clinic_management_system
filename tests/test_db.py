@@ -193,3 +193,20 @@ class TestFindPatient(unittest.TestCase):
         result = self.db.find_patient(**search_conditions)
         expected = []
         self.assertEqual(expected, result)
+
+    @parameterized.expand([
+        ("first_name", {'first_name': 'st'}),
+        ('last_name', {'last_name': 'la'}),
+        ('middle_name', {'middle_name': 'm'}),
+        ('date_of_birth', {'date_of_birth': '1900'}),
+        ('gender', {'gender': 'ma'}),
+        ('marital_status', {'marital_status': 'in'}),
+        ('nationality', {'nationality': 'nat'}),
+        ('email', {'email': '.com'}),
+        ('phone', {'phone': '1'}),
+        ('document_no', {'document_no': 'abc'})
+    ])
+    def test_find_partial_match(self, name, search_condition):
+        result = self.db.find_patient(**search_condition)
+        expected = [tuple(self.pat)]
+        self.assertEqual(result, expected)
