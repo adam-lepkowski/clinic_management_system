@@ -73,6 +73,12 @@ class SearchFrame(tk.Frame):
         return search_conditions
 
     def find_patient(self):
+        self.tree.delete(*self.tree.get_children())
         search_conditions = self.get_search_cond()
-        result = self.master.db.find_patient(**search_conditions)
-        msg.showinfo(title='Search Results', message=result)
+        results = self.master.db.find_patient(**search_conditions)
+        if results:
+            for index, result in enumerate(results):
+                self.tree.insert(parent='', index=index, values=result)
+        else:
+            message = 'No patients matching the search criteria'
+            msg.showinfo(title='Search Results', message=message)
