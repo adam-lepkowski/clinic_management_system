@@ -44,6 +44,9 @@ class SearchFrame(tk.Frame):
         self.tree.configure(yscrollcommand=self.tree_scroll.set)
         self.tree_scroll.configure(command=self.tree.yview)
         self.tree.bind('<Double-Button-1>', self.view_patient)
+        self.btn_clear = tk.Button(self.frm_buttons, text='Clear',
+            command=lambda: self.tree.delete(*self.tree.get_children()))
+        self.btn_clear.grid(row=0, column=2)
         self._config_tree_columns()
         self.grid(row=0, column=1, sticky='nsew')
         self._configure_columns()
