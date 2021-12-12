@@ -43,6 +43,7 @@ class SearchFrame(tk.Frame):
         self.tree_scroll.grid(row=0, column=1, sticky='nsw')
         self.tree.configure(yscrollcommand=self.tree_scroll.set)
         self.tree_scroll.configure(command=self.tree.yview)
+        self.tree.bind('<Double-Button-1>', self.view_patient)
         self._config_tree_columns()
         self.grid(row=0, column=1, sticky='nsew')
         self._configure_columns()
