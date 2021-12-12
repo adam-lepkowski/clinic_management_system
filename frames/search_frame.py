@@ -82,3 +82,10 @@ class SearchFrame(tk.Frame):
         else:
             message = 'No patients matching the search criteria'
             msg.showinfo(title='Search Results', message=message)
+
+    def view_patient(self, event):
+        id_ = event.widget.focus()
+        item = event.widget.item(id_)
+        values = item['values']
+        if values:
+            msg.showinfo(title='Placeholder', message=values)
