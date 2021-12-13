@@ -87,6 +87,9 @@ class DB:
 
     def __init__(self, db):
         """
+        Establish a database connection and create tables and triggers if they
+        don't already exist in the db
+        
         Parameters
         ---------------
         db : str
