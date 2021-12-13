@@ -7,7 +7,21 @@ from frames import RegistrationFrame, TitleScreen, SearchFrame
 class ClinicManagementSystem(tk.Tk):
     """
     Root window for ClinicManagementSystem GUI
+
+    Set up main frame, initialize child frames and configure app layout
+
+    Parameters
+    ---------------
+    db : connection to database
+
+    Attributes
+    ---------------
+    frames : dict
+        a dictionary of frames in format index : frame
+    db : database
+        object representing a database connection
     """
+    
     def __init__(self, db):
         super().__init__()
         self.title("Clinic Management System")
