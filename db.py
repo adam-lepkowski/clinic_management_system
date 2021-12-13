@@ -133,7 +133,7 @@ class DB:
         **kwargs
             table_field: value
         """
-        
+
         columns = self._get_columns_patient()
         patient = {column: value for column, value in kwargs.items()
                    if column in columns}
@@ -151,6 +151,26 @@ class DB:
         self.cur.connection.commit()
 
     def find_patient(self, **kwargs):
+        """
+        Find patients in patient table
+
+        Search criteria be provided in format column_field=value, if
+        column_field does not exist in table patient it is omitted.
+        Search is case insensitive and allows partial matches.
+
+        Parameters
+        ---------------
+        **kwargs
+            table_field: value
+
+        Returns
+        ---------------
+        list
+            a list of tuples with matches
+            OR
+            an empty list
+        """
+
         columns = self._get_columns_patient()
         search_conditions = {column: value for column, value in kwargs.items()
                    if column in columns}
