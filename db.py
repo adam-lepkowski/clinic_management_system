@@ -80,22 +80,20 @@ CREATE_TRIGGER_PHONE = """
     END;
 """
 
+
 class DB:
     """
     Class used to represent a connection to sqlite3 database
+
+    Initialize tables and triggers if they don't already exist in the db
+
+    Parameters
+    ---------------
+    db : str
+        path to sqlite3 database file
     """
 
     def __init__(self, db):
-        """
-        Establish a database connection and create tables and triggers if they
-        don't already exist in the db
-
-        Parameters
-        ---------------
-        db : str
-            path to sqlite3 database file
-        """
-
         self.con = sqlite3.connect(db)
         self.cur = self.con.cursor()
         self.cur.execute(CREATE_TABLE_PATIENT)
