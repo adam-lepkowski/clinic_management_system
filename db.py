@@ -89,12 +89,13 @@ class DB:
         """
         Establish a database connection and create tables and triggers if they
         don't already exist in the db
-        
+
         Parameters
         ---------------
         db : str
             path to sqlite3 database file
         """
+        
         self.con = sqlite3.connect(db)
         self.cur = self.con.cursor()
         self.cur.execute(CREATE_TABLE_PATIENT)
@@ -106,6 +107,15 @@ class DB:
         self.cur.connection.commit()
 
     def _get_columns_patient(self):
+        """
+        Get column headers from table patient
+
+        Returns
+        ---------------
+        list
+            a list of column headers
+        """
+
         sql = "PRAGMA table_info('patient')"
         columns = self.cur.execute(sql).fetchall()
         column_names = [column[1] for column in columns]
