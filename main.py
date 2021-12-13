@@ -21,7 +21,7 @@ class ClinicManagementSystem(tk.Tk):
     db : database
         object representing a database connection
     """
-    
+
     def __init__(self, db):
         super().__init__()
         self.title("Clinic Management System")
@@ -42,6 +42,15 @@ class ClinicManagementSystem(tk.Tk):
         self.change_frame(0)
 
     def change_frame(self, index):
+        """
+        Switch between frames specified in frames attribute
+
+        Parameters
+        ---------------
+        index : int
+            frame index
+        """
+
         frame = self.frames[index]
         self.frm_current = frame
         frame.tkraise()
