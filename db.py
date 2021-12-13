@@ -95,7 +95,7 @@ class DB:
         db : str
             path to sqlite3 database file
         """
-        
+
         self.con = sqlite3.connect(db)
         self.cur = self.con.cursor()
         self.cur.execute(CREATE_TABLE_PATIENT)
@@ -122,6 +122,18 @@ class DB:
         return column_names
 
     def register_patient(self, **kwargs):
+        """
+        Insert patient into patient table
+
+        Values should be provided in format column_field=value, if column_field
+        does not exist in table patient it is omitted.
+
+        Parameters
+        ---------------
+        **kwargs
+            table_field: value
+        """
+        
         columns = self._get_columns_patient()
         patient = {column: value for column, value in kwargs.items()
                    if column in columns}
