@@ -96,6 +96,15 @@ class RegistrationFrame(tk.Frame):
             self.columnconfigure(column, weight=1)
 
     def get_patient(self):
+        """
+        Gets values entered by user.
+
+        Returns
+        ---------------
+        dictionary
+            patient column name: value
+        """
+        
         patient_details = {}
         for col_name, widget in self.patient_ent.items():
             value = widget.get() if widget.get() != '' else None
