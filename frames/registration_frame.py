@@ -104,7 +104,7 @@ class RegistrationFrame(tk.Frame):
         dictionary
             patient column name: value
         """
-        
+
         patient_details = {}
         for col_name, widget in self.patient_ent.items():
             value = widget.get() if widget.get() != '' else None
@@ -112,6 +112,11 @@ class RegistrationFrame(tk.Frame):
         return patient_details
 
     def register(self):
+        """
+        Register patient in patient table. Callback to db.register_patient
+
+        Appropriate messagebox pops up if provided with valid/invalid values.
+        """
         patient_details = self.get_patient()
         try:
             self.master.db.register_patient(**patient_details)
