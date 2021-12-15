@@ -80,6 +80,15 @@ class SearchFrame(tk.Frame):
             self.tree.heading(column, text=column)
 
     def get_search_cond(self):
+        """
+        Gets search conditions entered by user.
+
+        Returns
+        ---------------
+        dictionary
+            patient column name: value
+        """
+
         search_conditions = {}
         for column, widget in self.search_ent.items():
             if widget.get() == '':
