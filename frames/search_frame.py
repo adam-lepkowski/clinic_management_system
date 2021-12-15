@@ -97,6 +97,13 @@ class SearchFrame(tk.Frame):
         return search_conditions
 
     def find_patient(self):
+        """
+        Find patient in patient table. Callback to db.find_patient.
+
+        Populate treeview if query yields any matches, messagebox pops up
+        otherwise.
+        """
+        
         self.tree.delete(*self.tree.get_children())
         search_conditions = self.get_search_cond()
         results = self.master.db.find_patient(**search_conditions)
