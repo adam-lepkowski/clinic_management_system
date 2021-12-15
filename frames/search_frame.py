@@ -4,6 +4,9 @@ from tkinter.ttk import Treeview
 
 
 class SearchFrame(tk.Frame):
+    """
+    Represent ClinicManagementSystem search frame and it's child widgets.
+    """
 
     def __init__(self, master):
         super().__init__(master)
