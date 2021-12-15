@@ -103,7 +103,7 @@ class SearchFrame(tk.Frame):
         Populate treeview if query yields any matches, messagebox pops up
         otherwise.
         """
-        
+
         self.tree.delete(*self.tree.get_children())
         search_conditions = self.get_search_cond()
         results = self.master.db.find_patient(**search_conditions)
@@ -115,6 +115,10 @@ class SearchFrame(tk.Frame):
             msg.showinfo(title='Search Results', message=message)
 
     def view_patient(self, event):
+        """
+        View selected patient details.
+        """
+
         id_ = event.widget.focus()
         item = event.widget.item(id_)
         values = item['values']
