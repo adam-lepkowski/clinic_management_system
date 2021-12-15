@@ -63,13 +63,17 @@ class SearchFrame(tk.Frame):
         """
         Set equal weight to frame columns
         """
-        
+
         columns, rows = self.grid_size()
         for column in range(columns):
             self.columnconfigure(column, weight=1)
         self.frm_results.columnconfigure(0, weight=1)
 
     def _config_tree_columns(self):
+        """
+        Set tree columns headings and width.
+        """
+
         for column in self.columns:
             width = self.master.winfo_width() // len(self.columns) // 3
             self.tree.column(column, width=width)
