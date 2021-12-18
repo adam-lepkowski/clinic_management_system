@@ -25,3 +25,4 @@ class PatientFrame(tk.Toplevel):
         height = self.master.winfo_height()
         self.geometry(f'{width}x{height}')
         self.db = self.master.db
+        self.frm_patient = PatientDetailsFrame(self)
