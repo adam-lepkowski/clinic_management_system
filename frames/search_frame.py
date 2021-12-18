@@ -2,6 +2,8 @@ import tkinter as tk
 import tkinter.messagebox as msg
 from tkinter.ttk import Treeview
 
+from frames import PatientFrame
+
 
 class SearchFrame(tk.Frame):
     """
@@ -123,4 +125,4 @@ class SearchFrame(tk.Frame):
         item = event.widget.item(id_)
         values = item['values']
         if values:
-            msg.showinfo(title='Placeholder', message=values)
+            patient = PatientFrame(self.master)
