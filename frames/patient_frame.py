@@ -1,4 +1,19 @@
 import tkinter as tk
+from frames import RegistrationFrame
+
+
+class PatientDetailsFrame(RegistrationFrame):
+
+    def __init__(self, master):
+        super().__init__(master)
+        self.btn_register['text'] = 'Edit'
+
+    @property
+    def register(self):
+        return self.edit
+
+    def edit(self):
+        print('Edit placeholder')
 
 
 class PatientFrame(tk.Toplevel):
