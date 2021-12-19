@@ -7,6 +7,7 @@ class PatientDetailsFrame(RegistrationFrame):
     def __init__(self, master):
         super().__init__(master)
         self.btn_register['text'] = 'Edit'
+        self.set_state('disabled')
 
     @property
     def register(self):
@@ -15,6 +16,13 @@ class PatientDetailsFrame(RegistrationFrame):
     def edit(self):
         print('Edit placeholder')
 
+    def set_state(self, state):
+        for widget in self.winfo_children():
+            if isinstance(widget, tk.OptionMenu):
+                widget.config(state=state)
+        for widget in self.patient_ent.values():
+            if not isinstance(widget, tk.StringVar):
+                widget.config(state=state)
 
 class PatientFrame(tk.Toplevel):
 
