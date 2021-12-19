@@ -123,6 +123,6 @@ class SearchFrame(tk.Frame):
 
         id_ = event.widget.focus()
         item = event.widget.item(id_)
-        values = item['values']
-        if values:
-            patient = PatientFrame(self.master)
+        patient = item['values']
+        if patient:
+            patient = PatientFrame(self.master, patient)
