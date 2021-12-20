@@ -38,16 +38,3 @@ class PatientDetailsFrame(RegistrationFrame):
                     widget.insert(0, value)
             elif isinstance(widget, tk.StringVar):
                 widget.set(value)
-
-class MedicalRecord(tk.Toplevel):
-
-    def __init__(self, master, patient):
-        super().__init__(master)
-        self.master = master
-        width = self.master.winfo_width()
-        height = self.master.winfo_height()
-        self.geometry(f'{width}x{height}')
-        self.db = self.master.db
-        cols = self.db._get_columns_patient()
-        self.patient = {col: value for col, value in zip(cols, patient)}
-        self.frm_patient = PatientDetailsFrame(self, self.patient)
