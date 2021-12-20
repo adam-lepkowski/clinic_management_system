@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.messagebox as msg
 from tkinter.ttk import Treeview
 
-from frames import PatientFrame
+from frames import MedicalRecord
 
 
 class SearchFrame(tk.Frame):
@@ -125,4 +125,4 @@ class SearchFrame(tk.Frame):
         item = event.widget.item(id_)
         patient = item['values']
         if patient:
-            patient = PatientFrame(self.master, patient)
+            patient = MedicalRecord(self.master, patient)

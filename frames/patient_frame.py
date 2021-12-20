@@ -39,7 +39,7 @@ class PatientDetailsFrame(RegistrationFrame):
             elif isinstance(widget, tk.StringVar):
                 widget.set(value)
 
-class PatientFrame(tk.Toplevel):
+class MedicalRecord(tk.Toplevel):
 
     def __init__(self, master, patient):
         super().__init__(master)
