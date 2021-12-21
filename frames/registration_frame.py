@@ -4,7 +4,7 @@ from sqlite3 import IntegrityError
 
 from tkcalendar import DateEntry
 
-from frames.patient_frame import PatientFrame
+from frames import PatientFrame
 
 
 class RegistrationFrame(PatientFrame):
