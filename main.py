@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from db import DB
-from frames import Registration, TitleScreen, SearchFrame
+from frames import Registration, TitleScreen, Search
 
 
 class ClinicManagementSystem(tk.Tk):
@@ -36,7 +36,7 @@ class ClinicManagementSystem(tk.Tk):
         self.frames = {
             0: TitleScreen(self),
             1: Registration(self),
-            2: SearchFrame(self)
+            2: Search(self)
         }
         self.frm_current = None
         self.change_frame(0)

@@ -5,7 +5,7 @@ from tkinter.ttk import Treeview
 from frames import MedicalRecord
 
 
-class SearchFrame(tk.Frame):
+class Search(tk.Frame):
     """
     Represent ClinicManagementSystem search frame and it's child widgets.
     """
