@@ -7,7 +7,7 @@ from tkcalendar import DateEntry
 from frames import PatientFrame
 
 
-class RegistrationFrame(PatientFrame):
+class Registration(PatientFrame):
     """
     Class used to represent patient registration frame and it's child widgets
     """
