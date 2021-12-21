@@ -2,9 +2,6 @@ import tkinter as tk
 
 from tkcalendar import DateEntry
 
-from frames import RegistrationFrame
-
-
 class PatientFrame(tk.Frame):
 
     def __init__(self, master):
@@ -82,18 +79,14 @@ class PatientFrame(tk.Frame):
             self.columnconfigure(column, weight=1)
 
 
-class PatientDetailsFrame(RegistrationFrame):
+class PatientDetailsFrame(PatientFrame):
 
     def __init__(self, master, patient):
         super().__init__(master)
-        self.btn_register['text'] = 'Edit'
         self.patient = patient
         self.set_values(self.patient)
         self.set_state('disabled')
-
-    @property
-    def register(self):
-        return self.edit
+        self.grid(row=0, column=0, sticky='nsew')
 
     def edit(self):
         print('Edit placeholder')
