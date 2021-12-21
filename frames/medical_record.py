@@ -1,5 +1,6 @@
 import tkinter as tk
-from frames.patient_frame import PatientDetailsFrame
+
+from frames import PatientDetailsFrame
 
 
 class MedicalRecord(tk.Toplevel):
