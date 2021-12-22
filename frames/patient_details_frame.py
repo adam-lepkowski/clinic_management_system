@@ -12,6 +12,10 @@ class PatientDetailsFrame(PatientFrame):
         self.frm_buttons = tk.Frame(self)
         col, row = self.grid_size()
         self.frm_buttons.grid(row=row + 1, column=0, sticky='nsew')
+        self.btn_edit = tk.Button(
+            self.frm_buttons, text='Edit', command=self.edit
+        )
+        self.btn_edit.grid(row=0, column=0)
         self.patient = patient
         self.set_values(self.patient)
         self.set_state('disabled')
