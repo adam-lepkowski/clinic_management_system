@@ -27,22 +27,6 @@ class Registration(PatientFrame):
         self.btn_return.grid(row=0, column=1)
         self.grid(row=0, column=1, sticky='nsew')
 
-    def get_patient(self):
-        """
-        Gets values entered by user.
-
-        Returns
-        ---------------
-        dictionary
-            patient column name: value
-        """
-
-        patient_details = {}
-        for col_name, widget in self.patient_ent.items():
-            value = widget.get() if widget.get() != '' else None
-            patient_details[col_name] = value
-        return patient_details
-
     def register(self):
         """
         Register patient in patient table. Callback to db.register_patient
