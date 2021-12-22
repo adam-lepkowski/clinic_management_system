@@ -9,6 +9,9 @@ class PatientDetailsFrame(PatientFrame):
 
     def __init__(self, master, patient):
         super().__init__(master)
+        self.frm_buttons = tk.Frame(self)
+        col, row = self.grid_size()
+        self.frm_buttons.grid(row=row + 1, column=0, sticky='nsew')
         self.patient = patient
         self.set_values(self.patient)
         self.set_state('disabled')
