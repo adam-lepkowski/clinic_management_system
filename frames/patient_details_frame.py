@@ -31,6 +31,7 @@ class PatientDetailsFrame(PatientFrame):
         self.set_state('normal')
         self.btn_submit.config(state='normal')
         self.btn_edit.config(state='disabled')
+        self.btn_cancel.config(state='normal')
 
     def submit(self):
         print('Submit placeholder')
