@@ -21,7 +21,7 @@ class PatientDetailsFrame(PatientFrame):
         )
         self.btn_edit.grid(row=0, column=1)
         self.btn_cancel = tk.Button(
-            self.frm_buttons, text='Cancel')
+            self.frm_buttons, text='Cancel', command=self.set_default)
         self.btn_cancel.grid(row=0, column=2)
         self.patient = patient
         self.set_default()
