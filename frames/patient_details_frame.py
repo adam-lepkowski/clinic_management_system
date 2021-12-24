@@ -57,6 +57,7 @@ class PatientDetailsFrame(PatientFrame):
             if isinstance(widget, DateEntry):
                 widget.set_date(value)
             elif isinstance(widget, tk.Entry):
+                    widget.delete(0, tk.END)
                     widget.insert(0, value)
             elif isinstance(widget, tk.StringVar):
                 widget.set(value)
