@@ -13,8 +13,9 @@ class PatientDetailsFrame(PatientFrame):
         col, row = self.grid_size()
         self.frm_buttons.grid(row=row + 1, column=0, sticky='nsew')
         self.btn_submit = tk.Button(
-            self.frm_buttons, text='Submit', state='disabled'
-            )
+            self.frm_buttons, text='Submit', state='disabled',
+            command=self.submit
+        )
         self.btn_submit.grid(row=0, column=0)
         self.btn_edit = tk.Button(
             self.frm_buttons, text='Edit', command=self.edit
@@ -27,6 +28,9 @@ class PatientDetailsFrame(PatientFrame):
 
     def edit(self):
         print('Edit placeholder')
+
+    def submit(self):
+        print('Submit placeholder')
 
     def set_state(self, state):
         for widget in self.winfo_children():
