@@ -15,11 +15,11 @@ class PatientDetailsFrame(PatientFrame):
         self.btn_submit = tk.Button(
             self.frm_buttons, text='Submit', state='disabled'
             )
-        self.btn_submit.grid(row=0, column=1)
+        self.btn_submit.grid(row=0, column=0)
         self.btn_edit = tk.Button(
             self.frm_buttons, text='Edit', command=self.edit
         )
-        self.btn_edit.grid(row=0, column=0)
+        self.btn_edit.grid(row=0, column=1)
         self.patient = patient
         self.set_values(self.patient)
         self.set_state('disabled')
