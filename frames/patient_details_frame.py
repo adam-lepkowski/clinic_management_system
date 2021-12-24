@@ -37,6 +37,13 @@ class PatientDetailsFrame(PatientFrame):
     def submit(self):
         print('Submit placeholder')
 
+    def set_default(self):
+        self.set_values(self.patient)
+        self.set_state('disabled')
+        self.btn_submit.config(state='disabled')
+        self.btn_edit.config(state='normal')
+        self.btn_cancel.config(state='disabled')
+
     def set_state(self, state):
         for widget in self.winfo_children():
             if isinstance(widget, tk.OptionMenu):
