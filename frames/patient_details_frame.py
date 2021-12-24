@@ -27,7 +27,9 @@ class PatientDetailsFrame(PatientFrame):
         self.grid(row=0, column=0, sticky='nsew')
 
     def edit(self):
-        print('Edit placeholder')
+        self.set_state('normal')
+        self.btn_submit.config(state='normal')
+        self.btn_edit.config(state='disabled')
 
     def submit(self):
         print('Submit placeholder')
