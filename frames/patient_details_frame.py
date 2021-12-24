@@ -13,8 +13,7 @@ class PatientDetailsFrame(PatientFrame):
         col, row = self.grid_size()
         self.frm_buttons.grid(row=row + 1, column=0, sticky='nsew')
         self.btn_submit = tk.Button(
-            self.frm_buttons, text='Submit', state='disabled',
-            command=self.submit
+            self.frm_buttons, text='Submit', command=self.submit
         )
         self.btn_submit.grid(row=0, column=0)
         self.btn_edit = tk.Button(
@@ -22,11 +21,10 @@ class PatientDetailsFrame(PatientFrame):
         )
         self.btn_edit.grid(row=0, column=1)
         self.btn_cancel = tk.Button(
-            self.frm_buttons, text='Cancel', state='disabled')
+            self.frm_buttons, text='Cancel')
         self.btn_cancel.grid(row=0, column=2)
         self.patient = patient
-        self.set_values(self.patient)
-        self.set_state('disabled')
+        self.set_default()
         self.grid(row=0, column=0, sticky='nsew')
 
     def edit(self):
