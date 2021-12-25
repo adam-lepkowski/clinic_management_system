@@ -107,3 +107,18 @@ class DB:
             sql = sql.strip('AND ')
             results = self.cur.execute(sql, tuple(values)).fetchall()
         return results
+
+    def update_patient(self, id_, **kwargs):
+        columns = self._get_columns_patient()
+        updated_values = {column: value for column, value in kwargs.items()
+                          if column in columns}
+        if updated_values:
+            values = []
+            sql = """UPDATE patient SET """
+            for column, value in updated_values.items():
+                sql += f'{column}=?, '
+                values.append(value)
+            sql = sql.strip(', ')
+            sql += ' WHERE id=?'
+            values.append(id_)
+            self.cur.execute(sql, tuple(values))
