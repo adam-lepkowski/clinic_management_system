@@ -210,3 +210,14 @@ class TestFindPatient(unittest.TestCase):
         result = self.db.find_patient(**search_condition)
         expected = [tuple(self.pat)]
         self.assertEqual(result, expected)
+
+
+class TestUpdatePatient(unittest.TestCase):
+
+    def setUp(self):
+        self.pat = PATIENT_INPUT_2.copy()
+        placeholders = '?, ' * len(self.pat)
+        self.db = DB(':memory:')
+        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
+        self.db.cur.execute(sql, tuple(self.pat))
+        self.db.cur.connection.commit()
