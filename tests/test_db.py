@@ -242,3 +242,22 @@ class TestUpdatePatient(unittest.TestCase):
         result = self.db.cur.execute(sql).fetchone()
         expected = tuple(self.pat_1.values())
         self.assertEqual(expected, result)
+
+    @parameterized.expand([
+        ("first_name", {'first_name': ''}),
+        ('last_name', {'last_name': ''}),
+        ('date_of_birth', {'date_of_birth': ''}),
+        ('gender', {'gender': ''}),
+        ('marital_status', {'marital_status': ''}),
+        ('nationality', {'nationality': ''}),
+        ('email', {'email': ''}),
+        ('phone', {'phone': ''}),
+        ('document_no', {'document_no': ''})
+    ])
+    def test_update_patient_empty_strings(self, name, update_vals):
+        with self.assertRaises(IntegrityError):
+            self.db.update_patient(id_=1, **update_vals)
+        expected = tuple(self.pat_1.values())
+        sql = 'SELECT * FROM patient WHERE id=1'
+        result = self.db.cur.execute(sql).fetchone()
+        self.assertEqual(expected, result)
