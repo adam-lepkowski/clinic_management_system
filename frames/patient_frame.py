@@ -81,7 +81,7 @@ class PatientFrame(tk.Frame):
 
     def get_patient(self):
         """
-        Gets values entered by user.
+        Gets values entered by user. If value is '' replace with None.
 
         Returns
         ---------------
