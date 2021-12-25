@@ -216,8 +216,29 @@ class TestUpdatePatient(unittest.TestCase):
 
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
+        self.pat_1 = PATIENT_INPUT_1.copy()
         placeholders = '?, ' * len(self.pat)
         self.db = DB(':memory:')
         sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
         self.db.cur.execute(sql, tuple(self.pat))
         self.db.cur.connection.commit()
+
+    @parameterized.expand([
+        ("first_name", {'first_name': 'NewFirst'}),
+        ('last_name', {'last_name': 'NewLast'}),
+        ('middle_name', {'middle_name': 'NewMiddle'}),
+        ('date_of_birth', {'date_of_birth': '1900-12-10'}),
+        ('gender', {'gender': 'Female'}),
+        ('marital_status', {'marital_status': 'Widowed'}),
+        ('nationality', {'nationality': 'NewTestNation'}),
+        ('email', {'email': 'new_test@email.com'}),
+        ('phone', {'phone': '012345678'}),
+        ('document_no', {'document_no': 'EFGH12345'})
+    ])
+    def test_update_patient(self, name, update_vals):
+        self.db.update_patient(id_=1, **update_vals)
+        self.pat_1[name] = update_vals[name]
+        sql = 'SELECT * FROM patient WHERE id=1'
+        result = self.db.cur.execute(sql).fetchone()
+        expected = tuple(self.pat_1.values())
+        self.assertEqual(expected, result)
