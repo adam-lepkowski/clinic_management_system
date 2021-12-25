@@ -34,7 +34,10 @@ class PatientDetailsFrame(PatientFrame):
         self.btn_cancel.config(state='normal')
 
     def submit(self):
-        print('Submit placeholder')
+        edited_patient = self.get_patient()
+        updated_values = {col: val for col, val in edited_patient.items()
+                          if str(self.patient.get(col, None)) != str(val)}
+        return updated_values
 
     def set_default(self):
         self.set_values(self.patient)
