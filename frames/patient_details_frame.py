@@ -38,6 +38,8 @@ class PatientDetailsFrame(PatientFrame):
         updated_values = {col: val for col, val in edited_patient.items()
                           if str(self.patient.get(col, None)) != str(val)}
         self.master.db.update_patient(id_=self.patient['id'], **updated_values)
+        self.patient.update(updated_values)
+        self.set_default()
 
     def set_default(self):
         self.set_values(self.patient)
