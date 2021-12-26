@@ -9,14 +9,6 @@ from frames import PatientFrame
 class PatientDetailsFrame(PatientFrame):
     """
     Represent and edit single patient details.
-
-    Methods
-    ---------------
-    edit
-    submit
-    set_default
-    set_state
-    set_values
     """
 
     def __init__(self, master, patient):
