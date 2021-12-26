@@ -1,6 +1,5 @@
 import tkinter as tk
 import tkinter.messagebox as msg
-from sqlite3 import IntegrityError
 
 from tkcalendar import DateEntry
 
@@ -38,6 +37,6 @@ class Registration(PatientFrame):
             self.master.db.register_patient(**patient_details)
             message = 'Patient registered successfully'
             msg.showinfo('Patient registered', message=message)
-        except IntegrityError as error:
+        except self.master.db.con.IntegrityError as error:
             message = str(error)
             msg.showerror('Patient not registered', message=message)
