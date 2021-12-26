@@ -34,7 +34,7 @@ class PatientDetailsFrame(PatientFrame):
         """
         Enable patient details edition.
         """
-        
+
         self.set_state('normal')
         self.btn_submit.config(state='normal')
         self.btn_edit.config(state='disabled')
@@ -49,6 +49,10 @@ class PatientDetailsFrame(PatientFrame):
         self.set_default()
 
     def set_default(self):
+        """
+        Set default state to child widgets and populate entries with values.
+        """
+
         self.set_values(self.patient)
         self.set_state('disabled')
         self.btn_submit.config(state='disabled')
