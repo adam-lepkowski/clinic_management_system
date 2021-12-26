@@ -6,8 +6,18 @@ from tkcalendar import DateEntry
 class PatientFrame(tk.Frame):
     """
     Represent patient table columns with widgets.
+
+    Attributes
+    ---------------
+    patient_ent : dict
+        represent column_name: Entry/StringVar to extract entered values
+
+    Methods
+    ---------------
+    configure_columns
+    get_patient
     """
-    
+
     def __init__(self, master):
         super().__init__(master)
         self.master = master
