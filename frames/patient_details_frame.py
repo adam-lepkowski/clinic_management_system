@@ -31,6 +31,10 @@ class PatientDetailsFrame(PatientFrame):
         self.grid(row=0, column=0, sticky='nsew')
 
     def edit(self):
+        """
+        Enable patient details edition.
+        """
+        
         self.set_state('normal')
         self.btn_submit.config(state='normal')
         self.btn_edit.config(state='disabled')
