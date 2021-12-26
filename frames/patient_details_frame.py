@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as msg
 
 from tkcalendar import DateEntry
 
@@ -44,9 +45,17 @@ class PatientDetailsFrame(PatientFrame):
         edited_patient = self.get_patient()
         updated_values = {col: val for col, val in edited_patient.items()
                           if str(self.patient.get(col, None)) != str(val)}
-        self.master.db.update_patient(id_=self.patient['id'], **updated_values)
-        self.patient.update(updated_values)
-        self.set_default()
+        try:
+            self.master.db.update_patient(
+                id_=self.patient['id'], **updated_values
+            )
+            self.patient.update(updated_values)
+            self.set_default()
+            message = 'Patient updated successfully'
+            msg.showinfo(title='Updated', message=message)
+        except self.master.db.con.IntegrityError as error:
+            message = str(error)
+            msg.showerror(title='Update failed', message=message)
 
     def set_default(self):
         """
