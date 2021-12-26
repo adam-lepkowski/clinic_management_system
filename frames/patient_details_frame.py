@@ -72,6 +72,12 @@ class PatientDetailsFrame(PatientFrame):
                 widget.config(state=state)
 
     def set_values(self, patient):
+        """
+        Set Entry and StringVar values to chosen patient details.
+
+        Clear entries and populate them with new values.
+        """
+
         for col, value in self.patient.items():
             widget = self.patient_ent.get(col, None)
             if isinstance(widget, DateEntry):
