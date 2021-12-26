@@ -109,6 +109,17 @@ class DB:
         return results
 
     def update_patient(self, id_, **kwargs):
+        """
+        Update patient details in patient table
+
+        Parameters
+        ---------------
+        id_ : int
+            patient id
+        **kwargs
+            update values provided in table_field: value format
+        """
+
         columns = self._get_columns_patient()
         updated_values = {column: value for column, value in kwargs.items()
                           if column in columns}
