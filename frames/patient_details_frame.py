@@ -60,6 +60,10 @@ class PatientDetailsFrame(PatientFrame):
         self.btn_cancel.config(state='disabled')
 
     def set_state(self, state):
+        """
+        Set chosen state to Entry and OptionMenu widgets.
+        """
+
         for widget in self.winfo_children():
             if isinstance(widget, tk.OptionMenu):
                 widget.config(state=state)
