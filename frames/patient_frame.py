@@ -4,7 +4,10 @@ from tkcalendar import DateEntry
 
 
 class PatientFrame(tk.Frame):
-
+    """
+    Represent patient table columns with widgets.
+    """
+    
     def __init__(self, master):
         super().__init__(master)
         self.master = master
