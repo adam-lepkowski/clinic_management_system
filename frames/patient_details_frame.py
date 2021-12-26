@@ -6,6 +6,9 @@ from frames import PatientFrame
 
 
 class PatientDetailsFrame(PatientFrame):
+    """
+    Represent and edit single patient details.
+    """
 
     def __init__(self, master, patient):
         super().__init__(master)
