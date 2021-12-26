@@ -94,6 +94,11 @@ class PatientDetailsFrame(PatientFrame):
         Set Entry and StringVar values to chosen patient details.
 
         Clear entries and populate them with new values.
+
+        Parameters
+        ---------------
+        patient: dict
+            dictionary containing patient table column: value to be set
         """
 
         for col, value in self.patient.items():
