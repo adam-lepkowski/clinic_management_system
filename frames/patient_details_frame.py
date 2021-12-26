@@ -9,6 +9,13 @@ from frames import PatientFrame
 class PatientDetailsFrame(PatientFrame):
     """
     Represent and edit single patient details.
+
+    Parameters
+    ---------------
+    master
+        tk parent container widget
+    patient: dict
+        dictionary containing patient details
     """
 
     def __init__(self, master, patient):
