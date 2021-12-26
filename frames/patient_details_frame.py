@@ -75,6 +75,11 @@ class PatientDetailsFrame(PatientFrame):
     def set_state(self, state):
         """
         Set chosen state to Entry and OptionMenu widgets.
+
+        Parameters
+        ---------------
+        state: str
+            state to be set to widgets. Available states: 'normal', 'disabled'
         """
 
         for widget in self.winfo_children():
