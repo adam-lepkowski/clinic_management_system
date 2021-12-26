@@ -42,6 +42,10 @@ class PatientDetailsFrame(PatientFrame):
         self.btn_cancel.config(state='normal')
 
     def submit(self):
+        """
+        Submit changes to patient table.
+        """
+
         edited_patient = self.get_patient()
         updated_values = {col: val for col, val in edited_patient.items()
                           if str(self.patient.get(col, None)) != str(val)}
