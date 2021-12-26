@@ -133,3 +133,4 @@ class DB:
             sql += ' WHERE id=?'
             values.append(id_)
             self.cur.execute(sql, tuple(values))
+            self.cur.connection.commit()
