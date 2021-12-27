@@ -2,6 +2,9 @@ import tkinter as tk
 
 
 class TitleScreen(tk.Frame):
+    """
+    Display available features and switch between them.
+    """
 
     def __init__(self, master):
         super().__init__(master)
