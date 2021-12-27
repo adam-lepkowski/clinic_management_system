@@ -4,6 +4,16 @@ from frames import PatientDetailsFrame
 
 
 class MedicalRecord(tk.Toplevel):
+    """
+    Display patient medical record.
+
+    Parameters
+    ---------------
+    master
+        tk parent container widget
+    patient: dict
+        dictionary containing patient details
+    """
 
     def __init__(self, master, patient):
         super().__init__(master)
