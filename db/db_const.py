@@ -11,7 +11,7 @@ CREATE_TABLE_PATIENT = """
         email           TEXT CHECK (email != ''),
         phone           TEXT NOT NULL
                         CHECK (phone != '' AND LENGTH(phone) > 3),
-        document_no     TEXT NOT NULL CHECK (document_no != '')
+        document_no     TEXT UNIQUE NOT NULL CHECK (document_no != '')
     )
 """
 
