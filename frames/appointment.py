@@ -13,4 +13,10 @@ class Appointment(tk.Frame):
         self.ent_date.grid(row=1, column=0)
         self.lbl_specialty = tk.Label(self, text='Specialty')
         self.lbl_specialty.grid(row=1, column=1, sticky='we')
+        specialties = ['Dermatology', 'Ophthalmology']
+        self.var_specialty = tk.StringVar(self)
+        self.opt_specialty = tk.OptionMenu(
+            self, self.var_specialty, *specialties
+        )
+        self.opt_specialty.grid(row=1, column=2, sticky='we')
         self.grid(row=0, column=1, sticky='nsew')
