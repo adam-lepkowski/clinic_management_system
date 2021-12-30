@@ -11,4 +11,6 @@ class Appointment(tk.Frame):
         self.lbl_title.grid(row=0, column=0, sticky='nsew', pady=10)
         self.ent_date = DateEntry(self, date_pattern='y-mm-dd')
         self.ent_date.grid(row=1, column=0)
+        self.lbl_specialty = tk.Label(self, text='Specialty')
+        self.lbl_specialty.grid(row=1, column=1, sticky='we')
         self.grid(row=0, column=1, sticky='nsew')
