@@ -30,7 +30,7 @@ class TitleScreen(tk.Frame):
         self.btn_find.grid(row=0, column=1)
         self.btn_appointment = tk.Button(
             self.frm_buttons, text='Appointment', image=self.img_appointment,
-            compound=tk.TOP
+            compound=tk.TOP, command=lambda: master.change_frame(3)
         )
         self.btn_appointment.grid(row=0, column=2)
         self.grid(row=0, column=1, sticky='nsew')
