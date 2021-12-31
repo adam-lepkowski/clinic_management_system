@@ -19,4 +19,13 @@ class Appointment(tk.Frame):
             self, self.var_specialty, *specialties
         )
         self.opt_specialty.grid(row=1, column=2, sticky='we')
+        self.lbl_doctor = tk.Label(self, text='Doctor')
+        self.lbl_doctor.grid(row=1, column=3, sticky='we')
+        doctors = [
+            'Dermatologist 1', 'Dermatologist 2', 'Ophthalmologist 1',
+            'Ophthalmologist 2'
+        ]
+        self.var_doctor = tk.StringVar(self)
+        self.opt_doctor = tk.OptionMenu(self, self.var_doctor, *doctors)
+        self.opt_doctor.grid(row=1, column=4, sticky='we')
         self.grid(row=0, column=1, sticky='nsew')
