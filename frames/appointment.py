@@ -32,7 +32,16 @@ class Appointment(tk.Frame):
             self, self.var_doctor, *self.specialties['All']
         )
         self.opt_doctor.grid(row=1, column=4, sticky='we')
+        self._configure_columns()
         self.grid(row=0, column=1, sticky='nsew')
+
+    def _configure_columns(self):
+        """
+        Set equal weight to frame columns
+        """
+        columns, rows = self.grid_size()
+        for column in range(columns):
+            self.columnconfigure(column, weight=1)
 
     def set_specialists(self, event):
         specialty = self.var_specialty.get()
