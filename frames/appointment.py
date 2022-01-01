@@ -34,6 +34,8 @@ class Appointment(tk.Frame):
             self, self.var_doctor, *self.specialties['All']
         )
         self.opt_doctor.grid(row=1, column=4, sticky='we')
+        self.cnv_appointment = tk.Canvas(self, bg='white')
+        self.cnv_appointment.grid(row=2, column=0, columnspan=5, sticky='nsew')
         self._configure_columns()
         self.grid(row=0, column=1, sticky='nsew')
 
