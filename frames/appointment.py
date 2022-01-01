@@ -20,7 +20,8 @@ class Appointment(tk.Frame):
         }
         self.var_specialty = tk.StringVar(self)
         self.opt_specialty = tk.OptionMenu(
-            self, self.var_specialty, *list(self.specialties.keys())
+            self, self.var_specialty, *list(self.specialties.keys()),
+            command=self.set_specialists
         )
         self.opt_specialty.grid(row=1, column=2, sticky='we')
         self.lbl_doctor = tk.Label(self, text='Doctor')
@@ -32,3 +33,11 @@ class Appointment(tk.Frame):
         )
         self.opt_doctor.grid(row=1, column=4, sticky='we')
         self.grid(row=0, column=1, sticky='nsew')
+
+    def set_specialists(self, event):
+        specialty = self.var_specialty.get()
+        self.var_doctor.set('')
+        self.opt_doctor.destroy()
+        doctors = self.specialties[specialty]
+        self.opt_doctor = tk.OptionMenu(self, self.var_doctor, *doctors)
+        self.opt_doctor.grid(row=1, column=4, sticky='we')
