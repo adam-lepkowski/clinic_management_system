@@ -40,6 +40,7 @@ class Appointment(tk.Frame):
         self.cnv_frm = self.cnv_appointment.create_window(
             (0, 0), anchor=tk.NW, window=self.frm_hours)
         self._configure_columns()
+        self.get_schedule()
         self.grid(row=0, column=1, sticky='nsew')
 
     def _configure_columns(self):
@@ -57,3 +58,9 @@ class Appointment(tk.Frame):
         doctors = self.specialties[specialty]
         self.opt_doctor = tk.OptionMenu(self, self.var_doctor, *doctors)
         self.opt_doctor.grid(row=1, column=4, sticky='we')
+
+    def get_schedule(self):
+        lbl_hour = tk.Label(self.frm_hours, text='8:00 AM')
+        lbl_hour.grid(row=0, column=0, pady=10, padx=10, sticky='we')
+        available_hour = tk.Label(self.frm_hours, bg='lightgrey')
+        available_hour.grid(row=0, column=1, pady=10, padx=10, sticky='we')
