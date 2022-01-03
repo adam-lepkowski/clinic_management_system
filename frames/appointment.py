@@ -41,6 +41,7 @@ class Appointment(tk.Frame):
             (0, 0), anchor=tk.NW, window=self.frm_hours)
         self.get_schedule()
         self._configure_columns()
+        self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
         self.grid(row=0, column=1, sticky='nsew')
 
     def _configure_columns(self):
@@ -68,3 +69,7 @@ class Appointment(tk.Frame):
         lbl_hour.grid(row=0, column=0, pady=10, padx=10, sticky='we')
         available_hour = tk.Label(self.frm_hours, bg='lightgrey')
         available_hour.grid(row=0, column=1, pady=10, padx=10, sticky='we')
+
+    def set_schedule_width(self, event):
+        canvas_width = event.width
+        self.cnv_appointment.itemconfig(self.cnv_frm, width=canvas_width)
