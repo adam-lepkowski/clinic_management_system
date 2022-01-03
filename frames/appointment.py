@@ -39,8 +39,8 @@ class Appointment(tk.Frame):
         self.frm_hours = tk.Frame(self.cnv_appointment)
         self.cnv_frm = self.cnv_appointment.create_window(
             (0, 0), anchor=tk.NW, window=self.frm_hours)
-        self._configure_columns()
         self.get_schedule()
+        self._configure_columns()
         self.grid(row=0, column=1, sticky='nsew')
 
     def _configure_columns(self):
@@ -50,6 +50,10 @@ class Appointment(tk.Frame):
         columns, rows = self.grid_size()
         for column in range(columns):
             self.columnconfigure(column, weight=1)
+
+        columns, rows = self.frm_hours.grid_size()
+        for column in range(columns):
+            self.frm_hours.columnconfigure(column, weight=1)
 
     def set_specialists(self, event):
         specialty = self.var_specialty.get()
