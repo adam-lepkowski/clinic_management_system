@@ -60,7 +60,7 @@ class Appointment(tk.Frame):
         self.opt_doctor.grid(row=1, column=4, sticky='we')
 
     def get_schedule(self):
-        lbl_hour = tk.Label(self.frm_hours, text='8:00 AM')
+        lbl_hour = tk.Label(self.frm_hours, text='8:00 AM', bg='lightgrey')
         lbl_hour.grid(row=0, column=0, pady=10, padx=10, sticky='we')
         available_hour = tk.Label(self.frm_hours, bg='lightgrey')
         available_hour.grid(row=0, column=1, pady=10, padx=10, sticky='we')
