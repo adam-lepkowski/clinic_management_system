@@ -80,3 +80,10 @@ class Appointment(tk.Frame):
         frm = tk.Toplevel(self)
         date = self.ent_date.get()
         tk.Label(frm, text=f'Date: {date}').grid(row=0, column=0)
+        doc = self.var_doctor.get()
+        if not doc:
+            spec = self.specialties[self.var_specialty.get()]
+            var = tk.StringVar(frm)
+            tk.OptionMenu(frm, var, *spec).grid(row=0, column=1)
+        else:
+            tk.Label(frm, text=f'Doctor: {doc}').grid(row=0, column=1)
