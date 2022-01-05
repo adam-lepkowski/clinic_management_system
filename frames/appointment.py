@@ -21,6 +21,7 @@ class Appointment(tk.Frame):
             'Ophthalmology': ['Oph_1', 'Oph_2']
         }
         self.var_specialty = tk.StringVar(self)
+        self.var_specialty.set('All')
         self.opt_specialty = tk.OptionMenu(
             self, self.var_specialty, *list(self.specialties.keys()),
             command=self.set_specialists
