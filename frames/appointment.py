@@ -69,7 +69,13 @@ class Appointment(tk.Frame):
         lbl_hour.grid(row=0, column=0, pady=10, padx=10, sticky='we')
         available_hour = tk.Label(self.frm_hours, bg='lightgrey')
         available_hour.grid(row=0, column=1, pady=10, padx=10, sticky='we')
+        available_hour.bind('<Double-Button-1>', self.schedule_appointment)
 
     def set_schedule_width(self, event):
         canvas_width = event.width
         self.cnv_appointment.itemconfig(self.cnv_frm, width=canvas_width)
+
+    def schedule_appointment(self, event):
+        frm = tk.Toplevel(self)
+        date = self.ent_date.get()
+        tk.Label(frm, text=f'Date: {date}').grid(row=0, column=0)
