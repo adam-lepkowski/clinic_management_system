@@ -4,7 +4,7 @@ import tkinter.messagebox as msg
 from tkcalendar import DateEntry
 
 
-class ScheduleAppointment(tk.Toplevel):
+class Appointment(tk.Toplevel):
 
     def __init__(self, master, date, doctor, specialists, db):
         super().__init__(master)
@@ -38,7 +38,7 @@ class ScheduleAppointment(tk.Toplevel):
         msg.showinfo(title=title, message=message)
 
 
-class Appointment(tk.Frame):
+class Schedule(tk.Frame):
 
     def __init__(self, master):
         super().__init__(master)
@@ -116,4 +116,4 @@ class Appointment(tk.Frame):
         doc = self.var_doctor.get()
         spec = self.specialties[self.var_specialty.get()]
         db = self.master.db
-        ScheduleAppointment(self, date, doc, spec, db)
+        Appointment(self, date, doc, spec, db)
