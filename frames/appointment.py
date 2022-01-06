@@ -23,7 +23,8 @@ class ScheduleAppointment(tk.Toplevel):
         self.lbl_pat.grid(row=0, column=2)
         self.ent_pat = tk.Entry(self)
         self.ent_pat.grid(row=0, column=3)
-
+        self.btn_schedule = tk.Button(self, text='Schedule')
+        self.btn_schedule.grid(row=0, column=4)
 
 
 class Appointment(tk.Frame):
