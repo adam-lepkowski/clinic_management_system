@@ -87,3 +87,5 @@ class Appointment(tk.Frame):
             tk.OptionMenu(frm, var, *spec).grid(row=0, column=1)
         else:
             tk.Label(frm, text=f'Doctor: {doc}').grid(row=0, column=1)
+        tk.Label(frm, text='Patient').grid(row=0, column=2)
+        tk.Entry(frm).grid(row=0, column=3)
