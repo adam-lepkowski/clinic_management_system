@@ -5,9 +5,10 @@ from tkcalendar import DateEntry
 
 class ScheduleAppointment(tk.Toplevel):
 
-    def __init__(self, master, date, doctor, specialists):
+    def __init__(self, master, date, doctor, specialists, db):
         super().__init__(master)
         self.master = master
+        self.db = db
         self.lbl_date = tk.Label(self, text=f'Date: {date}')
         self.lbl_date.grid(row=0, column=0)
         if doctor == '':
@@ -104,4 +105,5 @@ class Appointment(tk.Frame):
         date = self.ent_date.get()
         doc = self.var_doctor.get()
         spec = self.specialties[self.var_specialty.get()]
-        ScheduleAppointment(self, date, doc, spec)
+        db = self.master.db
+        ScheduleAppointment(self, date, doc, spec, db)
