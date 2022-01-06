@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as msg
 
 from tkcalendar import DateEntry
 
@@ -24,8 +25,17 @@ class ScheduleAppointment(tk.Toplevel):
         self.lbl_pat.grid(row=0, column=2)
         self.ent_pat = tk.Entry(self)
         self.ent_pat.grid(row=0, column=3)
-        self.btn_schedule = tk.Button(self, text='Schedule')
+        self.btn_schedule = tk.Button(
+            self, text='Schedule', command=self.confirm_appointment
+        )
         self.btn_schedule.grid(row=0, column=4)
+
+    def confirm_appointment(self):
+        document = self.ent_pat.get()
+        patient = self.db.find_patient(document_no=document)
+        title = 'Appointment scheduled'
+        message = f'Patient {patient[0]} scheduled for an appointment'
+        msg.showinfo(title=title, message=message)
 
 
 class Appointment(tk.Frame):
