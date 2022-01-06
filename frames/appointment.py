@@ -33,9 +33,12 @@ class Appointment(tk.Toplevel):
     def confirm_appointment(self):
         document = self.ent_pat.get()
         patient = self.db.find_patient(document_no=document)
-        title = 'Appointment scheduled'
-        message = f'Patient {patient[0]} scheduled for an appointment'
-        msg.showinfo(title=title, message=message)
+        if patient:
+            title = 'Appointment scheduled'
+            message = f'Patient {patient[0]} scheduled for an appointment'
+            msg.showinfo(title=title, message=message)
+        else:
+            msg.showinfo('Patient not found', 'Patient not found')
 
 
 class Schedule(tk.Frame):
