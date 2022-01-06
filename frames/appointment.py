@@ -3,6 +3,29 @@ import tkinter as tk
 from tkcalendar import DateEntry
 
 
+class ScheduleAppointment(tk.Toplevel):
+
+    def __init__(self, master, date, doctor, specialists):
+        super().__init__(master)
+        self.master = master
+        self.lbl_date = tk.Label(self, text=f'Date: {date}')
+        self.lbl_date.grid(row=0, column=0)
+        if doctor == '':
+            self.var_spec = tk.StringVar(self)
+            self.opt_specialty = tk.OptionMenu(
+                self, self.var_spec, *specialists
+            )
+            self.opt_specialty.grid(row=0, column=1)
+        else:
+            self.lbl_doc = tk.Label(self, text=f'Doctor: {doctor}')
+            self.lbl_doc.grid(row=0, column=1)
+        self.lbl_pat = tk.Label(self, text='Patient')
+        self.lbl_pat.grid(row=0, column=2)
+        self.ent_pat = tk.Entry(self)
+        self.ent_pat.grid(row=0, column=3)
+
+
+
 class Appointment(tk.Frame):
 
     def __init__(self, master):
@@ -77,15 +100,7 @@ class Appointment(tk.Frame):
         self.cnv_appointment.itemconfig(self.cnv_frm, width=canvas_width)
 
     def schedule_appointment(self, event):
-        frm = tk.Toplevel(self)
         date = self.ent_date.get()
-        tk.Label(frm, text=f'Date: {date}').grid(row=0, column=0)
         doc = self.var_doctor.get()
-        if not doc:
-            spec = self.specialties[self.var_specialty.get()]
-            var = tk.StringVar(frm)
-            tk.OptionMenu(frm, var, *spec).grid(row=0, column=1)
-        else:
-            tk.Label(frm, text=f'Doctor: {doc}').grid(row=0, column=1)
-        tk.Label(frm, text='Patient').grid(row=0, column=2)
-        tk.Entry(frm).grid(row=0, column=3)
+        spec = self.specialties[self.var_specialty.get()]
+        ScheduleAppointment(self, date, doc, spec)
