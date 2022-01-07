@@ -65,7 +65,6 @@ CREATE_TRIGGER_EMAIL = """
     END;
 """
 
-
 CREATE_TRIGGER_PHONE = """
     CREATE TRIGGER IF NOT EXISTS validate_phone BEFORE INSERT
     ON patient
@@ -75,4 +74,13 @@ CREATE_TRIGGER_PHONE = """
             RAISE(ABORT, 'Only numbers allowed in phone field')
         END;
     END;
+"""
+
+CREATE_TABLE_APPOINTMENT = """
+    CREATE TABLE IF NOT EXISTS appointment (
+        patient_id      INTEGER NOT NULL REFERENCES patient(id),
+        datetime        TEXT NOT NULL CHECK (datetime != ''),
+        doctor          TEXT NOT NULL CHECK (doctor != ''),
+        PRIMARY KEY     (patient_id, datetime, doctor)
+    )
 """

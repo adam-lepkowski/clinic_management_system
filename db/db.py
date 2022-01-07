@@ -2,7 +2,8 @@ import sqlite3
 
 from db.db_const import (CREATE_TABLE_PATIENT, CREATE_TRIGGER_DOB,
                          CREATE_TRIGGER_GENDER, CREATE_TRIGGER_MARITAL,
-                         CREATE_TRIGGER_EMAIL, CREATE_TRIGGER_PHONE)
+                         CREATE_TRIGGER_EMAIL, CREATE_TRIGGER_PHONE,
+                         CREATE_TABLE_APPOINTMENT)
 
 
 class DB:
@@ -26,6 +27,8 @@ class DB:
         self.cur.execute(CREATE_TRIGGER_MARITAL)
         self.cur.execute(CREATE_TRIGGER_EMAIL)
         self.cur.execute(CREATE_TRIGGER_PHONE)
+        self.cur.execute(CREATE_TABLE_APPOINTMENT)
+        self.cur.execute('PRAGMA foreign_keys=on')
         self.cur.connection.commit()
 
     def _get_columns_patient(self):
