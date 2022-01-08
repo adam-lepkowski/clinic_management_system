@@ -1,5 +1,4 @@
 import unittest
-from sqlite3 import IntegrityError
 import datetime
 
 from parameterized import parameterized
@@ -67,7 +66,7 @@ class TestRegisterPatient(unittest.TestCase):
         ('document_no', {'document_no': None})
     ])
     def test_register_patient_null_raises_error(self, name, column):
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.pat_1[name] = column[name]
             self.db.register_patient(**self.pat_1)
 
@@ -83,7 +82,7 @@ class TestRegisterPatient(unittest.TestCase):
         ('document_no', {'document_no': ''})
     ])
     def test_empty_string_raises_error(self, name, column):
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.pat_1[name] = column[name]
             self.db.register_patient(**self.pat_1)
 
@@ -92,7 +91,7 @@ class TestRegisterPatient(unittest.TestCase):
         today = datetime.date.today()
         future_date = today + delta
         self.pat_1['date_of_birth'] = future_date.strftime('%Y-%m-%d')
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_patient(**self.pat_1)
 
     @parameterized.expand([
@@ -105,7 +104,7 @@ class TestRegisterPatient(unittest.TestCase):
     ])
     def test_date_invalid_type_raises_error(self, name, value):
         self.pat_1['date_of_birth'] = value
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_patient(**self.pat_1)
 
     @parameterized.expand([
@@ -115,7 +114,7 @@ class TestRegisterPatient(unittest.TestCase):
     ])
     def test_invalid_gender_raises_error(self, name, value):
         self.pat_1['gender'] = value
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_patient(**self.pat_1)
 
     @parameterized.expand([
@@ -125,7 +124,7 @@ class TestRegisterPatient(unittest.TestCase):
     ])
     def test_invalid_marital_raises_error(self, name, value):
         self.pat_1['marital_status'] = value
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_patient(**self.pat_1)
 
     @parameterized.expand([
@@ -136,7 +135,7 @@ class TestRegisterPatient(unittest.TestCase):
     ])
     def test_invalid_email_raises_error(self, name, email):
         self.pat_1['email'] = email
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_patient(**self.pat_1)
 
     @parameterized.expand([
@@ -147,7 +146,7 @@ class TestRegisterPatient(unittest.TestCase):
     ])
     def test_invalid_phone_raises_error(self, name, phone):
         self.pat_1['phone'] = phone
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_patient(**self.pat_1)
 
 
@@ -255,7 +254,7 @@ class TestUpdatePatient(unittest.TestCase):
         ('document_no', {'document_no': ''})
     ])
     def test_update_patient_empty_strings(self, name, update_vals):
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.update_patient(id_=1, **update_vals)
         expected = tuple(self.pat_1.values())
         sql = 'SELECT * FROM patient WHERE id=1'
@@ -280,5 +279,5 @@ class TestRegisterAppointment(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_register_appointment_invalid_patient_id(self):
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_appointment(3, '1900-10-10', 'test_doc')
