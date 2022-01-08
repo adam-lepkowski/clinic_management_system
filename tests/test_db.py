@@ -278,3 +278,7 @@ class TestRegisterAppointment(unittest.TestCase):
         self.db.register_appointment(*expected)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
+
+    def test_register_appointment_invalid_patient_id(self):
+        with self.assertRaises(IntegrityError):
+            self.db.register_appointment(3, '1900-10-10', 'test_doc')
