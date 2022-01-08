@@ -261,3 +261,14 @@ class TestUpdatePatient(unittest.TestCase):
         sql = 'SELECT * FROM patient WHERE id=1'
         result = self.db.cur.execute(sql).fetchone()
         self.assertEqual(expected, result)
+
+
+class TestRegisterAppointment(unittest.TestCase):
+
+    def setUp(self):
+        self.pat = PATIENT_INPUT_2.copy()
+        placeholders = '?, ' * len(self.pat)
+        self.db = DB(':memory:')
+        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
+        self.db.cur.execute(sql, tuple(self.pat))
+        self.db.cur.connection.commit()
