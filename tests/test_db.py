@@ -272,3 +272,9 @@ class TestRegisterAppointment(unittest.TestCase):
         sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
         self.db.cur.execute(sql, tuple(self.pat))
         self.db.cur.connection.commit()
+
+    def test_register_appointment(self):
+        expected = (1, '2000-10-10', 'test_doc')
+        self.db.register_appointment(*expected)
+        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
+        self.assertEqual(expected, result)
