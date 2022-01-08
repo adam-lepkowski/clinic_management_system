@@ -137,3 +137,8 @@ class DB:
             values.append(id_)
             self.cur.execute(sql, tuple(values))
             self.cur.connection.commit()
+
+    def register_appointment(self, patient_id, date, doctor):
+        sql = """INSERT INTO appointment VALUES (?, ?, ?)"""
+        self.cur.execute(sql, (patient_id, date, doctor))
+        self.cur.connection.commit()
