@@ -84,3 +84,17 @@ CREATE_TABLE_APPOINTMENT = """
         PRIMARY KEY     (patient_id, datetime, doctor)
     )
 """
+
+CREATE_TRIGGER_APP_DATE = """
+    CREATE TRIGGER IF NOT EXISTS validate_app_date BEFORE INSERT
+    ON appointment
+    BEGIN
+        SELECT CASE
+            WHEN STRFTIME('%Y-%m-%d', NEW.datetime) IS NULL
+                OR DATE(NEW.datetime) > DATE('now') IS NULL
+            THEN RAISE(ABORT, 'Invalid date, should be YYYY-MM-DD')
+            WHEN DATE(NEW.datetime) < DATE('now')
+            THEN RAISE(ABORT, 'Cannot schedule appoitments in the past')
+        END;
+    END;
+"""
