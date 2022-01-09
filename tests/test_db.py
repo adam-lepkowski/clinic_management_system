@@ -280,8 +280,9 @@ class TestRegisterAppointment(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_register_appointment_invalid_patient_id(self):
+        date = datetime.datetime.now().strftime('%Y-%m-%d')
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_appointment(3, '1900-10-10', 'test_doc')
+            self.db.register_appointment(3, date, 'test_doc')
 
     def test_invalid_date_raises_error(self):
         with self.assertRaises(self.db.con.IntegrityError):
