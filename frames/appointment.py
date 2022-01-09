@@ -10,6 +10,7 @@ class Appointment(tk.Toplevel):
         super().__init__(master)
         self.master = master
         self.db = db
+        self.date = date
         self.lbl_date = tk.Label(self, text=f'Date: {date}')
         self.lbl_date.grid(row=0, column=0)
         if doctor == '':
