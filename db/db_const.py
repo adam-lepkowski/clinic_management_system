@@ -81,7 +81,7 @@ CREATE_TABLE_APPOINTMENT = """
         patient_id      INTEGER NOT NULL REFERENCES patient(id),
         app_date        TEXT NOT NULL CHECK (app_date != ''),
         doctor          TEXT NOT NULL CHECK (doctor != ''),
-        PRIMARY KEY     (patient_id, app_date, doctor)
+        PRIMARY KEY     (app_date, doctor)
     )
 """
 
