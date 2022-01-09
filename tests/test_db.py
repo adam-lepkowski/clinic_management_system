@@ -296,3 +296,13 @@ class TestRegisterAppointment(unittest.TestCase):
         self.assertEqual(expected, result)
         with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_appointment(*expected)
+
+    def test_same_date_diff_doc(self):
+        date = datetime.datetime.now().strftime('%Y-%m-%d')
+        expected_1 = (1, date, 'test_doc')
+        expected_2 = (1, date, 'test_doc_1')
+        self.db.register_appointment(*expected_1)
+        self.db.register_appointment(*expected_2)
+        result = self.db.cur.execute('SELECT * FROM appointment').fetchall()
+        expected = [expected_1, expected_2]
+        self.assertEqual(expected, result)
