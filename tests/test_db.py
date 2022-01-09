@@ -281,3 +281,7 @@ class TestRegisterAppointment(unittest.TestCase):
     def test_register_appointment_invalid_patient_id(self):
         with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_appointment(3, '1900-10-10', 'test_doc')
+
+    def test_invalid_date_raises_error(self):
+        with self.assertRaises(self.db.con.IntegrityError):
+            self.db.register_appointment(1, 'not_date', 'test_doc')
