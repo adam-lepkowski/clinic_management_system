@@ -13,15 +13,13 @@ class Appointment(tk.Toplevel):
         self.date = date
         self.lbl_date = tk.Label(self, text=f'Date: {date}')
         self.lbl_date.grid(row=0, column=0)
-        if doctor == '':
-            self.var_spec = tk.StringVar(self)
-            self.opt_specialty = tk.OptionMenu(
-                self, self.var_spec, *specialists
-            )
-            self.opt_specialty.grid(row=0, column=1)
-        else:
-            self.lbl_doc = tk.Label(self, text=f'Doctor: {doctor}')
-            self.lbl_doc.grid(row=0, column=1)
+        self.var_spec = tk.StringVar(self)
+        self.opt_specialty = tk.OptionMenu(
+            self, self.var_spec, *specialists
+        )
+        self.opt_specialty.grid(row=0, column=1)
+        if doctor != '':
+            self.var_spec.set(doctor)
         self.lbl_pat = tk.Label(self, text='Patient')
         self.lbl_pat.grid(row=0, column=2)
         self.ent_pat = tk.Entry(self)
