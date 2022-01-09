@@ -287,3 +287,12 @@ class TestRegisterAppointment(unittest.TestCase):
     def test_invalid_date_raises_error(self):
         with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_appointment(1, 'not_date', 'test_doc')
+
+    def test_same_dates_same_doc_raises_error(self):
+        date = datetime.datetime.now().strftime('%Y-%m-%d')
+        expected = (1, date, 'test_doc')
+        self.db.register_appointment(*expected)
+        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
+        self.assertEqual(expected, result)
+        with self.assertRaises(self.db.con.IntegrityError):
+            self.db.register_appointment(*expected)
