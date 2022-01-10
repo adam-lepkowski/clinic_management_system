@@ -51,10 +51,14 @@ class Schedule(tk.Frame):
         self.lbl_title.grid(
             row=0, column=0, sticky='nsew', pady=10, columnspan=5
         )
+        self.btn_back = tk.Button(self)
+        self.btn_back.grid(row=1, column=0, sticky='e')
+        self.btn_fwd = tk.Button(self)
+        self.btn_fwd.grid(row=1, column=2, sticky='w')
         self.ent_date = DateEntry(self, date_pattern='y-mm-dd')
-        self.ent_date.grid(row=1, column=0)
+        self.ent_date.grid(row=1, column=1, sticky='we')
         self.lbl_specialty = tk.Label(self, text='Specialty')
-        self.lbl_specialty.grid(row=1, column=1, sticky='we')
+        self.lbl_specialty.grid(row=1, column=3, sticky='we')
         self.specialties = {
             'All': ['Der_1', 'Der_2', 'Oph_1', 'Oph_2'],
             'Dermatology': ['Der_1', 'Der_2'],
@@ -66,17 +70,17 @@ class Schedule(tk.Frame):
             self, self.var_specialty, *list(self.specialties.keys()),
             command=self.set_specialists
         )
-        self.opt_specialty.grid(row=1, column=2, sticky='we')
+        self.opt_specialty.grid(row=1, column=4, sticky='we')
         self.lbl_doctor = tk.Label(self, text='Doctor')
-        self.lbl_doctor.grid(row=1, column=3, sticky='we')
+        self.lbl_doctor.grid(row=1, column=5, sticky='we')
         # todo użyć variable trace, zeby śledzić zmiany w stringvar
         self.var_doctor = tk.StringVar(self)
         self.opt_doctor = tk.OptionMenu(
             self, self.var_doctor, *self.specialties['All']
         )
-        self.opt_doctor.grid(row=1, column=4, sticky='we')
+        self.opt_doctor.grid(row=1, column=6, sticky='we')
         self.cnv_appointment = tk.Canvas(self, bg='white')
-        self.cnv_appointment.grid(row=2, column=0, columnspan=5, sticky='nsew')
+        self.cnv_appointment.grid(row=2, column=0, columnspan=7, sticky='nsew')
         self.frm_hours = tk.Frame(self.cnv_appointment)
         self.cnv_frm = self.cnv_appointment.create_window(
             (0, 0), anchor=tk.NW, window=self.frm_hours)
