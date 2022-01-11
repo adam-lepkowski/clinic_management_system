@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as msg
+from datetime import datetime, timedelta
 
 from tkcalendar import DateEntry
 
@@ -110,6 +111,9 @@ class Schedule(tk.Frame):
         self.opt_doctor.grid(row=1, column=4, sticky='we')
 
     def get_schedule(self):
+        start_hour = 8
+        date = self.ent_date.get()
+        date = datetime.strptime(date, '%Y-%m-%d').replace(hour=start_hour)
         lbl_hour = tk.Label(self.frm_hours, text='8:00 AM', bg='lightgrey')
         lbl_hour.grid(row=0, column=0, pady=10, padx=10, sticky='we')
         available_hour = tk.Label(self.frm_hours, bg='lightgrey')
