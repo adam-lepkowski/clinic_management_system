@@ -85,6 +85,9 @@ class Schedule(tk.Frame):
         self.frm_hours = tk.Frame(self.cnv_appointment)
         self.cnv_frm = self.cnv_appointment.create_window(
             (0, 0), anchor=tk.NW, window=self.frm_hours)
+        self.scr_cnv = tk.Scrollbar(self, command=self.cnv_appointment.yview)
+        self.scr_cnv.grid(row=2, column=7, sticky='wns')
+        self.cnv_appointment.configure(yscrollcommand=self.scr_cnv.set)
         self.get_schedule()
         self._configure_columns()
         self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
