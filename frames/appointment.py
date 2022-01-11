@@ -112,13 +112,20 @@ class Schedule(tk.Frame):
 
     def get_schedule(self):
         start_hour = 8
+        end_hour = 16
+        app_time = timedelta(minutes=30)
         date = self.ent_date.get()
         date = datetime.strptime(date, '%Y-%m-%d').replace(hour=start_hour)
-        lbl_hour = tk.Label(self.frm_hours, text='8:00 AM', bg='lightgrey')
-        lbl_hour.grid(row=0, column=0, pady=10, padx=10, sticky='we')
-        available_hour = tk.Label(self.frm_hours, bg='lightgrey')
-        available_hour.grid(row=0, column=1, pady=10, padx=10, sticky='we')
-        available_hour.bind('<Double-Button-1>', self.schedule_appointment)
+        row = 0
+        while date.hour != end_hour:
+            lbl_text = date.strftime('%H:%M')
+            date += app_time
+            lbl_hour = tk.Label(self.frm_hours, text=lbl_text, bg='lightgrey')
+            lbl_hour.grid(row=row, column=0, pady=10, padx=10, sticky='we')
+            available_hour = tk.Label(self.frm_hours, bg='lightgrey')
+            available_hour.grid(row=row, column=1, pady=10, padx=10, sticky='we')
+            available_hour.bind('<Double-Button-1>', self.schedule_appointment)
+            row += 1
 
     def set_schedule_width(self, event):
         canvas_width = event.width
