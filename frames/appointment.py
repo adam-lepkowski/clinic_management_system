@@ -90,6 +90,7 @@ class Schedule(tk.Frame):
         self.cnv_appointment.configure(yscrollcommand=self.scr_cnv.set)
         self.get_schedule()
         self._configure_columns()
+        self.bind('<Configure>', self.configure_scroll)
         self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
         self.grid(row=0, column=1, sticky='nsew')
 
@@ -104,6 +105,11 @@ class Schedule(tk.Frame):
         columns, rows = self.frm_hours.grid_size()
         for column in range(columns):
             self.frm_hours.columnconfigure(column, weight=1)
+
+    def configure_scroll(self, event=None):
+        self.cnv_appointment.configure(
+            scrollregion=self.cnv_appointment.bbox('all')
+        )
 
     def set_specialists(self, event):
         specialty = self.var_specialty.get()
