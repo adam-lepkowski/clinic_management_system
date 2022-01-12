@@ -93,6 +93,10 @@ class Schedule(tk.Frame):
         self.bind('<Configure>', self.configure_scroll)
         self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
         self.grid(row=0, column=1, sticky='nsew')
+        self.colour_schemes = [
+            {'fg': 'black', 'bg': 'lightgrey'},
+            {'fg': 'white', 'bg': 'grey'}
+        ]
 
     def _configure_columns(self):
         """
