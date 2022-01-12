@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as msg
 from datetime import datetime, timedelta
+import itertools
 
 from tkcalendar import DateEntry
 
@@ -88,15 +89,16 @@ class Schedule(tk.Frame):
         self.scr_cnv = tk.Scrollbar(self, command=self.cnv_appointment.yview)
         self.scr_cnv.grid(row=2, column=7, sticky='wns')
         self.cnv_appointment.configure(yscrollcommand=self.scr_cnv.set)
+        self.colour_schemes = [
+            {'fg': 'black', 'bg': 'lightgrey'},
+            {'fg': 'white', 'bg': 'grey'}
+        ]
         self.get_schedule()
         self._configure_columns()
         self.bind('<Configure>', self.configure_scroll)
         self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
         self.grid(row=0, column=1, sticky='nsew')
-        self.colour_schemes = [
-            {'fg': 'black', 'bg': 'lightgrey'},
-            {'fg': 'white', 'bg': 'grey'}
-        ]
+
 
     def _configure_columns(self):
         """
@@ -130,16 +132,20 @@ class Schedule(tk.Frame):
         date = self.ent_date.get()
         date = datetime.strptime(date, '%Y-%m-%d').replace(hour=start_hour)
         row = 0
+        schemes = itertools.cycle(self.colour_schemes)
         while date.hour != end_hour:
+            scheme = next(schemes)
             lbl_text = date.strftime('%H:%M')
             date += app_time
             lbl_hour = tk.Label(
                 self.frm_hours, text=lbl_text, bg='grey'
             )
             lbl_hour.grid(row=row, column=0, sticky='we')
+            lbl_hour.configure(**scheme)
             available_hour = tk.Label(
                 self.frm_hours, bg='lightgrey', name=lbl_text
             )
+            available_hour.configure(**scheme)
             available_hour.grid(row=row, column=1, sticky='we')
             available_hour.bind('<Double-Button-1>', self.schedule_appointment)
             row += 1
