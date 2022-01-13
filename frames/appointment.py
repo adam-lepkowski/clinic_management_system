@@ -8,12 +8,12 @@ from tkcalendar import DateEntry
 
 class Appointment(tk.Toplevel):
 
-    def __init__(self, master, date, doctor, specialists, db):
+    def __init__(self, master, datetime, doctor, specialists, db):
         super().__init__(master)
         self.master = master
         self.db = db
-        self.date = date
-        self.lbl_date = tk.Label(self, text=f'Date: {date}')
+        self.app_datetime = datetime
+        self.lbl_date = tk.Label(self, text=f'Date: {datetime}')
         self.lbl_date.grid(row=0, column=0)
         self.var_spec = tk.StringVar(self)
         self.opt_specialty = tk.OptionMenu(
@@ -39,7 +39,7 @@ class Appointment(tk.Toplevel):
             title = 'Appointment scheduled'
             message = f'Patient scheduled for an appointment'
             patient_id = patient[0]
-            self.db.register_appointment(patient_id, self.date, doctor)
+            self.db.register_appointment(patient_id, self.app_datetime, doctor)
             msg.showinfo(title=title, message=message)
         else:
             msg.showinfo('Patient not found', 'Patient not found')
