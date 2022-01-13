@@ -156,7 +156,9 @@ class Schedule(tk.Frame):
 
     def schedule_appointment(self, event):
         date = self.ent_date.get()
+        hour = str(event.widget).split('.')[-1]
+        datetime = f'{date} {hour}'
         doc = self.var_doctor.get()
         spec = self.specialties[self.var_specialty.get()]
         db = self.master.db
-        Appointment(self, date, doc, spec, db)
+        Appointment(self, datetime, doc, spec, db)
