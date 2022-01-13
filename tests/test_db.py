@@ -273,14 +273,14 @@ class TestRegisterAppointment(unittest.TestCase):
         self.db.cur.connection.commit()
 
     def test_register_appointment(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d')
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         expected = (1, date, 'test_doc')
         self.db.register_appointment(*expected)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
 
     def test_register_appointment_invalid_patient_id(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d')
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         with self.assertRaises(self.db.con.IntegrityError):
             self.db.register_appointment(3, date, 'test_doc')
 
@@ -289,7 +289,7 @@ class TestRegisterAppointment(unittest.TestCase):
             self.db.register_appointment(1, 'not_date', 'test_doc')
 
     def test_same_dates_same_doc_raises_error(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d')
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         expected = (1, date, 'test_doc')
         self.db.register_appointment(*expected)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
@@ -298,7 +298,7 @@ class TestRegisterAppointment(unittest.TestCase):
             self.db.register_appointment(*expected)
 
     def test_same_date_diff_doc(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d')
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         expected_1 = (1, date, 'test_doc')
         expected_2 = (1, date, 'test_doc_1')
         self.db.register_appointment(*expected_1)
