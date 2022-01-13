@@ -79,9 +79,9 @@ CREATE_TRIGGER_PHONE = """
 CREATE_TABLE_APPOINTMENT = """
     CREATE TABLE IF NOT EXISTS appointment (
         patient_id      INTEGER NOT NULL REFERENCES patient(id),
-        app_date        TEXT NOT NULL CHECK (app_date != ''),
+        app_datetime    TEXT NOT NULL CHECK (app_datetime != ''),
         doctor          TEXT NOT NULL CHECK (doctor != ''),
-        PRIMARY KEY     (app_date, doctor)
+        PRIMARY KEY     (app_datetime, doctor)
     )
 """
 
@@ -90,10 +90,11 @@ CREATE_TRIGGER_APP_DATE = """
     ON appointment
     BEGIN
         SELECT CASE
-            WHEN STRFTIME('%Y-%m-%d', NEW.app_date) IS NULL
-                OR DATE(NEW.app_date) > DATE('now') IS NULL
-            THEN RAISE(ABORT, 'Invalid date, should be YYYY-MM-DD')
-            WHEN DATE(NEW.app_date) < DATE('now')
+            WHEN STRFTIME('%Y-%m-%d %H:%M', NEW.app_datetime) IS NULL
+                OR DATE(NEW.app_datetime) > DATE('now') IS NULL
+                OR STRFTIME('%H:%M', NEW.app_datetime) == '00:00'
+            THEN RAISE(ABORT, 'Invalid date, should be YYYY-MM-DD HH:MM')
+            WHEN DATE(NEW.app_datetime) < DATE('now')
             THEN RAISE(ABORT, 'Cannot schedule appoitments in the past')
         END;
     END;
