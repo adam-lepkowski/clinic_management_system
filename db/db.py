@@ -43,11 +43,15 @@ class DB:
         list
             a list of column headers
         """
-
-        sql = f"PRAGMA table_info('{table}')"
-        columns = self.cur.execute(sql).fetchall()
-        column_names = [column[1] for column in columns]
-        return column_names
+        sql_tables = """SELECT name FROM sqlite_master WHERE type='table'"""
+        tables =  self.cur.execute(sql_tables).fetchall()
+        tables = [table[0] for table in tables]
+        if table in tables:
+            sql = f"PRAGMA table_info('{table}')"
+            columns = self.cur.execute(sql).fetchall()
+            column_names = [column[1] for column in columns]
+            return column_names
+        return None
 
     def register_patient(self, **kwargs):
         """
