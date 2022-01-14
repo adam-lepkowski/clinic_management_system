@@ -28,7 +28,7 @@ class TestDBGetColumnNames(unittest.TestCase):
             'gender', 'marital_status', 'nationality', 'email', 'phone',
             'document_no'
         ]
-        result = self.db._get_columns_patient()
+        result = self.db.get_columns('patient')
         self.assertEqual(expected, result)
 
 
