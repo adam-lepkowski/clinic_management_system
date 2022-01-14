@@ -34,9 +34,9 @@ class DB:
         self.cur.execute('PRAGMA foreign_keys=on')
         self.cur.connection.commit()
 
-    def _get_columns_patient(self):
+    def get_columns(self, table):
         """
-        Get column headers from table patient
+        Get column headers from given table
 
         Returns
         ---------------
@@ -44,7 +44,7 @@ class DB:
             a list of column headers
         """
 
-        sql = "PRAGMA table_info('patient')"
+        sql = f"PRAGMA table_info('{table}')"
         columns = self.cur.execute(sql).fetchall()
         column_names = [column[1] for column in columns]
         return column_names
@@ -62,7 +62,7 @@ class DB:
             table_field: value
         """
 
-        columns = self._get_columns_patient()
+        columns = self.get_columns('patient')
         patient = {column: value for column, value in kwargs.items()
                    if column in columns}
         columns = ''
@@ -99,7 +99,7 @@ class DB:
             an empty list
         """
 
-        columns = self._get_columns_patient()
+        columns = self.get_columns('patient')
         search_conditions = {column: value for column, value in kwargs.items()
                    if column in columns}
         results = []
@@ -126,7 +126,7 @@ class DB:
             update values provided in table_field: value format
         """
 
-        columns = self._get_columns_patient()
+        columns = self.get_columns('patient')
         updated_values = {column: value for column, value in kwargs.items()
                           if column in columns}
         if updated_values:
