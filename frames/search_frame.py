@@ -40,7 +40,7 @@ class Search(tk.Frame):
         self.btn_return.grid(row=0, column=1)
         self.frm_results = tk.Frame(self)
         self.frm_results.grid(row=3, column=0, sticky='nsew', columnspan=6)
-        self.columns = self.master.db._get_columns_patient()
+        self.columns = self.master.db.get_columns('patient')
         self.tree = Treeview(
             self.frm_results, columns=self.columns, show='headings')
         self.tree.grid(row=0, column=0, sticky='nsew')

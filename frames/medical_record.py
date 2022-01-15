@@ -22,6 +22,6 @@ class MedicalRecord(tk.Toplevel):
         height = self.master.winfo_height()
         self.geometry(f'{width}x{height}')
         self.db = self.master.db
-        cols = self.db._get_columns_patient()
+        cols = self.db.get_columns('patient')
         self.patient = {col: value for col, value in zip(cols, patient)}
         self.frm_patient = PatientDetailsFrame(self, self.patient)
