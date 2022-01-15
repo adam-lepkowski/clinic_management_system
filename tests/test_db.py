@@ -306,3 +306,14 @@ class TestRegisterAppointment(unittest.TestCase):
         result = self.db.cur.execute('SELECT * FROM appointment').fetchall()
         expected = [expected_1, expected_2]
         self.assertEqual(expected, result)
+
+
+class TestCancelAppointment(unittest.TestCase):
+
+    def setUp(self):
+        self.pat = PATIENT_INPUT_2.copy()
+        placeholders = '?, ' * len(self.pat)
+        self.db = DB(':memory:')
+        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
+        self.db.cur.execute(sql, tuple(self.pat))
+        self.db.cur.connection.commit()
