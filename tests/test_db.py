@@ -317,3 +317,15 @@ class TestCancelAppointment(unittest.TestCase):
         sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
         self.db.cur.execute(sql, tuple(self.pat))
         self.db.cur.connection.commit()
+
+    def test_cancel_appointment(self):
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        sql =  f"INSERT INTO appointment VALUES (?, ?, ?)"
+        self.db.cur.execute(sql, (1, date, 'test_doc'))
+        expected = (1, date, 'test_doc')
+        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
+        self.assertEqual(expected, result)
+        self.db.cancel_appointment(date, 'test_doc')
+        expected = None
+        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
+        self.assertEqual(expected, result)
