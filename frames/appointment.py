@@ -30,6 +30,11 @@ class Appointment(tk.Toplevel):
             self, text='Schedule', command=self.confirm_appointment
         )
         self.btn_schedule.grid(row=0, column=4)
+        self.lbl_scheduled = tk.Label(self, text='Scheduled appointments')
+        self.lbl_scheduled.grid(row=2, column=0)
+        appointments = self.db.find_appointment(app_datetime=self.app_datetime)
+        for row, appointment in enumerate(appointments, start=3):
+            tk.Label(self, text=appointment).grid(row=row, column=0)
 
     def confirm_appointment(self):
         document = self.ent_pat.get()
