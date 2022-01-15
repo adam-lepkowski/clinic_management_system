@@ -344,7 +344,11 @@ class TestFindAppointment(unittest.TestCase):
         self.db.cur.execute(sql, (1, self.date, 'test_doc'))
         self.db.cur.connection.commit()
 
-    def test_find_appointment(self):
+    @parameterized.expand([
+        ('patient_id', {'patient_id': 1}),
+        ('doctor', {'doctor': 'test_doc'})
+    ])
+    def test_find_appointment(self, name, search_condition):
         expected = [(1, self.date, 'test_doc')]
-        result = self.db.find_appointment(app_datetime=self.date)
+        result = self.db.find_appointment(**search_condition)
         self.assertEqual(expected, result)
