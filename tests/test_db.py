@@ -352,3 +352,8 @@ class TestFindAppointment(unittest.TestCase):
         expected = [(1, self.date, 'test_doc')]
         result = self.db.find_appointment(**search_condition)
         self.assertEqual(expected, result)
+
+    def test_find_appointment_by_datetime(self):
+        expected = [(1, self.date, 'test_doc')]
+        result = self.db.find_appointment(app_datetime=self.date)
+        self.assertEqual(expected, result)
