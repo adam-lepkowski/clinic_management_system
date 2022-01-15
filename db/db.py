@@ -149,3 +149,10 @@ class DB:
         sql = """INSERT INTO appointment VALUES (?, ?, ?)"""
         self.cur.execute(sql, (patient_id, date, doctor))
         self.cur.connection.commit()
+
+    def cancel_appointment(self, date, doctor):
+        sql = """
+            DELETE FROM appointment WHERE app_datetime=? and doctor LIKE ?
+        """
+        self.cur.execute(sql, (date, doctor))
+        self.cur.connection.commit()
