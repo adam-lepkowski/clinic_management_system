@@ -343,3 +343,8 @@ class TestFindAppointment(unittest.TestCase):
         sql =  f"INSERT INTO appointment VALUES (?, ?, ?)"
         self.db.cur.execute(sql, (1, self.date, 'test_doc'))
         self.db.cur.connection.commit()
+
+    def test_find_appointment(self):
+        expected = [(1, self.date, 'test_doc')]
+        result = self.db.find_appointment(app_datetime=self.date)
+        self.assertEqual(expected, result)
