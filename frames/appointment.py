@@ -33,7 +33,8 @@ class Appointment(tk.Toplevel):
 
     def confirm_appointment(self):
         document = self.ent_pat.get()
-        patient = self.db.find_patient(document_no=document)[0]
+        patient = self.db.find_patient(document_no=document)
+        patient = patient[0] if patient else []
         doctor = self.var_spec.get()
         if patient and doctor:
             title = 'Appointment scheduled'
@@ -41,8 +42,10 @@ class Appointment(tk.Toplevel):
             patient_id = patient[0]
             self.db.register_appointment(patient_id, self.app_datetime, doctor)
             msg.showinfo(title=title, message=message)
-        else:
+        elif not patient:
             msg.showinfo('Patient not found', 'Patient not found')
+        elif not doctor:
+            msg.showinfo('No doctor selected', 'Pick a doctor')
 
 
 class Schedule(tk.Frame):
