@@ -156,3 +156,18 @@ class DB:
         """
         self.cur.execute(sql, (date, doctor))
         self.cur.connection.commit()
+
+    def find_appointment(self, **kwargs):
+        columns = self.get_columns('appointment')
+        search_conditions = {column: value for column, value in kwargs.items()
+                   if column in columns}
+        results = []
+        if search_conditions:
+            values = []
+            sql = "SELECT * FROM appointment WHERE "
+            for column, value in search_conditions.items():
+                sql += f'{column} LIKE ? AND '
+                values.append(value)
+            sql = sql.strip('AND ')
+            results = self.cur.execute(sql, tuple(values)).fetchall()
+        return results
