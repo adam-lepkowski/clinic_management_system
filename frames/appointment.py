@@ -32,6 +32,8 @@ class Appointment(tk.Toplevel):
         self.btn_schedule.grid(row=0, column=4)
         self.lbl_scheduled = tk.Label(self, text='Scheduled appointments')
         self.lbl_scheduled.grid(row=2, column=0)
+        self.frm_scheduled = tk.Frame(self)
+        self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
         self.schedule_dict = {}
         self.show_scheduled(3)
 
