@@ -32,9 +32,7 @@ class Appointment(tk.Toplevel):
         self.btn_schedule.grid(row=0, column=4)
         self.lbl_scheduled = tk.Label(self, text='Scheduled appointments')
         self.lbl_scheduled.grid(row=2, column=0)
-        appointments = self.db.find_appointment(app_datetime=self.app_datetime)
-        for row, appointment in enumerate(appointments, start=3):
-            tk.Label(self, text=appointment).grid(row=row, column=0)
+        self.show_scheduled(3)
 
     def confirm_appointment(self):
         document = self.ent_pat.get()
@@ -51,6 +49,11 @@ class Appointment(tk.Toplevel):
             msg.showinfo('Patient not found', 'Patient not found')
         elif not doctor:
             msg.showinfo('No doctor selected', 'Pick a doctor')
+
+    def show_scheduled(self, start):
+        appointments = self.db.find_appointment(app_datetime=self.app_datetime)
+        for row, appointment in enumerate(appointments, start=start):
+            tk.Label(self, text=appointment).grid(row=row, column=0)
 
 
 class Schedule(tk.Frame):
