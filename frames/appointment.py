@@ -32,6 +32,7 @@ class Appointment(tk.Toplevel):
         self.btn_schedule.grid(row=0, column=4)
         self.lbl_scheduled = tk.Label(self, text='Scheduled appointments')
         self.lbl_scheduled.grid(row=2, column=0)
+        self.schedule_dict = {}
         self.show_scheduled(3)
 
     def confirm_appointment(self):
@@ -53,7 +54,8 @@ class Appointment(tk.Toplevel):
     def show_scheduled(self, start):
         appointments = self.db.find_appointment(app_datetime=self.app_datetime)
         for row, appointment in enumerate(appointments, start=start):
-            tk.Label(self, text=appointment).grid(row=row, column=0)
+            lbl = tk.Label(self, text=appointment).grid(row=row, column=0)
+            self.schedule_dict[lbl] = row
 
 
 class Schedule(tk.Frame):
