@@ -35,7 +35,7 @@ class Appointment(tk.Toplevel):
         self.frm_scheduled = tk.Frame(self)
         self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
         self.schedule_dict = {}
-        self.show_scheduled(3)
+        self.show_scheduled()
 
     def confirm_appointment(self):
         document = self.ent_pat.get()
@@ -47,29 +47,29 @@ class Appointment(tk.Toplevel):
             message = f'Patient scheduled for an appointment'
             patient_id = patient[0]
             self.db.register_appointment(patient_id, self.app_datetime, doctor)
-            self.show_scheduled(start=3)
+            self.show_scheduled()
             msg.showinfo(title=title, message=message)
         elif not patient:
             msg.showinfo('Patient not found', 'Patient not found')
         elif not doctor:
             msg.showinfo('No doctor selected', 'Pick a doctor')
 
-    def show_scheduled(self, start):
+    def show_scheduled(self):
         if self.schedule_dict:
             for widgets in self.schedule_dict.values():
                 for widget in widgets:
                     widget.destroy()
         appointments = self.db.find_appointment(app_datetime=self.app_datetime)
-        for row, appointment in enumerate(appointments, start=start):
-            lbl = tk.Label(self, text=appointment)
+        for row, appointment in enumerate(appointments):
+            lbl = tk.Label(self.frm_scheduled, text=appointment)
             lbl.grid(row=row, column=0)
-            btn = tk.Button(self, text='Cancel')
+            btn = tk.Button(self.frm_scheduled, text='Cancel')
             btn.grid(row=row, column=1)
             self.schedule_dict[row] = [lbl, btn]
 
     def cancel_appointment(self, app_datetime, doctor):
         self.db.cancel_appointment(app_datetime=app_datetime, doctor=doctor)
-        self.show_scheduled(start=3)
+        self.show_scheduled()
         msg.showinfo('Appointment canceled')
 
 
