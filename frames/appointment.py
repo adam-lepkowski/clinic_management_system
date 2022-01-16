@@ -52,6 +52,9 @@ class Appointment(tk.Toplevel):
             msg.showinfo('No doctor selected', 'Pick a doctor')
 
     def show_scheduled(self, start):
+        if self.schedule_dict:
+            for lbl in self.schedule_dict.keys():
+                lbl.destroy()
         appointments = self.db.find_appointment(app_datetime=self.app_datetime)
         for row, appointment in enumerate(appointments, start=start):
             lbl = tk.Label(self, text=appointment).grid(row=row, column=0)
