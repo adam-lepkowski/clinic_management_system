@@ -54,13 +54,16 @@ class Appointment(tk.Toplevel):
 
     def show_scheduled(self, start):
         if self.schedule_dict:
-            for lbl in self.schedule_dict.values():
-                lbl.destroy()
+            for widgets in self.schedule_dict.values():
+                for widget in widgets:
+                    widget.destroy()
         appointments = self.db.find_appointment(app_datetime=self.app_datetime)
         for row, appointment in enumerate(appointments, start=start):
-            lbl = tk.Label(self, text=appointment).grid(row=row, column=0)
-            btn = tk.Button(self, text='Cancel').grid(row=row, column=1)
-            self.schedule_dict[row] = lbl
+            lbl = tk.Label(self, text=appointment)
+            lbl.grid(row=row, column=0)
+            btn = tk.Button(self, text='Cancel')
+            btn.grid(row=row, column=1)
+            self.schedule_dict[row] = [lbl, btn]
 
     def cancel_appointment(self, app_datetime, doctor):
         self.db.cancel_appointment(app_datetime=app_datetime, doctor=doctor)
