@@ -45,6 +45,7 @@ class Appointment(tk.Toplevel):
             message = f'Patient scheduled for an appointment'
             patient_id = patient[0]
             self.db.register_appointment(patient_id, self.app_datetime, doctor)
+            self.show_scheduled(start=3)
             msg.showinfo(title=title, message=message)
         elif not patient:
             msg.showinfo('Patient not found', 'Patient not found')
