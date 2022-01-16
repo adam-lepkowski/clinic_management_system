@@ -62,6 +62,11 @@ class Appointment(tk.Toplevel):
             btn = tk.Button(self, text='Cancel').grid(row=row, column=1)
             self.schedule_dict[row] = lbl
 
+    def cancel_appointment(self, app_datetime, doctor):
+        self.db.cancel_appointment(app_datetime=app_datetime, doctor=doctor)
+        self.show_scheduled(start=3)
+        msg.showinfo('Appointment canceled')
+
 
 class Schedule(tk.Frame):
 
