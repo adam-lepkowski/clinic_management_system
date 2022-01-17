@@ -55,16 +55,13 @@ class Appointment(tk.Toplevel):
             msg.showinfo('No doctor selected', 'Pick a doctor')
 
     def show_scheduled(self):
-        if self.schedule_dict:
-            for widgets in self.schedule_dict.values():
-                for widget in widgets:
-                    widget.destroy()
+        for child in self.frm_scheduled.winfo_children():
+            child.destroy()
         appointments = self.db.find_appointment(app_datetime=self.app_datetime)
         for row, appointment in enumerate(appointments):
             lbl = tk.Label(self.frm_scheduled, text=appointment)
             lbl.grid(row=row, column=0)
             lbl.bind('<Button-1>', self.cancel_appointment)
-            self.schedule_dict[row] = [lbl]
 
     def cancel_appointment(self, event):
         text = event.widget['text']
