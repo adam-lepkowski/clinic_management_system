@@ -34,7 +34,6 @@ class Appointment(tk.Toplevel):
         self.lbl_scheduled.grid(row=2, column=0)
         self.frm_scheduled = tk.Frame(self)
         self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
-        self.schedule_dict = {}
         self.show_scheduled()
 
     def confirm_appointment(self):
