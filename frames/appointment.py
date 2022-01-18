@@ -64,8 +64,14 @@ class Appointment(tk.Toplevel):
             lbl.bind('<Button-1>', self.cancel_appointment)
 
     def cancel_appointment(self, event):
-        text = event.widget['text']
-        print(text)
+        text = event.widget['text'].split('\t')
+        doctor = text[-1]
+        title = 'Cancel appointment'
+        message = f"Are you sure you want to cancel {self.app_datetime}\
+                    appointment with doctor {doctor}"
+        if msg.askyesno(title=title, message=message):
+            self.db.cancel_appointment(self.app_datetime, doctor)
+            self.show_scheduled()
 
 
 class Schedule(tk.Frame):
