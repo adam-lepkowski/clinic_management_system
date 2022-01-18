@@ -58,6 +58,7 @@ class Appointment(tk.Toplevel):
             child.destroy()
         appointments = self.db.find_appointment(app_datetime=self.app_datetime)
         for row, appointment in enumerate(appointments):
+            appointment = '\t'.join([str(val) for val in appointment])
             lbl = tk.Label(self.frm_scheduled, text=appointment)
             lbl.grid(row=row, column=0)
             lbl.bind('<Button-1>', self.cancel_appointment)
