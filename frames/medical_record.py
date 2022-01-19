@@ -145,3 +145,6 @@ class MedicalRecord(tk.Toplevel):
         self.patient = {col: value for col, value in zip(cols, patient)}
         self.frm_patient = PatientDetails(self.notebook, self.patient)
         self.notebook.add(self.frm_patient, text='Patient Details')
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
