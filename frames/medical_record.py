@@ -7,7 +7,7 @@ from tkcalendar import DateEntry
 from frames import PatientFrame
 
 
-class PatientDetailsFrame(PatientFrame):
+class PatientDetails(PatientFrame):
     """
     Represent and edit single patient details.
 
@@ -141,4 +141,4 @@ class MedicalRecord(tk.Toplevel):
         self.db = self.master.db
         cols = self.db.get_columns('patient')
         self.patient = {col: value for col, value in zip(cols, patient)}
-        self.frm_patient = PatientDetailsFrame(self, self.patient)
+        self.frm_patient = PatientDetails(self, self.patient)
