@@ -140,5 +140,8 @@ class MedicalRecord(tk.Toplevel):
         self.geometry(f'{width}x{height}')
         self.db = self.master.db
         cols = self.db.get_columns('patient')
+        self.notebook = ttk.Notebook(self)
+        self.notebook.grid(row=0, column=1, sticky='nsew')
         self.patient = {col: value for col, value in zip(cols, patient)}
-        self.frm_patient = PatientDetails(self, self.patient)
+        self.frm_patient = PatientDetails(self.notebook, self.patient)
+        self.notebook.add(self.frm_patient, text='Patient Details')
