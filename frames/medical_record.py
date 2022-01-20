@@ -120,6 +120,12 @@ class PatientDetails(PatientFrame):
                 widget.set(value)
 
 
+class AppointmentHistory(tk.Frame):
+
+    def __init__(self):
+        super().__init__()
+
+
 class MedicalRecord(tk.Toplevel):
     """
     Display patient medical record.
