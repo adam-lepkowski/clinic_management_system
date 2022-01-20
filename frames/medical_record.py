@@ -19,8 +19,10 @@ class PatientDetails(PatientFrame):
         dictionary containing patient details
     """
 
-    def __init__(self, master, patient):
+    def __init__(self, master, patient, db):
         super().__init__(master)
+        self.patient = patient
+        self.db = db
         self.frm_buttons = tk.Frame(self)
         col, row = self.grid_size()
         self.frm_buttons.grid(row=row + 1, column=0, sticky='nsew')
@@ -35,7 +37,6 @@ class PatientDetails(PatientFrame):
         self.btn_cancel = tk.Button(
             self.frm_buttons, text='Cancel', command=self.set_default)
         self.btn_cancel.grid(row=0, column=2)
-        self.patient = patient
         self.set_default()
         self.grid(row=0, column=0, sticky='nsew')
 
