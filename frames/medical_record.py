@@ -122,8 +122,9 @@ class PatientDetails(PatientFrame):
 
 class AppointmentHistory(tk.Frame):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, master):
+        super().__init__(master)
+        self.grid(row=0, column=0, sticky='nsew')
 
 
 class MedicalRecord(tk.Toplevel):
