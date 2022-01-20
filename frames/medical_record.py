@@ -127,7 +127,14 @@ class AppointmentHistory(tk.Frame):
         super().__init__(master)
         self.patient = patient
         self.db = db
+        self.get_appointments()
         self.grid(row=0, column=0, sticky='nsew')
+
+    def get_appointments(self):
+        patient_id = self.patient['id']
+        appointments = self.db.find_appointment(patient_id=patient_id)
+        for index, appointment in enumerate(appointments):
+            tk.Label(self, text=appointment).grid(row=index, column=0)
 
 
 class MedicalRecord(tk.Toplevel):
