@@ -154,7 +154,9 @@ class MedicalRecord(tk.Toplevel):
         self.notebook.grid(row=0, column=1, sticky='nsew')
         self.patient = {col: value for col, value in zip(cols, patient)}
         self.frm_patient = PatientDetails(self.notebook, self.patient, self.db)
-        self.frm_history = AppointmentHistory(self.notebook)
+        self.frm_history = AppointmentHistory(
+            self.notebook, self.patient, self.db
+        )
         self.notebook.add(self.frm_patient, text='Patient Details')
         self.notebook.add(self.frm_history, text='Appointment History')
         self.columnconfigure(0, weight=1)
