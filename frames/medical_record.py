@@ -123,8 +123,10 @@ class PatientDetails(PatientFrame):
 
 class AppointmentHistory(tk.Frame):
 
-    def __init__(self, master):
+    def __init__(self, master, patient, db):
         super().__init__(master)
+        self.patient = patient
+        self.db = db
         self.grid(row=0, column=0, sticky='nsew')
 
 
