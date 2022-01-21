@@ -4,7 +4,7 @@ import datetime
 from parameterized import parameterized
 
 from db import DB
-from tests.test_input import PATIENT_INPUT_1, PATIENT_INPUT_2
+from tests.test_input import PATIENT_INPUT_1, PATIENT_INPUT_2, EMPLOYEE_INPUT
 
 
 class TestDBInit(unittest.TestCase):
@@ -356,4 +356,17 @@ class TestFindAppointment(unittest.TestCase):
     def test_find_appointment_by_datetime(self):
         expected = [(1, self.date, 'test_doc')]
         result = self.db.find_appointment(app_datetime=self.date)
+        self.assertEqual(expected, result)
+
+
+class TestAddEmployee(unittest.TestCase):
+
+    def setUp(self):
+        self.db = DB(':memory:')
+        self.emp = EMPLOYEE_INPUT.copy()
+
+    def test_add_employee(self):
+        self.db.add_employee(**self.emp)
+        expected = tuple(self.emp.values())
+        result = self.db.cur.execute('SELECT * FROM employee').fetchone()
         self.assertEqual(expected, result)
