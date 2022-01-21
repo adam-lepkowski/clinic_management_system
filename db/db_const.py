@@ -100,12 +100,13 @@ CREATE_TRIGGER_APP_DATE = """
     END;
 """
 
-CREATE_TABLE_DOCTOR = """
-    CREATE TABLE IF NOT EXISTS doctor (
-        id      INTEGER PRIMARY KEY,
+CREATE_TABLE_EMPLOYEE = """
+    CREATE TABLE IF NOT EXISTS employee (
+        id          INTEGER PRIMARY KEY,
         first_name  TEXT NOT NULL CHECK (first_name != ''),
         middle_name TEXT CHECK (middle_name != ''),
         last_name   TEXT NOT NULL CHECK (last_name != ''),
-        specialty   TEXT NOT NULL CHECK (specialty != '')
+        position    TEXT NOT NULL CHECK (position != ''),
+        specialty   TEXT CHECK (specialty != '')
     )
 """
