@@ -16,3 +16,12 @@ PATIENT_INPUT_2 = [
     1, 'First', 'Middle' , 'Last', '1900-10-10', 'Male', 'Single',
     'TestNation', 'test@email.com', '123456789', 'ABCD12345'
 ]
+
+EMPLOYEE_INPUT = {
+    'id': 1,
+    'first_name': 'EmpFirst',
+    'middle_name': 'EmpMiddle',
+    'last_name': 'EmpLast',
+    'position': 'EmpPosition',
+    'specialty': 'EmpSpecialty'
+}
