@@ -171,3 +171,20 @@ class DB:
             sql = sql.strip('AND ')
             results = self.cur.execute(sql, tuple(values)).fetchall()
         return results
+
+    def add_employee(self, **kwargs):
+        columns = self.get_columns('employee')
+        employee = {column: value for column, value in kwargs.items()
+                  if column in columns}
+        columns = ''
+        placeholders = ''
+        values = []
+        for column, value in employee.items():
+            columns += f'{column}, '
+            placeholders += '?, '
+            values.append(value)
+        columns = columns.strip(', ')
+        placeholders = placeholders.strip(', ')
+        sql = f"INSERT INTO employee ({columns}) VALUES ({placeholders})"
+        self.cur.execute(sql, tuple(values))
+        self.cur.connection.commit()
