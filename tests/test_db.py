@@ -382,3 +382,10 @@ class TestAddEmployee(unittest.TestCase):
         self.emp[name] = column[name]
         with self.assertRaises(self.db.con.IntegrityError):
             self.db.add_employee(**self.emp)
+
+
+class TestFindEmployee(unittest.TestCase):
+
+    def setUp(self):
+        self.db = DB(':memory:')
+        self.emp = EMPLOYEE_INPUT.copy()
