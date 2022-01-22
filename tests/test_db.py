@@ -398,3 +398,16 @@ class TestFindEmployee(unittest.TestCase):
         expected = [tuple(self.emp.values())]
         result = self.db.find_employee(id=self.emp['id'])
         self.assertEqual(expected, result)
+
+    @parameterized.expand([
+        ('id', {'id': 'Test'}),
+        ('first_name', {'first_name': 'Test'}),
+        ('middle_name', {'middle_name': 'Test'}),
+        ('last_name', {'last_name': 'Test'}),
+        ('position', {'position': 'Test'}),
+        ('specialty', {'specialty': 'Test'})
+    ])
+    def test_find_employee_no_matches(self, name, column):
+        expected = []
+        result = self.db.find_employee(**column)
+        self.assertEqual(expected, result)
