@@ -370,3 +370,15 @@ class TestAddEmployee(unittest.TestCase):
         expected = tuple(self.emp.values())
         result = self.db.cur.execute('SELECT * FROM employee').fetchone()
         self.assertEqual(expected, result)
+
+    @parameterized.expand([
+        ("first_name", {'first_name': ''}),
+        ('last_name', {'last_name': ''}),
+        ('middle_name', {'middle_name': ''}),
+        ('position', {'position': ''}),
+        ('specialty', {'specialty': ''})
+    ])
+    def test_add_employee_empty_string_raises_error(self, name, column):
+        self.emp[name] = column[name]
+        with self.assertRaises(self.db.con.IntegrityError):
+            self.db.add_employee(**self.emp)
