@@ -390,3 +390,6 @@ class TestFindEmployee(unittest.TestCase):
     def setUp(self):
         self.db = DB(':memory:')
         self.emp = EMPLOYEE_INPUT_1.copy()
+        sql = """INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?)"""
+        self.db.cur.execute(sql, tuple(EMPLOYEE_INPUT_2))
+        self.db.cur.connection.commit()
