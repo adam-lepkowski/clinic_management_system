@@ -17,7 +17,7 @@ PATIENT_INPUT_2 = [
     'TestNation', 'test@email.com', '123456789', 'ABCD12345'
 ]
 
-EMPLOYEE_INPUT = {
+EMPLOYEE_INPUT_1 = {
     'id': 1,
     'first_name': 'EmpFirst',
     'middle_name': 'EmpMiddle',

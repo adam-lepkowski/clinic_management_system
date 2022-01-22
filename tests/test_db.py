@@ -4,7 +4,7 @@ import datetime
 from parameterized import parameterized
 
 from db import DB
-from tests.test_input import PATIENT_INPUT_1, PATIENT_INPUT_2, EMPLOYEE_INPUT
+from tests.test_input import PATIENT_INPUT_1, PATIENT_INPUT_2, EMPLOYEE_INPUT_1
 
 
 class TestDBInit(unittest.TestCase):
@@ -363,7 +363,7 @@ class TestAddEmployee(unittest.TestCase):
 
     def setUp(self):
         self.db = DB(':memory:')
-        self.emp = EMPLOYEE_INPUT.copy()
+        self.emp = EMPLOYEE_INPUT_1.copy()
 
     def test_add_employee(self):
         self.db.add_employee(**self.emp)
@@ -388,4 +388,4 @@ class TestFindEmployee(unittest.TestCase):
 
     def setUp(self):
         self.db = DB(':memory:')
-        self.emp = EMPLOYEE_INPUT.copy()
+        self.emp = EMPLOYEE_INPUT_1.copy()
