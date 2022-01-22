@@ -4,7 +4,8 @@ import datetime
 from parameterized import parameterized
 
 from db import DB
-from tests.test_input import PATIENT_INPUT_1, PATIENT_INPUT_2, EMPLOYEE_INPUT_1
+from tests.test_input import (PATIENT_INPUT_1, PATIENT_INPUT_2,
+                              EMPLOYEE_INPUT_1, EMPLOYEE_INPUT_2)
 
 
 class TestDBInit(unittest.TestCase):

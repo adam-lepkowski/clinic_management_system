@@ -25,3 +25,7 @@ EMPLOYEE_INPUT_1 = {
     'position': 'EmpPosition',
     'specialty': 'EmpSpecialty'
 }
+
+EMPLOYEE_INPUT_2 = [
+    1, 'EmpFirst', 'EmpMiddle', 'EmpLast', 'EmpPosition', 'EmpSpecialty'
+]
