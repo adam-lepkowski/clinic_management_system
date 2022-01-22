@@ -188,3 +188,18 @@ class DB:
         sql = f"INSERT INTO employee ({columns}) VALUES ({placeholders})"
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
+
+    def find_employee(self, **kwargs):
+        columns = self.get_columns('employee')
+        search_conditions = {column: value for column, value in kwargs.items()
+                   if column in columns}
+        results = []
+        if search_conditions:
+            values = []
+            sql = "SELECT * FROM employee WHERE "
+            for column, value in search_conditions.items():
+                sql += f'{column} LIKE ? AND '
+                values.append(value)
+            sql = sql.strip('AND ')
+            results = self.cur.execute(sql, tuple(values)).fetchall()
+        return results
