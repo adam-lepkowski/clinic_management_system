@@ -393,3 +393,8 @@ class TestFindEmployee(unittest.TestCase):
         sql = """INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?)"""
         self.db.cur.execute(sql, tuple(EMPLOYEE_INPUT_2))
         self.db.cur.connection.commit()
+
+    def test_find_employee(self):
+        expected = [tuple(self.emp.values())]
+        result = self.db.find_employee(id=self.emp['id'])
+        self.assertEqual(expected, result)
