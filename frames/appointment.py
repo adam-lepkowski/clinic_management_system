@@ -90,11 +90,19 @@ class Schedule(tk.Frame):
         self.ent_date.grid(row=1, column=1, sticky='we')
         self.lbl_specialty = tk.Label(self, text='Specialty')
         self.lbl_specialty.grid(row=1, column=3, sticky='we')
-        self.specialties = {
-            'All': ['Der_1', 'Der_2', 'Oph_1', 'Oph_2'],
-            'Dermatology': ['Der_1', 'Der_2'],
-            'Ophthalmology': ['Oph_1', 'Oph_2']
-        }
+        doctors = self.master.db.find_employee(position='doctor')
+        employee_fields = self.master.db.get_columns('employee')
+        doctors = [{column: value for column, value in zip(employee_fields, doctor)} for doctor in doctors]
+        self.specialties = {}
+        for doctor in doctors:
+            specialty = doctor['specialty']
+            name = doctor['first_name']
+            all_list = self.specialties.get('All', [])
+            all_list.append(name)
+            self.specialties['All'] = all_list
+            value = self.specialties.get(specialty, [])
+            value.append(name)
+            self.specialties[specialty] = value
         self.var_specialty = tk.StringVar(self)
         self.var_specialty.set('All')
         self.opt_specialty = tk.OptionMenu(
