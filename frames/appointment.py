@@ -109,7 +109,6 @@ class Schedule(tk.Frame):
         self.opt_specialty.grid(row=1, column=4, sticky='we')
         self.lbl_doctor = tk.Label(self, text='Doctor')
         self.lbl_doctor.grid(row=1, column=5, sticky='we')
-        # todo użyć variable trace, zeby śledzić zmiany w stringvar
         self.var_doctor = tk.StringVar(self)
         self.opt_doctor = tk.OptionMenu(
             self, self.var_doctor, *self.specialties['All']
