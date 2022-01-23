@@ -152,7 +152,7 @@ class Schedule(tk.Frame):
         self.opt_doctor.destroy()
         doctors = self.specialties[specialty]
         self.opt_doctor = tk.OptionMenu(self, self.var_doctor, *doctors)
-        self.opt_doctor.grid(row=1, column=4, sticky='we')
+        self.opt_doctor.grid(row=1, column=6, sticky='we')
 
     def get_schedule(self):
         start_hour = 8
