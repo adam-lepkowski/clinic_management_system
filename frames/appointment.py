@@ -90,11 +90,8 @@ class Schedule(tk.Frame):
         self.ent_date.grid(row=1, column=1, sticky='we')
         self.lbl_specialty = tk.Label(self, text='Specialty')
         self.lbl_specialty.grid(row=1, column=3, sticky='we')
-        doctors = self.master.db.find_employee(position='doctor')
-        employee_fields = self.master.db.get_columns('employee')
-        doctors = [{column: value for column, value in zip(employee_fields, doctor)} for doctor in doctors]
         self.specialties = {}
-        for doctor in doctors:
+        for doctor in self.get_doctors():
             specialty = doctor['specialty']
             name = doctor['first_name']
             all_list = self.specialties.get('All', [])
