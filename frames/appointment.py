@@ -91,15 +91,7 @@ class Schedule(tk.Frame):
         self.lbl_specialty = tk.Label(self, text='Specialty')
         self.lbl_specialty.grid(row=1, column=3, sticky='we')
         self.specialties = {}
-        for doctor in self.get_doctors():
-            specialty = doctor['specialty']
-            name = doctor['first_name']
-            all_list = self.specialties.get('All', [])
-            all_list.append(name)
-            self.specialties['All'] = all_list
-            value = self.specialties.get(specialty, [])
-            value.append(name)
-            self.specialties[specialty] = value
+        self.set_specialties()
         self.var_specialty = tk.StringVar(self)
         self.var_specialty.set('All')
         self.opt_specialty = tk.OptionMenu(
@@ -150,6 +142,17 @@ class Schedule(tk.Frame):
         emp = self.master.db.get_columns('employee')
         doctors = [{col: val for col, val in zip(emp, doc)} for doc in doctors]
         return doctors
+
+    def set_specialties(self):
+        for doctor in self.get_doctors():
+            specialty = doctor['specialty']
+            name = doctor['first_name']
+            all_list = self.specialties.get('All', [])
+            all_list.append(name)
+            self.specialties['All'] = all_list
+            value = self.specialties.get(specialty, [])
+            value.append(name)
+            self.specialties[specialty] = value
 
     def configure_scroll(self, event=None):
         self.cnv_appointment.configure(
