@@ -149,6 +149,12 @@ class Schedule(tk.Frame):
         for column in range(columns):
             self.frm_hours.columnconfigure(column, weight=1)
 
+    def get_doctors(self):
+        doctors = self.master.db.find_employee(position='doctor')
+        emp = self.master.db.get_columns('employee')
+        doctors = [{col: val for col, val in zip(emp, doc)} for doc in doctors]
+        return doctors
+
     def configure_scroll(self, event=None):
         self.cnv_appointment.configure(
             scrollregion=self.cnv_appointment.bbox('all')
