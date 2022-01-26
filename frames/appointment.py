@@ -122,7 +122,9 @@ class Schedule(tk.Frame):
         self._configure_columns()
         self.bind('<Configure>', self.configure_scroll)
         self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
-        self.btn_return = tk.Button(self, text='Return')
+        self.btn_return = tk.Button(
+            self, text='Return', command=lambda: self.master.change_frame(0)
+        )
         self.btn_return.grid(row=3, column=0, sticky='we')
         self.grid(row=0, column=1, sticky='nsew')
 
