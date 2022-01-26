@@ -200,6 +200,15 @@ class Schedule(tk.Frame):
         canvas_width = event.width
         self.cnv_appointment.itemconfig(self.cnv_frm, width=canvas_width)
 
+    def set_date(self, direction):
+        delta = timedelta(days=1)
+        date = self.ent_date.get()
+        if direction == 'fwd':
+            date = datetime.strptime(date, '%Y-%m-%d') + delta
+        else:
+            date = datetime.strptime(date, '%Y-%m-%d') - delta
+        self.ent_date.set_date(date)
+
     def schedule_appointment(self, event):
         date = self.ent_date.get()
         hour = str(event.widget).split('.')[-1]
