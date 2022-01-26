@@ -80,7 +80,7 @@ class Schedule(tk.Frame):
         super().__init__(master)
         self.lbl_title = tk.Label(self, text='Appointment Schedule')
         self.lbl_title.grid(
-            row=0, column=0, sticky='nsew', pady=10, columnspan=5
+            row=0, column=0, sticky='nsew', pady=10, columnspan=7
         )
         self.btn_back = tk.Button(self)
         self.btn_back.grid(row=1, column=0, sticky='e')
@@ -122,6 +122,8 @@ class Schedule(tk.Frame):
         self._configure_columns()
         self.bind('<Configure>', self.configure_scroll)
         self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
+        self.btn_return = tk.Button(self, text='Return')
+        self.btn_return.grid(row=3, column=0, sticky='we')
         self.grid(row=0, column=1, sticky='nsew')
 
 
