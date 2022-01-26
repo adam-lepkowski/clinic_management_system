@@ -82,9 +82,13 @@ class Schedule(tk.Frame):
         self.lbl_title.grid(
             row=0, column=0, sticky='nsew', pady=10, columnspan=7
         )
-        self.btn_back = tk.Button(self, text='<')
+        self.btn_back = tk.Button(
+            self, text='<', command=lambda: self.set_date('back')
+        )
         self.btn_back.grid(row=1, column=0, sticky='e')
-        self.btn_fwd = tk.Button(self, text=">")
+        self.btn_fwd = tk.Button(
+            self, text='>', command=lambda: self.set_date('fwd')
+        )
         self.btn_fwd.grid(row=1, column=2, sticky='w')
         self.ent_date = DateEntry(self, date_pattern='y-mm-dd')
         self.ent_date.grid(row=1, column=1, sticky='we')
