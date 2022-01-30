@@ -43,11 +43,15 @@ class Appointment(tk.Toplevel):
         doctor = self.var_spec.get()
         if patient and doctor:
             title = 'Appointment scheduled'
-            message = f'Patient scheduled for an appointment'
+            message = 'Patient scheduled for an appointment'
             patient_id = patient[0]
-            self.db.register_appointment(patient_id, self.app_datetime, doctor)
-            self.show_scheduled()
-            msg.showinfo(title=title, message=message)
+            try:
+                self.db.register_appointment(patient_id, self.app_datetime, doctor)
+                self.show_scheduled()
+                msg.showinfo(title=title, message=message)
+            except self.db.con.IntegrityError:
+                message = 'Cannot schedule two appointments at the same time'
+                msg.showerror(title='Too many appointments', message=message)
         elif not patient:
             msg.showinfo('Patient not found', 'Patient not found')
         elif not doctor:
