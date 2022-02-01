@@ -267,15 +267,21 @@ class TestRegisterAppointment(unittest.TestCase):
 
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
-        placeholders = '?, ' * len(self.pat)
+        self.doc =  EMPLOYEE_INPUT_2.copy()
+        pat_placeholders = '?, ' * len(self.pat)
+        doc_placeholders = '?, ' * len(self.doc)
         self.db = DB(':memory:')
-        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
-        self.db.cur.execute(sql, tuple(self.pat))
+        pat_sql = f"""INSERT INTO patient VALUES
+                      ({pat_placeholders.strip(', ')})"""
+        doc_sql = f"""INSERT INTO employee VALUES
+                      ({doc_placeholders.strip(', ')})"""
+        self.db.cur.execute(pat_sql, tuple(self.pat))
+        self.db.cur.execute(doc_sql, tuple(self.doc))
         self.db.cur.connection.commit()
 
     def test_register_appointment(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        expected = (1, date, 'test_doc')
+        expected = (1, date, 1)
         self.db.register_appointment(*expected)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
@@ -283,15 +289,15 @@ class TestRegisterAppointment(unittest.TestCase):
     def test_register_appointment_invalid_patient_id(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_appointment(3, date, 'test_doc')
+            self.db.register_appointment(3, date, 1)
 
     def test_invalid_date_raises_error(self):
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_appointment(1, 'not_date', 'test_doc')
+            self.db.register_appointment(1, 'not_date', 1)
 
     def test_same_dates_same_doc_raises_error(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        expected = (1, date, 'test_doc')
+        expected = (1, date, 1)
         self.db.register_appointment(*expected)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
@@ -300,8 +306,13 @@ class TestRegisterAppointment(unittest.TestCase):
 
     def test_same_date_diff_doc(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        expected_1 = (1, date, 'test_doc')
-        expected_2 = (1, date, 'test_doc_1')
+        self.doc[0] = 2
+        doc_placeholders = '?, ' * len(self.doc)
+        doc_sql = f"""INSERT INTO employee VALUES
+                      ({doc_placeholders.strip(', ')})"""
+        self.db.cur.execute(doc_sql, tuple(self.doc))
+        expected_1 = (1, date, 1)
+        expected_2 = (1, date, 2)
         self.db.register_appointment(*expected_1)
         self.db.register_appointment(*expected_2)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchall()
@@ -313,20 +324,26 @@ class TestCancelAppointment(unittest.TestCase):
 
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
-        placeholders = '?, ' * len(self.pat)
+        self.doc =  EMPLOYEE_INPUT_2.copy()
+        pat_placeholders = '?, ' * len(self.pat)
+        doc_placeholders = '?, ' * len(self.doc)
         self.db = DB(':memory:')
-        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
-        self.db.cur.execute(sql, tuple(self.pat))
+        pat_sql = f"""INSERT INTO patient VALUES
+                      ({pat_placeholders.strip(', ')})"""
+        doc_sql = f"""INSERT INTO employee VALUES
+                      ({doc_placeholders.strip(', ')})"""
+        self.db.cur.execute(pat_sql, tuple(self.pat))
+        self.db.cur.execute(doc_sql, tuple(self.doc))
         self.db.cur.connection.commit()
 
     def test_cancel_appointment(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         sql =  f"INSERT INTO appointment VALUES (?, ?, ?)"
-        self.db.cur.execute(sql, (1, date, 'test_doc'))
-        expected = (1, date, 'test_doc')
+        self.db.cur.execute(sql, (1, date, 1))
+        expected = (1, date, 1)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
-        self.db.cancel_appointment(date, 'test_doc')
+        self.db.cancel_appointment(date, 1  )
         expected = None
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
@@ -336,26 +353,32 @@ class TestFindAppointment(unittest.TestCase):
 
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
-        placeholders = '?, ' * len(self.pat)
+        self.doc =  EMPLOYEE_INPUT_2.copy()
+        pat_placeholders = '?, ' * len(self.pat)
+        doc_placeholders = '?, ' * len(self.doc)
         self.db = DB(':memory:')
-        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
-        self.db.cur.execute(sql, tuple(self.pat))
+        pat_sql = f"""INSERT INTO patient VALUES
+                      ({pat_placeholders.strip(', ')})"""
+        doc_sql = f"""INSERT INTO employee VALUES
+                      ({doc_placeholders.strip(', ')})"""
+        self.db.cur.execute(pat_sql, tuple(self.pat))
+        self.db.cur.execute(doc_sql, tuple(self.doc))
         self.date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         sql =  f"INSERT INTO appointment VALUES (?, ?, ?)"
-        self.db.cur.execute(sql, (1, self.date, 'test_doc'))
+        self.db.cur.execute(sql, (1, self.date, 1))
         self.db.cur.connection.commit()
 
     @parameterized.expand([
         ('patient_id', {'patient_id': 1}),
-        ('doctor', {'doctor': 'test_doc'})
+        ('doctor', {'doctor_id': 1})
     ])
     def test_find_appointment(self, name, search_condition):
-        expected = [(1, self.date, 'test_doc')]
+        expected = [(1, self.date, 1)]
         result = self.db.find_appointment(**search_condition)
         self.assertEqual(expected, result)
 
     def test_find_appointment_by_datetime(self):
-        expected = [(1, self.date, 'test_doc')]
+        expected = [(1, self.date, 1)]
         result = self.db.find_appointment(app_datetime=self.date)
         self.assertEqual(expected, result)
 
