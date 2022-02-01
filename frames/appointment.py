@@ -44,9 +44,10 @@ class Appointment(tk.Toplevel):
         if patient and doctor:
             title = 'Appointment scheduled'
             message = 'Patient scheduled for an appointment'
-            patient_id = patient[0]
+            pat_id = patient[0]
+            doc_id = doctor.split(':')[0]
             try:
-                self.db.register_appointment(patient_id, self.app_datetime, doctor)
+                self.db.register_appointment(pat_id, self.app_datetime, doc_id)
                 self.show_scheduled()
                 msg.showinfo(title=title, message=message)
             except self.db.con.IntegrityError:
@@ -69,12 +70,12 @@ class Appointment(tk.Toplevel):
 
     def cancel_appointment(self, event):
         text = event.widget['text'].split('\t')
-        doctor = text[-1]
+        doc_id = text[-1]
         title = 'Cancel appointment'
         message = f"Are you sure you want to cancel {self.app_datetime}\
-                    appointment with doctor {doctor}"
+                    appointment with doctor {doc_id}"
         if msg.askyesno(title=title, message=message):
-            self.db.cancel_appointment(self.app_datetime, doctor)
+            self.db.cancel_appointment(self.app_datetime, doc_id)
             self.show_scheduled()
 
 
@@ -156,9 +157,13 @@ class Schedule(tk.Frame):
         return doctors
 
     def set_specialties(self):
-        for doctor in self.get_doctors():
-            specialty = doctor['specialty']
-            name = doctor['first_name']
+        for doc in self.get_doctors():
+            specialty = doc['specialty']
+            if doc['middle_name']:
+                full = f"{doc['first_name']} {doc['middle_name']} {doc['last_name']}"
+            else:
+                full = f"{doc['first_name']} {doc['last_name']}"
+            name = f"{doc['id']}: {full}"
             all_list = self.specialties.get('All', [])
             all_list.append(name)
             self.specialties['All'] = all_list
