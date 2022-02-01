@@ -150,11 +150,11 @@ class DB:
         self.cur.execute(sql, (patient_id, date, doctor))
         self.cur.connection.commit()
 
-    def cancel_appointment(self, date, doctor):
+    def cancel_appointment(self, date, doctor_id):
         sql = """
-            DELETE FROM appointment WHERE app_datetime=? and doctor LIKE ?
+            DELETE FROM appointment WHERE app_datetime=? and doctor_id=?
         """
-        self.cur.execute(sql, (date, doctor))
+        self.cur.execute(sql, (date, doctor_id))
         self.cur.connection.commit()
 
     def find_appointment(self, **kwargs):
