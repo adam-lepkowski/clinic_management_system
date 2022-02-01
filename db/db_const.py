@@ -80,8 +80,8 @@ CREATE_TABLE_APPOINTMENT = """
     CREATE TABLE IF NOT EXISTS appointment (
         patient_id      INTEGER NOT NULL REFERENCES patient(id),
         app_datetime    TEXT NOT NULL CHECK (app_datetime != ''),
-        doctor          TEXT NOT NULL CHECK (doctor != ''),
-        PRIMARY KEY     (app_datetime, doctor)
+        doctor_id       INTEGER NOT NULL REFERENCES employee(id),
+        PRIMARY KEY     (app_datetime, doctor_id)
     )
 """
 
