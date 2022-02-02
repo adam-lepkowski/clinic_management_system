@@ -8,6 +8,12 @@ from tests.test_input import (PATIENT_INPUT_1, PATIENT_INPUT_2,
                               EMPLOYEE_INPUT_1, EMPLOYEE_INPUT_2)
 
 
+def insert_test_values(db, table, values):
+    placeholders = '?, ' * len(values)
+    sql = f"INSERT INTO {table} VALUES ({placeholders.strip(', ')})"
+    db.cur.execute(sql, tuple(values))
+    db.cur.connection.commit()
+
 
 def db_factory(patient=None, employee=None, app=None):
     db = DB(':memory:')
