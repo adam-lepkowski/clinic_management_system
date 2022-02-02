@@ -8,6 +8,30 @@ from tests.test_input import (PATIENT_INPUT_1, PATIENT_INPUT_2,
                               EMPLOYEE_INPUT_1, EMPLOYEE_INPUT_2)
 
 
+
+def db_factory(patient=None, employee=None, app=None):
+    db = DB(':memory:')
+    if patient:
+        pat = PATIENT_INPUT_2.copy()
+        placeholders = '?, ' * len(pat)
+        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
+        db.cur.execute(sql, tuple(pat))
+        db.cur.connection.commit()
+    if employee:
+        emp = EMPLOYEE_INPUT_2.copy()
+        doc_placeholders = '?, ' * len(emp)
+        emp_sql = f"""INSERT INTO employee VALUES
+                      ({doc_placeholders.strip(', ')})"""
+        db.cur.execute(emp_sql, tuple(emp))
+        db.cur.connection.commit()
+    if app:
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        sql =  f"INSERT INTO appointment VALUES (?, ?, ?)"
+        db.cur.execute(sql, (1, date, 1))
+        db.cur.connection.commit()
+    return db
+
+
 class TestDBInit(unittest.TestCase):
 
     def test_init(self):
@@ -156,11 +180,7 @@ class TestFindPatient(unittest.TestCase):
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
         self.pat_1 = PATIENT_INPUT_1.copy()
-        placeholders = '?, ' * len(self.pat)
-        self.db = DB(':memory:')
-        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
-        self.db.cur.execute(sql, tuple(self.pat))
-        self.db.cur.connection.commit()
+        self.db = db_factory(patient=True)
 
     @parameterized.expand([
         ("first_name", {'first_name': 'First'}),
@@ -268,16 +288,7 @@ class TestRegisterAppointment(unittest.TestCase):
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
         self.doc =  EMPLOYEE_INPUT_2.copy()
-        pat_placeholders = '?, ' * len(self.pat)
-        doc_placeholders = '?, ' * len(self.doc)
-        self.db = DB(':memory:')
-        pat_sql = f"""INSERT INTO patient VALUES
-                      ({pat_placeholders.strip(', ')})"""
-        doc_sql = f"""INSERT INTO employee VALUES
-                      ({doc_placeholders.strip(', ')})"""
-        self.db.cur.execute(pat_sql, tuple(self.pat))
-        self.db.cur.execute(doc_sql, tuple(self.doc))
-        self.db.cur.connection.commit()
+        self.db = db_factory(patient=True, employee=True)
 
     def test_register_appointment(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -325,16 +336,7 @@ class TestCancelAppointment(unittest.TestCase):
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
         self.doc =  EMPLOYEE_INPUT_2.copy()
-        pat_placeholders = '?, ' * len(self.pat)
-        doc_placeholders = '?, ' * len(self.doc)
-        self.db = DB(':memory:')
-        pat_sql = f"""INSERT INTO patient VALUES
-                      ({pat_placeholders.strip(', ')})"""
-        doc_sql = f"""INSERT INTO employee VALUES
-                      ({doc_placeholders.strip(', ')})"""
-        self.db.cur.execute(pat_sql, tuple(self.pat))
-        self.db.cur.execute(doc_sql, tuple(self.doc))
-        self.db.cur.connection.commit()
+        self.db = db_factory(patient=True, employee=True)
 
     def test_cancel_appointment(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -354,19 +356,8 @@ class TestFindAppointment(unittest.TestCase):
     def setUp(self):
         self.pat = PATIENT_INPUT_2.copy()
         self.doc =  EMPLOYEE_INPUT_2.copy()
-        pat_placeholders = '?, ' * len(self.pat)
-        doc_placeholders = '?, ' * len(self.doc)
-        self.db = DB(':memory:')
-        pat_sql = f"""INSERT INTO patient VALUES
-                      ({pat_placeholders.strip(', ')})"""
-        doc_sql = f"""INSERT INTO employee VALUES
-                      ({doc_placeholders.strip(', ')})"""
-        self.db.cur.execute(pat_sql, tuple(self.pat))
-        self.db.cur.execute(doc_sql, tuple(self.doc))
         self.date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        sql =  f"INSERT INTO appointment VALUES (?, ?, ?)"
-        self.db.cur.execute(sql, (1, self.date, 1))
-        self.db.cur.connection.commit()
+        self.db = db_factory(patient=True, employee=True, app=True)
 
     @parameterized.expand([
         ('patient_id', {'patient_id': 1}),
