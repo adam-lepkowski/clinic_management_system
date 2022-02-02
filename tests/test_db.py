@@ -231,13 +231,8 @@ class TestFindPatient(unittest.TestCase):
 class TestUpdatePatient(unittest.TestCase):
 
     def setUp(self):
-        self.pat = PATIENT_INPUT_2.copy()
         self.pat_1 = PATIENT_INPUT_1.copy()
-        placeholders = '?, ' * len(self.pat)
-        self.db = DB(':memory:')
-        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
-        self.db.cur.execute(sql, tuple(self.pat))
-        self.db.cur.connection.commit()
+        self.db = db_factory(patient=True)
 
     @parameterized.expand([
         ("first_name", {'first_name': 'NewFirst'}),
@@ -398,11 +393,8 @@ class TestAddEmployee(unittest.TestCase):
 class TestFindEmployee(unittest.TestCase):
 
     def setUp(self):
-        self.db = DB(':memory:')
+        self.db = db_factory(employee=True)
         self.emp = EMPLOYEE_INPUT_1.copy()
-        sql = """INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?)"""
-        self.db.cur.execute(sql, tuple(EMPLOYEE_INPUT_2))
-        self.db.cur.connection.commit()
 
     def test_find_employee(self):
         expected = [tuple(self.emp.values())]
