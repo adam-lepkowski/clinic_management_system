@@ -18,23 +18,13 @@ def insert_test_values(db, table, values):
 def db_factory(patient=None, employee=None, app=None):
     db = DB(':memory:')
     if patient:
-        pat = PATIENT_INPUT_2.copy()
-        placeholders = '?, ' * len(pat)
-        sql = f"INSERT INTO patient VALUES ({placeholders.strip(', ')})"
-        db.cur.execute(sql, tuple(pat))
-        db.cur.connection.commit()
+        insert_test_values(db, 'patient', PATIENT_INPUT_2)
     if employee:
-        emp = EMPLOYEE_INPUT_2.copy()
-        doc_placeholders = '?, ' * len(emp)
-        emp_sql = f"""INSERT INTO employee VALUES
-                      ({doc_placeholders.strip(', ')})"""
-        db.cur.execute(emp_sql, tuple(emp))
-        db.cur.connection.commit()
+        insert_test_values(db, 'employee', EMPLOYEE_INPUT_2)
     if app:
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        sql =  f"INSERT INTO appointment VALUES (?, ?, ?)"
-        db.cur.execute(sql, (1, date, 1))
-        db.cur.connection.commit()
+        values = (1, date, 1)
+        insert_test_values(db, 'appointment', values)
     return db
 
 
