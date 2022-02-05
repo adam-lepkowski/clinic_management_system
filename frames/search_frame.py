@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as msg
-from tkinter.ttk import Treeview
+from frames import Tree
 
 from frames import MedicalRecord
 
@@ -41,18 +41,13 @@ class Search(tk.Frame):
         self.frm_results = tk.Frame(self)
         self.frm_results.grid(row=3, column=0, sticky='nsew', columnspan=6)
         self.columns = self.master.db.get_columns('patient')
-        self.tree = Treeview(
-            self.frm_results, columns=self.columns, show='headings')
-        self.tree.grid(row=0, column=0, sticky='nsew')
-        self.tree_scroll = tk.Scrollbar(self.frm_results)
-        self.tree_scroll.grid(row=0, column=1, sticky='nsw')
-        self.tree.configure(yscrollcommand=self.tree_scroll.set)
-        self.tree_scroll.configure(command=self.tree.yview)
+        self.tree = Tree(
+            self.frm_results, columns=self.columns, show='headings'
+        )
         self.tree.bind('<Double-Button-1>', self.view_patient)
         self.btn_clear = tk.Button(self.frm_buttons, text='Clear',
             command=lambda: self.tree.delete(*self.tree.get_children()))
         self.btn_clear.grid(row=0, column=2)
-        self._config_tree_columns()
         self.grid(row=0, column=1, sticky='nsew')
         self._configure_columns()
         self.search_ent = {
@@ -70,16 +65,6 @@ class Search(tk.Frame):
         for column in range(columns):
             self.columnconfigure(column, weight=1)
         self.frm_results.columnconfigure(0, weight=1)
-
-    def _config_tree_columns(self):
-        """
-        Set tree columns headings and width.
-        """
-
-        for column in self.columns:
-            width = self.master.winfo_width() // len(self.columns) // 3
-            self.tree.column(column, width=width)
-            self.tree.heading(column, text=column)
 
     def get_search_cond(self):
         """
