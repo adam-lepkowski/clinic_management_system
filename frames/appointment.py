@@ -40,7 +40,10 @@ class Appointment(tk.Toplevel):
             self.frm_scheduled, columns=self.columns, show='headings'
         )
         self.tree.grid(row=0, column=0, sticky='nsew')
-        self.tree = Tree(self.frm_scheduled, columns=self.columns, show='headings')
+        self.tree = Tree(
+            self.frm_scheduled, columns=self.columns, show='headings'
+        )
+        self.tree.bind('<Double-Button-1>', self.cancel_appointment)
         self.show_scheduled()
         self._configure_columns()
 
@@ -84,8 +87,10 @@ class Appointment(tk.Toplevel):
                 self.tree.insert(parent='', index=i, values=appointment)
 
     def cancel_appointment(self, event):
-        text = event.widget['text'].split('\t')
-        doc_id = text[-1]
+        id_ = event.widget.focus()
+        item = event.widget.item(id_)
+        appointment = item['values']
+        doc_id = appointment[2]
         title = 'Cancel appointment'
         message = f"Are you sure you want to cancel {self.app_datetime}\
                     appointment with doctor {doc_id}"
