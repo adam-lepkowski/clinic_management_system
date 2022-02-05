@@ -1,3 +1,4 @@
+from frames.tree import Tree
 from frames.patient_frame import PatientFrame
 from frames.registration_frame import Registration
 from frames.medical_record import MedicalRecord
