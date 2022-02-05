@@ -35,13 +35,9 @@ class Appointment(tk.Toplevel):
         self.lbl_scheduled.grid(row=2, column=0)
         self.frm_scheduled = tk.Frame(self)
         self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
-        self.columns = self.db.get_columns('appointment')
+        columns = self.db.get_columns('appointment')
         self.tree = Tree(
-            self.frm_scheduled, columns=self.columns, show='headings'
-        )
-        self.tree.grid(row=0, column=0, sticky='nsew')
-        self.tree = Tree(
-            self.frm_scheduled, columns=self.columns, show='headings'
+            self.frm_scheduled, columns=columns, show='headings'
         )
         self.tree.bind('<Double-Button-1>', self.cancel_appointment)
         self.show_scheduled()
