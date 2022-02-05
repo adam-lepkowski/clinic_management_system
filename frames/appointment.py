@@ -41,7 +41,7 @@ class Appointment(tk.Toplevel):
         )
         self.tree.grid(row=0, column=0, sticky='nsew')
         self.tree = Tree(self.frm_scheduled, columns=self.columns, show='headings')
-        # self.show_scheduled()
+        self.show_scheduled()
         self._configure_columns()
 
     def _configure_columns(self):
@@ -77,14 +77,11 @@ class Appointment(tk.Toplevel):
             msg.showinfo('No doctor selected', 'Pick a doctor')
 
     def show_scheduled(self):
-        for child in self.frm_scheduled.winfo_children():
-            child.destroy()
+        self.tree.delete(*self.tree.get_children())
         appointments = self.db.find_appointment(app_datetime=self.app_datetime)
-        for row, appointment in enumerate(appointments):
-            appointment = '\t'.join([str(val) for val in appointment])
-            lbl = tk.Label(self.frm_scheduled, text=appointment)
-            lbl.grid(row=row, column=0)
-            lbl.bind('<Button-1>', self.cancel_appointment)
+        if appointments:
+            for i, appointment in enumerate(appointments):
+                self.tree.insert(parent='', index=i, values=appointment)
 
     def cancel_appointment(self, event):
         text = event.widget['text'].split('\t')
