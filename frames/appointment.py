@@ -35,6 +35,17 @@ class Appointment(tk.Toplevel):
         self.frm_scheduled = tk.Frame(self)
         self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
         self.show_scheduled()
+        self._configure_columns()
+
+    def _configure_columns(self):
+        """
+        Set equal weight to frame columns
+        """
+
+        columns, rows = self.grid_size()
+        for column in range(columns):
+            self.columnconfigure(column, weight=1)
+        self.frm_scheduled.columnconfigure(0, weight=1)
 
     def confirm_appointment(self):
         document = self.ent_pat.get()
