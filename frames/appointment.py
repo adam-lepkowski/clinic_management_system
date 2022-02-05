@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as msg
+from frames import Tree
 from datetime import datetime, timedelta
 import itertools
 
@@ -34,7 +35,13 @@ class Appointment(tk.Toplevel):
         self.lbl_scheduled.grid(row=2, column=0)
         self.frm_scheduled = tk.Frame(self)
         self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
-        self.show_scheduled()
+        self.columns = self.db.get_columns('appointment')
+        self.tree = Tree(
+            self.frm_scheduled, columns=self.columns, show='headings'
+        )
+        self.tree.grid(row=0, column=0, sticky='nsew')
+        self.tree = Tree(self.frm_scheduled, columns=self.columns, show='headings')
+        # self.show_scheduled()
         self._configure_columns()
 
     def _configure_columns(self):
