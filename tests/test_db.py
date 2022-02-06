@@ -60,7 +60,7 @@ class TestRegisterPatient(unittest.TestCase):
         self.pat_1 = PATIENT_INPUT_1.copy()
 
     def test_register_patient_valid(self):
-        self.db.register_patient(**self.pat_1)
+        self.db.insert('patient', **self.pat_1)
         result = self.db.cur.execute("SELECT * FROM patient").fetchone()
         expected = tuple(self.pat_1.values())
         self.assertEqual(expected, result)
@@ -71,7 +71,7 @@ class TestRegisterPatient(unittest.TestCase):
     ])
     def test_register_patient_null_fields_valid(self, name, column):
         self.pat_1[name] = column[name]
-        self.db.register_patient(**self.pat_1)
+        self.db.insert('patient', **self.pat_1)
         result = self.db.cur.execute("SELECT * FROM patient").fetchone()
         expected = tuple(self.pat_1.values())
         self.assertEqual(expected, result)
@@ -89,7 +89,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_register_patient_null_raises_error(self, name, column):
         with self.assertRaises(self.db.con.IntegrityError):
             self.pat_1[name] = column[name]
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
     @parameterized.expand([
         ("first_name", {'first_name': ''}),
@@ -105,7 +105,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_empty_string_raises_error(self, name, column):
         with self.assertRaises(self.db.con.IntegrityError):
             self.pat_1[name] = column[name]
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
     def test_date_of_birth_trigger_future_date_raises_error(self):
         delta = datetime.timedelta(days=1)
@@ -113,7 +113,7 @@ class TestRegisterPatient(unittest.TestCase):
         future_date = today + delta
         self.pat_1['date_of_birth'] = future_date.strftime('%Y-%m-%d')
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
     @parameterized.expand([
         ('invalid_format', '10-10-1990'),
@@ -126,7 +126,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_date_invalid_type_raises_error(self, name, value):
         self.pat_1['date_of_birth'] = value
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
     @parameterized.expand([
         ('invalid_str', 'value'),
@@ -136,7 +136,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_invalid_gender_raises_error(self, name, value):
         self.pat_1['gender'] = value
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
     @parameterized.expand([
         ('invalid_str', 'value'),
@@ -146,7 +146,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_invalid_marital_raises_error(self, name, value):
         self.pat_1['marital_status'] = value
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
     @parameterized.expand([
         ('no_chars_before_@', '@email.com'),
@@ -157,7 +157,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_invalid_email_raises_error(self, name, email):
         self.pat_1['email'] = email
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
     @parameterized.expand([
         ('not_numeric', 'abcdefghijklm'),
@@ -168,7 +168,7 @@ class TestRegisterPatient(unittest.TestCase):
     def test_invalid_phone_raises_error(self, name, phone):
         self.pat_1['phone'] = phone
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_patient(**self.pat_1)
+            self.db.insert('patient', **self.pat_1)
 
 
 class TestFindPatient(unittest.TestCase):
