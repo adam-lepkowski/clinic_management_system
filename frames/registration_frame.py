@@ -28,13 +28,13 @@ class Registration(PatientFrame):
 
     def register(self):
         """
-        Register patient in patient table. Callback to db.register_patient
+        Register patient in patient table.
 
         Appropriate messagebox pops up if provided with valid/invalid values.
         """
         patient_details = self.get_patient()
         try:
-            self.master.db.register_patient(**patient_details)
+            self.master.db.insert('patient', **patient_details)
             message = 'Patient registered successfully'
             msg.showinfo('Patient registered', message=message)
         except self.master.db.con.IntegrityError as error:
