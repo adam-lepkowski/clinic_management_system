@@ -413,3 +413,17 @@ class TestFindEmployee(unittest.TestCase):
         expected = []
         result = self.db.find_employee(**column)
         self.assertEqual(expected, result)
+
+
+class TestFindFullAppointment(unittest.TestCase):
+
+    def setUp(self):
+        self.db = db_factory(employee=True, app=True, patient=True)
+
+    def test_find_full_appointment(self):
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        expected = [
+            (1, 'First Middle Last', 1, 'EmpFirst EmpMiddle EmpLast', date)
+            ]
+        result = self.db.find_full_app(app_datetime=date)
+        self.assertEqual(expected, result)
