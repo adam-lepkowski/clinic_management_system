@@ -78,35 +78,6 @@ class DB:
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
 
-    def register_patient(self, **kwargs):
-        """
-        Insert patient into patient table
-
-        Values should be provided in format column_field=value, if column_field
-        does not exist in table patient it is omitted.
-
-        Parameters
-        ---------------
-        **kwargs
-            table_field: value
-        """
-
-        columns = self.get_columns('patient')
-        patient = {column: value for column, value in kwargs.items()
-                   if column in columns}
-        columns = ''
-        placeholders = ''
-        values = []
-        for column, value in patient.items():
-            columns += f'{column}, '
-            placeholders += '?, '
-            values.append(value)
-        columns = columns.strip(', ')
-        placeholders = placeholders.strip(', ')
-        sql = f"INSERT INTO patient ({columns}) VALUES ({placeholders})"
-        self.cur.execute(sql, tuple(values))
-        self.cur.connection.commit()
-
     def find(self, table, partial_match=False, **kwargs):
         """
         Find records in table
@@ -171,31 +142,9 @@ class DB:
             self.cur.execute(sql, tuple(values))
             self.cur.connection.commit()
 
-    def register_appointment(self, patient_id, date, doctor):
-        sql = """INSERT INTO appointment VALUES (?, ?, ?)"""
-        self.cur.execute(sql, (patient_id, date, doctor))
-        self.cur.connection.commit()
-
     def cancel_appointment(self, date, doctor_id):
         sql = """
             DELETE FROM appointment WHERE app_datetime=? and doctor_id=?
         """
         self.cur.execute(sql, (date, doctor_id))
-        self.cur.connection.commit()
-
-    def add_employee(self, **kwargs):
-        columns = self.get_columns('employee')
-        employee = {column: value for column, value in kwargs.items()
-                  if column in columns}
-        columns = ''
-        placeholders = ''
-        values = []
-        for column, value in employee.items():
-            columns += f'{column}, '
-            placeholders += '?, '
-            values.append(value)
-        columns = columns.strip(', ')
-        placeholders = placeholders.strip(', ')
-        sql = f"INSERT INTO employee ({columns}) VALUES ({placeholders})"
-        self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
