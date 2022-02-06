@@ -35,7 +35,8 @@ class Appointment(tk.Toplevel):
         self.lbl_scheduled.grid(row=2, column=0)
         self.frm_scheduled = tk.Frame(self)
         self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
-        columns = self.db.get_columns('appointment')
+        columns = self.db.cur.execute('PRAGMA table_info(app_v)').fetchall()
+        columns = [column[1] for column in columns]
         self.tree = Tree(
             self.frm_scheduled, columns=columns, show='headings'
         )
@@ -77,7 +78,7 @@ class Appointment(tk.Toplevel):
 
     def show_scheduled(self):
         self.tree.delete(*self.tree.get_children())
-        appointments = self.db.find_appointment(app_datetime=self.app_datetime)
+        appointments = self.db.find_full_app(app_datetime=self.app_datetime)
         if appointments:
             for i, appointment in enumerate(appointments):
                 self.tree.insert(parent='', index=i, values=appointment)
