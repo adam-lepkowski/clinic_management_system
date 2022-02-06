@@ -40,7 +40,7 @@ class DB:
         list
             a list of column headers
         """
-        sql_tables = """SELECT name FROM sqlite_master WHERE type='table'"""
+        sql_tables = """SELECT name FROM sqlite_master WHERE type in ('table', 'view')"""
         tables =  self.cur.execute(sql_tables).fetchall()
         tables = [table[0] for table in tables]
         if table in tables:
@@ -202,9 +202,7 @@ class DB:
         return results
 
     def find_full_app(self, **kwargs):
-        sql = "PRAGMA table_info(app_v)"
-        columns = self.cur.execute(sql).fetchall()
-        columns = [column[1] for column in columns]
+        columns = self.get_columns('app_v')
         search_conditions = {column: value for column, value in kwargs.items()
                              if column in columns}
         results = []
