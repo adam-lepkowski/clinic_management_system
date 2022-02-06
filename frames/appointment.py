@@ -64,7 +64,12 @@ class Appointment(tk.Toplevel):
             pat_id = patient[0]
             doc_id = doctor.split(':')[0]
             try:
-                self.db.register_appointment(pat_id, self.app_datetime, doc_id)
+                appointment = {
+                    'patient_id': pat_id,
+                    'app_datetime': self.app_datetime,
+                    'doctor_id': doc_id
+                }
+                self.db.insert('appointment', **appointment)
                 self.show_scheduled()
                 msg.showinfo(title=title, message=message)
             except self.db.con.IntegrityError:
