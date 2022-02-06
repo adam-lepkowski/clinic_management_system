@@ -35,8 +35,7 @@ class Appointment(tk.Toplevel):
         self.lbl_scheduled.grid(row=2, column=0)
         self.frm_scheduled = tk.Frame(self)
         self.frm_scheduled.grid(row=3, column=0, columnspan=5, sticky='nsew')
-        columns = self.db.cur.execute('PRAGMA table_info(app_v)').fetchall()
-        columns = [column[1] for column in columns]
+        columns = self.db.get_columns('app_v')
         self.tree = Tree(
             self.frm_scheduled, columns=columns, show='headings'
         )
