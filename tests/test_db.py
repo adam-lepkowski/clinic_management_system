@@ -285,28 +285,32 @@ class TestRegisterAppointment(unittest.TestCase):
 
     def test_register_appointment(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        expected = (1, date, 1)
-        self.db.register_appointment(*expected)
+        test_input = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 1}
+        expected = tuple(test_input.values())
+        self.db.insert('appointment', **test_input)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
 
     def test_register_appointment_invalid_patient_id(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        test_input = {'patient_id': 3, 'app_datetime': date, 'doctor_id': 1}
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_appointment(3, date, 1)
+            self.db.insert('appointment', **test_input)
 
     def test_invalid_date_raises_error(self):
+        test_input = {'patient_id': 1, 'app_datetime': 'date', 'doctor_id': 1}
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_appointment(1, 'not_date', 1)
+            self.db.insert('appointment', **test_input)
 
     def test_same_dates_same_doc_raises_error(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        expected = (1, date, 1)
-        self.db.register_appointment(*expected)
+        test_input = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 1}
+        expected = tuple(test_input.values())
+        self.db.insert('appointment', **test_input)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.register_appointment(*expected)
+            self.db.insert('appointment', **test_input)
 
     def test_same_date_diff_doc(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -315,10 +319,12 @@ class TestRegisterAppointment(unittest.TestCase):
         doc_sql = f"""INSERT INTO employee VALUES
                       ({doc_placeholders.strip(', ')})"""
         self.db.cur.execute(doc_sql, tuple(self.doc))
-        expected_1 = (1, date, 1)
-        expected_2 = (1, date, 2)
-        self.db.register_appointment(*expected_1)
-        self.db.register_appointment(*expected_2)
+        test_input_1 = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 1}
+        test_input_2 = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 2}
+        expected_1 = tuple(test_input_1.values())
+        expected_2 = tuple(test_input_2.values())
+        self.db.insert('appointment', **test_input_1)
+        self.db.insert('appointment', **test_input_2)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchall()
         expected = [expected_1, expected_2]
         self.assertEqual(expected, result)
