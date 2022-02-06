@@ -116,42 +116,6 @@ class DB:
             results = self.cur.execute(sql, tuple(values)).fetchall()
         return results
 
-    def find_patient(self, **kwargs):
-        """
-        Find patients in patient table
-
-        Search criteria be provided in format column_field=value, if
-        column_field does not exist in table patient it is omitted.
-        Search is case insensitive and allows partial matches.
-
-        Parameters
-        ---------------
-        **kwargs
-            table_field: value
-
-        Returns
-        ---------------
-        list
-            a list of tuples with matches
-            OR
-            an empty list
-        """
-
-        columns = self.get_columns('patient')
-        search_conditions = {column: value for column, value in kwargs.items()
-                   if column in columns}
-        results = []
-        if search_conditions:
-            values = []
-            sql = "SELECT * FROM patient WHERE "
-            for column, value in search_conditions.items():
-                sql += f'{column} LIKE ? AND '
-                value = f'%{value}%'
-                values.append(value)
-            sql = sql.strip('AND ')
-            results = self.cur.execute(sql, tuple(values)).fetchall()
-        return results
-
     def update_patient(self, id_, **kwargs):
         """
         Update patient details in patient table
@@ -191,21 +155,6 @@ class DB:
         self.cur.execute(sql, (date, doctor_id))
         self.cur.connection.commit()
 
-    def find_appointment(self, **kwargs):
-        columns = self.get_columns('appointment')
-        search_conditions = {column: value for column, value in kwargs.items()
-                   if column in columns}
-        results = []
-        if search_conditions:
-            values = []
-            sql = "SELECT * FROM appointment WHERE "
-            for column, value in search_conditions.items():
-                sql += f'{column} LIKE ? AND '
-                values.append(value)
-            sql = sql.strip('AND ')
-            results = self.cur.execute(sql, tuple(values)).fetchall()
-        return results
-
     def add_employee(self, **kwargs):
         columns = self.get_columns('employee')
         employee = {column: value for column, value in kwargs.items()
@@ -222,33 +171,3 @@ class DB:
         sql = f"INSERT INTO employee ({columns}) VALUES ({placeholders})"
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
-
-    def find_employee(self, **kwargs):
-        columns = self.get_columns('employee')
-        search_conditions = {column: value for column, value in kwargs.items()
-                   if column in columns}
-        results = []
-        if search_conditions:
-            values = []
-            sql = "SELECT * FROM employee WHERE "
-            for column, value in search_conditions.items():
-                sql += f'{column} LIKE ? AND '
-                values.append(value)
-            sql = sql.strip('AND ')
-            results = self.cur.execute(sql, tuple(values)).fetchall()
-        return results
-
-    def find_full_app(self, **kwargs):
-        columns = self.get_columns('app_v')
-        search_conditions = {column: value for column, value in kwargs.items()
-                             if column in columns}
-        results = []
-        if search_conditions:
-            values = []
-            sql = "SELECT * FROM app_v WHERE "
-            for column, value in search_conditions.items():
-                sql += f'{column} LIKE ? AND '
-                values.append(value)
-            sql = sql.strip('AND ')
-            results = self.cur.execute(sql, tuple(values)).fetchall()
-        return results
