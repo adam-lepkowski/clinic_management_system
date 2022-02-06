@@ -200,3 +200,20 @@ class DB:
             sql = sql.strip('AND ')
             results = self.cur.execute(sql, tuple(values)).fetchall()
         return results
+
+    def find_full_app(self, **kwargs):
+        sql = "PRAGMA table_info(app_v)"
+        columns = self.cur.execute(sql).fetchall()
+        columns = [column[1] for column in columns]
+        search_conditions = {column: value for column, value in kwargs.items()
+                             if column in columns}
+        results = []
+        if search_conditions:
+            values = []
+            sql = "SELECT * FROM app_v WHERE "
+            for column, value in search_conditions.items():
+                sql += f'{column} LIKE ? AND '
+                values.append(value)
+            sql = sql.strip('AND ')
+            results = self.cur.execute(sql, tuple(values)).fetchall()
+        return results
