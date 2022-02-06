@@ -110,3 +110,26 @@ CREATE_TABLE_EMPLOYEE = """
         specialty   TEXT CHECK (specialty != '')
     )
 """
+
+CREATE_VIEW_APPOINTMENT = """
+    CREATE VIEW IF NOT EXISTS app_v AS
+    SELECT
+        patient.id as patient_id,
+        CASE
+            WHEN patient.middle_name IS NOT NULL THEN
+                patient.first_name || ' ' || patient.middle_name || ' ' || patient.last_name
+            ELSE
+                patient.first_name || ' ' || patient.last_name
+        END AS p_full_name,
+        employee.id as emp_id,
+        CASE
+            WHEN employee.middle_name IS NOT NULL THEN
+                employee.first_name || ' ' || employee.middle_name || ' ' || employee.last_name
+            ELSE
+                employee.first_name || ' ' || employee.last_name
+        END AS d_full_name,
+        appointment.app_datetime
+    FROM appointment
+    INNER JOIN patient ON appointment.patient_id == patient.id
+    INNER JOIN employee ON appointment.doctor_id == employee.id
+"""
