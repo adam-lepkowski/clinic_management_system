@@ -79,6 +79,43 @@ class DB:
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
 
+    def find(self, table, partial_match=False, **kwargs):
+        """
+        Find records in table
+
+        Parameters
+        ---------------
+        table : string
+            table name
+        partial_match : bool
+            default False, True to allow partial matches
+        **kwargs
+            table_field: value search criteria
+
+        Returns
+        ---------------
+        list
+            a list of tuples with matches
+            OR
+            an empty list
+        """
+
+        columns = self.get_columns(table)
+        search_conditions = {column: value for column, value in kwargs.items()
+                   if column in columns}
+        results = []
+        if search_conditions:
+            values = []
+            sql = f"SELECT * FROM {table} WHERE "
+            for column, value in search_conditions.items():
+                sql += f'{column} LIKE ? AND '
+                if partial_match:
+                    value = f'%{value}%'
+                values.append(value)
+            sql = sql.strip('AND ')
+            results = self.cur.execute(sql, tuple(values)).fetchall()
+        return results
+
     def find_patient(self, **kwargs):
         """
         Find patients in patient table
