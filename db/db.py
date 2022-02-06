@@ -50,6 +50,34 @@ class DB:
             return column_names
         return None
 
+    def insert(self, table, **kwargs):
+        """
+        Insert values into table
+
+        Parameters
+        ---------------
+        table : string
+            table name
+        **kwargs
+            table_field: value
+        """
+
+        columns = self.get_columns(table)
+        patient = {column: value for column, value in kwargs.items()
+                   if column in columns}
+        columns = ''
+        placeholders = ''
+        values = []
+        for column, value in patient.items():
+            columns += f'{column}, '
+            placeholders += '?, '
+            values.append(value)
+        columns = columns.strip(', ')
+        placeholders = placeholders.strip(', ')
+        sql = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+        self.cur.execute(sql, tuple(values))
+        self.cur.connection.commit()
+
     def register_patient(self, **kwargs):
         """
         Insert patient into patient table
