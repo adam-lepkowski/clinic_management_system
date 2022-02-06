@@ -374,7 +374,7 @@ class TestAddEmployee(unittest.TestCase):
         self.emp = EMPLOYEE_INPUT_1.copy()
 
     def test_add_employee(self):
-        self.db.add_employee(**self.emp)
+        self.db.insert('employee', **self.emp)
         expected = tuple(self.emp.values())
         result = self.db.cur.execute('SELECT * FROM employee').fetchone()
         self.assertEqual(expected, result)
@@ -389,7 +389,7 @@ class TestAddEmployee(unittest.TestCase):
     def test_add_employee_empty_string_raises_error(self, name, column):
         self.emp[name] = column[name]
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.add_employee(**self.emp)
+            self.db.insert('employee', **self.emp)
 
 
 class TestFindEmployee(unittest.TestCase):
