@@ -85,7 +85,7 @@ class Search(tk.Frame):
 
     def find_patient(self):
         """
-        Find patient in patient table. Callback to db.find_patient.
+        Find patient in patient table. Callback to db.find.
 
         Populate treeview if query yields any matches, messagebox pops up
         otherwise.
@@ -93,7 +93,9 @@ class Search(tk.Frame):
 
         self.tree.delete(*self.tree.get_children())
         search_conditions = self.get_search_cond()
-        results = self.master.db.find_patient(**search_conditions)
+        results = self.master.db.find(
+            'patient', partial_match=True, **search_conditions
+        )
         if results:
             for index, result in enumerate(results):
                 self.tree.insert(parent='', index=index, values=result)

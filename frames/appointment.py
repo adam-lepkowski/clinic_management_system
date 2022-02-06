@@ -56,7 +56,7 @@ class Appointment(tk.Toplevel):
 
     def confirm_appointment(self):
         document = self.ent_pat.get()
-        patient = self.db.find_patient(document_no=document)
+        patient = self.db.find('patient', document_no=document)
         patient = patient[0] if patient else []
         doctor = self.var_spec.get()
         if patient and doctor:
@@ -78,7 +78,7 @@ class Appointment(tk.Toplevel):
 
     def show_scheduled(self):
         self.tree.delete(*self.tree.get_children())
-        appointments = self.db.find_full_app(app_datetime=self.app_datetime)
+        appointments = self.db.find('app_v', app_datetime=self.app_datetime)
         if appointments:
             for i, appointment in enumerate(appointments):
                 self.tree.insert(parent='', index=i, values=appointment)
@@ -168,7 +168,7 @@ class Schedule(tk.Frame):
             self.frm_hours.columnconfigure(column, weight=1)
 
     def get_doctors(self):
-        doctors = self.master.db.find_employee(position='doctor')
+        doctors = self.master.db.find('employee', position='doctor')
         emp = self.master.db.get_columns('employee')
         doctors = [{col: val for col, val in zip(emp, doc)} for doc in doctors]
         return doctors

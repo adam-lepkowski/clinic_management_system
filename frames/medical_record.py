@@ -132,7 +132,7 @@ class AppointmentHistory(tk.Frame):
 
     def get_appointments(self):
         patient_id = self.patient['id']
-        appointments = self.db.find_appointment(patient_id=patient_id)
+        appointments = self.db.find('appointment', patient_id=patient_id)
         for index, appointment in enumerate(appointments):
             tk.Label(self, text=appointment).grid(row=index, column=0)
 

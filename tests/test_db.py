@@ -191,13 +191,13 @@ class TestFindPatient(unittest.TestCase):
         ('document_no', {'document_no': 'ABCD12345'})
     ])
     def test_find_patient(self, name, search_condition):
-        result = self.db.find_patient(**search_condition)
+        result = self.db.find('patient', **search_condition)
         expected = [tuple(self.pat)]
         self.assertEqual(result, expected)
 
 
     def test_find_patient_multiple_conditions(self):
-        result = self.db.find_patient(**self.pat_1)
+        result = self.db.find('patient', **self.pat_1)
         expected = [tuple(self.pat)]
         self.assertEqual(result, expected)
 
@@ -206,7 +206,7 @@ class TestFindPatient(unittest.TestCase):
         ('non_existent_patient', {'first_name': 'NonExistent'})
     ])
     def test_find_patient_invalid_values(self, name, search_conditions):
-        result = self.db.find_patient(**search_conditions)
+        result = self.db.find('patient', **search_conditions)
         expected = []
         self.assertEqual(expected, result)
 
@@ -223,7 +223,9 @@ class TestFindPatient(unittest.TestCase):
         ('document_no', {'document_no': 'abc'})
     ])
     def test_find_partial_match(self, name, search_condition):
-        result = self.db.find_patient(**search_condition)
+        result = self.db.find(
+            'patient', partial_match = True, **search_condition
+        )
         expected = [tuple(self.pat)]
         self.assertEqual(result, expected)
 
@@ -356,12 +358,12 @@ class TestFindAppointment(unittest.TestCase):
     ])
     def test_find_appointment(self, name, search_condition):
         expected = [(1, self.date, 1)]
-        result = self.db.find_appointment(**search_condition)
+        result = self.db.find('appointment', **search_condition)
         self.assertEqual(expected, result)
 
     def test_find_appointment_by_datetime(self):
         expected = [(1, self.date, 1)]
-        result = self.db.find_appointment(app_datetime=self.date)
+        result = self.db.find('appointment', app_datetime=self.date)
         self.assertEqual(expected, result)
 
 
@@ -398,7 +400,7 @@ class TestFindEmployee(unittest.TestCase):
 
     def test_find_employee(self):
         expected = [tuple(self.emp.values())]
-        result = self.db.find_employee(id=self.emp['id'])
+        result = self.db.find('employee', id=self.emp['id'])
         self.assertEqual(expected, result)
 
     @parameterized.expand([
@@ -411,7 +413,7 @@ class TestFindEmployee(unittest.TestCase):
     ])
     def test_find_employee_no_matches(self, name, column):
         expected = []
-        result = self.db.find_employee(**column)
+        result = self.db.find('employee', **column)
         self.assertEqual(expected, result)
 
 
@@ -425,5 +427,5 @@ class TestFindFullAppointment(unittest.TestCase):
         expected = [
             (1, 'First Middle Last', 1, 'EmpFirst EmpMiddle EmpLast', date)
             ]
-        result = self.db.find_full_app(app_datetime=date)
+        result = self.db.find('app_v', app_datetime=date)
         self.assertEqual(expected, result)
