@@ -115,24 +115,26 @@ class DB:
             results = self.cur.execute(sql, tuple(values)).fetchall()
         return results
 
-    def update_patient(self, id_, **kwargs):
+    def update(self, table, id_, **kwargs):
         """
-        Update patient details in patient table
+        Update record in table
 
         Parameters
         ---------------
+        table : string
+            table name
         id_ : int
-            patient id
+            id
         **kwargs
             update values provided in table_field: value format
         """
 
-        columns = self.get_columns('patient')
+        columns = self.get_columns(table)
         updated_values = {column: value for column, value in kwargs.items()
                           if column in columns}
         if updated_values:
             values = []
-            sql = """UPDATE patient SET """
+            sql = f"""UPDATE {table} SET """
             for column, value in updated_values.items():
                 sql += f'{column}=?, '
                 values.append(value)
