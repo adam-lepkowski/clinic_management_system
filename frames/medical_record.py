@@ -4,7 +4,7 @@ import tkinter.messagebox as msg
 
 from tkcalendar import DateEntry
 
-from frames import PatientFrame
+from frames import PatientFrame, Tree
 
 
 class PatientDetails(PatientFrame):
@@ -127,14 +127,18 @@ class AppointmentHistory(tk.Frame):
         super().__init__(master)
         self.patient = patient
         self.db = db
+        columns = self.db.get_columns('app_v')
+        self.tree = Tree(self, columns=columns, show='headings')
         self.get_appointments()
+        self.columnconfigure(0, weight=1)
         self.grid(row=0, column=0, sticky='nsew')
 
     def get_appointments(self):
         patient_id = self.patient['id']
-        appointments = self.db.find('appointment', patient_id=patient_id)
-        for index, appointment in enumerate(appointments):
-            tk.Label(self, text=appointment).grid(row=index, column=0)
+        appointments = self.db.find('app_v', patient_id=patient_id)
+        if appointments:
+            for i, appointment in enumerate(appointments):
+                self.tree.insert(parent='', index=i, values=appointment)
 
 
 class MedicalRecord(tk.Toplevel):
