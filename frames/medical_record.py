@@ -59,8 +59,8 @@ class PatientDetails(PatientFrame):
         updated_values = {col: val for col, val in edited_patient.items()
                           if str(self.patient.get(col, None)) != str(val)}
         try:
-            self.db.update_patient(
-                id_=self.patient['id'], **updated_values
+            self.db.update(
+                'patient', id_=self.patient['id'], **updated_values
             )
             self.patient.update(updated_values)
             self.set_default()
