@@ -249,7 +249,7 @@ class TestUpdatePatient(unittest.TestCase):
         ('document_no', {'document_no': 'EFGH12345'})
     ])
     def test_update_patient(self, name, update_vals):
-        self.db.update_patient(id_=1, **update_vals)
+        self.db.update('patient', id_=1, **update_vals)
         self.pat_1[name] = update_vals[name]
         sql = 'SELECT * FROM patient WHERE id=1'
         result = self.db.cur.execute(sql).fetchone()
@@ -269,7 +269,7 @@ class TestUpdatePatient(unittest.TestCase):
     ])
     def test_update_patient_empty_strings(self, name, update_vals):
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.update_patient(id_=1, **update_vals)
+            self.db.update('patient', id_=1, **update_vals)
         expected = tuple(self.pat_1.values())
         sql = 'SELECT * FROM patient WHERE id=1'
         result = self.db.cur.execute(sql).fetchone()
