@@ -145,6 +145,17 @@ class DB:
             self.cur.connection.commit()
 
     def cancel_appointment(self, date, doctor_id):
+        """
+        Delete a single appointment from table appointment
+
+        Parameters
+        ---------------
+        date : string
+            datetime string in format %Y-%m-%d %H:%M
+        doctor_id : int
+            doctor's id
+        """
+
         sql = """
             DELETE FROM appointment WHERE app_datetime=? and doctor_id=?
         """
