@@ -35,6 +35,11 @@ class DB:
         """
         Get column headers from given table
 
+        Parameters
+        ---------------
+        table : string
+            table or view name
+
         Returns
         ---------------
         list
