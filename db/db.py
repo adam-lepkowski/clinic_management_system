@@ -86,7 +86,7 @@ class DB:
         ---------------
         table : string
             table name
-        partial_match : bool
+        partial_match : bool, default=False
             default False, True to allow partial matches
         **kwargs
             table_field: value search criteria
