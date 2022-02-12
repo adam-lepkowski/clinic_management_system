@@ -108,7 +108,7 @@ class Appointment(tk.Toplevel):
         """
         Populate Tree with appoitnments scheduled for dt from app_datetime.
         """
-        
+
         self.tree.delete(*self.tree.get_children())
         appointments = self.db.find('app_v', app_datetime=self.app_datetime)
         if appointments:
@@ -116,6 +116,10 @@ class Appointment(tk.Toplevel):
                 self.tree.insert(parent='', index=i, values=appointment)
 
     def cancel_appointment(self, event):
+        """
+        Cancel appointment selected in Tree and refresh appointment list.
+        """
+
         id_ = event.widget.focus()
         item = event.widget.item(id_)
         appointment = item['values']
