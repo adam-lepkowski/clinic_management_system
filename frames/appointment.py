@@ -8,6 +8,27 @@ from tkcalendar import DateEntry
 
 
 class Appointment(tk.Toplevel):
+    """
+    Represent frame to schedule appoitnments in given datetime.
+
+    Parameters
+    ---------------
+    master : container
+        tk container object
+    datetime : str
+        datetime in %Y-%m-%d %H:%M format
+    doctor : str
+        doctor str in format "id: full_name"
+    specialists : list
+        list of doctors
+    db
+        database connection
+
+    Attributes
+    ---------------
+    tree : Tree
+        Treeview child object
+    """
 
     def __init__(self, master, datetime, doctor, specialists, db):
         super().__init__(master)
