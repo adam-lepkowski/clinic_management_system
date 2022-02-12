@@ -304,6 +304,10 @@ class Schedule(tk.Frame):
             row += 1
 
     def set_schedule_width(self, event):
+        """
+        Set cnv_frm width equal to cnv_appointment width.
+        """
+
         canvas_width = event.width
         self.cnv_appointment.itemconfig(self.cnv_frm, width=canvas_width)
 
