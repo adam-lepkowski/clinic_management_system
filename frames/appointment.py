@@ -257,12 +257,16 @@ class Schedule(tk.Frame):
         """
         Configure canvas scrollregion.
         """
-        
+
         self.cnv_appointment.configure(
             scrollregion=self.cnv_appointment.bbox('all')
         )
 
     def set_specialists(self, event):
+        """
+        Place OptionMenu with doctors of selected specialty.
+        """
+
         specialty = self.var_specialty.get()
         self.var_doctor.set('')
         self.opt_doctor.destroy()
