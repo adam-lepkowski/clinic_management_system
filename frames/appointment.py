@@ -105,6 +105,10 @@ class Appointment(tk.Toplevel):
             msg.showinfo('No doctor selected', 'Pick a doctor')
 
     def show_scheduled(self):
+        """
+        Populate Tree with appoitnments scheduled for dt from app_datetime.
+        """
+        
         self.tree.delete(*self.tree.get_children())
         appointments = self.db.find('app_v', app_datetime=self.app_datetime)
         if appointments:
