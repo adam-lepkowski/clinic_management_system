@@ -213,6 +213,15 @@ class Schedule(tk.Frame):
             self.frm_hours.columnconfigure(column, weight=1)
 
     def get_doctors(self):
+        """
+        Get doctors from employee table.
+
+        Returns
+        ---------------
+        doctors : dict
+            dictionary containing doctor details column_name: value
+        """
+        
         doctors = self.master.db.find('employee', position='doctor')
         emp = self.master.db.get_columns('employee')
         doctors = [{col: val for col, val in zip(emp, doc)} for doc in doctors]
