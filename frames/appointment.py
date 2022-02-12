@@ -141,6 +141,13 @@ class Schedule(tk.Frame):
     ---------------
     master : container
         tk container object
+
+    Attributes
+    ---------------
+    colour_schemes : list
+        list of dicts with label color schemes for appoitnments
+    specialties : dictionary
+        specialty: list of doctors of a given specialty
     """
 
     def __init__(self, master):
