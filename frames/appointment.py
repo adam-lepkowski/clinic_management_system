@@ -134,6 +134,14 @@ class Appointment(tk.Toplevel):
 
 
 class Schedule(tk.Frame):
+    """
+    Represent appointment schedule and doctor availability for given date.
+
+    Parameters
+    ---------------
+    master : container
+        tk container object
+    """
 
     def __init__(self, master):
         super().__init__(master)
