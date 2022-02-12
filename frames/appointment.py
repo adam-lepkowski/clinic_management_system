@@ -275,6 +275,10 @@ class Schedule(tk.Frame):
         self.opt_doctor.grid(row=1, column=6, sticky='we')
 
     def get_schedule(self):
+        """
+        Populate cnv_appointment with labels representing appointment datetimes
+        """
+
         start_hour = 8
         end_hour = 16
         app_time = timedelta(minutes=30)
