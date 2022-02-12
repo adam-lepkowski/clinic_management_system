@@ -325,6 +325,10 @@ class Schedule(tk.Frame):
         self.ent_date.set_date(date)
 
     def schedule_appointment(self, event):
+        """
+        Instatiate Appointment class to set up an appointment.
+        """
+        
         date = self.ent_date.get()
         hour = str(event.widget).split('.')[-1]
         datetime = f'{date} {hour}'
