@@ -75,6 +75,9 @@ class Appointment(tk.Toplevel):
         self.frm_scheduled.columnconfigure(0, weight=1)
 
     def confirm_appointment(self):
+        """
+        Add appointment to appointments table.
+        """
         document = self.ent_pat.get()
         patient = self.db.find('patient', document_no=document)
         patient = patient[0] if patient else []
