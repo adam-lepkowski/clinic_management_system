@@ -312,6 +312,10 @@ class Schedule(tk.Frame):
         self.cnv_appointment.itemconfig(self.cnv_frm, width=canvas_width)
 
     def set_date(self, direction):
+        """
+        Change viewed schedule datetime by 1 forward or backward.
+        """
+
         delta = timedelta(days=1)
         date = self.ent_date.get()
         if direction == 'fwd':
