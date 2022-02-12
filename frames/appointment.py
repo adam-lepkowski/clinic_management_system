@@ -221,13 +221,17 @@ class Schedule(tk.Frame):
         doctors : dict
             dictionary containing doctor details column_name: value
         """
-        
+
         doctors = self.master.db.find('employee', position='doctor')
         emp = self.master.db.get_columns('employee')
         doctors = [{col: val for col, val in zip(emp, doc)} for doc in doctors]
         return doctors
 
     def set_specialties(self):
+        """
+        Populate self.specialties with spec: list of doctors of given specialty
+        """
+
         for doc in self.get_doctors():
             specialty = doc['specialty']
             if doc['middle_name']:
