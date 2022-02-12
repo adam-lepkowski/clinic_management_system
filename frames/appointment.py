@@ -254,6 +254,10 @@ class Schedule(tk.Frame):
             self.specialties[specialty] = value
 
     def configure_scroll(self, event=None):
+        """
+        Configure canvas scrollregion.
+        """
+        
         self.cnv_appointment.configure(
             scrollregion=self.cnv_appointment.bbox('all')
         )
