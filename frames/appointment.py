@@ -32,7 +32,6 @@ class Appointment(tk.Toplevel):
 
     def __init__(self, master, datetime, doctor, specialists, db):
         super().__init__(master)
-        self.master = master
         self.db = db
         self.app_datetime = datetime
         self.lbl_date = tk.Label(self, text=f'Date: {datetime}')
@@ -328,7 +327,7 @@ class Schedule(tk.Frame):
         """
         Instatiate Appointment class to set up an appointment.
         """
-        
+
         date = self.ent_date.get()
         hour = str(event.widget).split('.')[-1]
         datetime = f'{date} {hour}'
