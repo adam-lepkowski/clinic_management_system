@@ -122,6 +122,18 @@ class PatientDetails(PatientFrame):
 
 
 class AppointmentHistory(tk.Frame):
+    """
+    Represent a frame to hold patients appointment history in a TreeView.
+
+    Parameters
+    ---------------
+    master
+        tk container object
+    db
+        database connection
+    patient: dict
+        dictionary containing patient details
+    """
 
     def __init__(self, master, patient, db):
         super().__init__(master)
