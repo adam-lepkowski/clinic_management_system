@@ -13,7 +13,6 @@ class Registration(PatientFrame):
 
     def __init__(self, master):
         super().__init__(master)
-        self.master = master
         self.frm_buttons = tk.Frame(self)
         self.frm_buttons.grid(row=5, column=0, sticky='we')
         self.btn_register = tk.Button(
