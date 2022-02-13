@@ -20,7 +20,6 @@ class PatientFrame(tk.Frame):
 
     def __init__(self, master):
         super().__init__(master)
-        self.master = master
         self.lbl_pat_details = tk.Label(self, text='Patient Details')
         self.lbl_pat_details.grid(
             row=0, column=0, sticky='we', columnspan=6, pady=10)
