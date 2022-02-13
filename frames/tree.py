@@ -3,6 +3,9 @@ from tkinter.ttk import Treeview
 
 
 class Tree(Treeview):
+    """
+    TreeView child class with scrollbar and preset column headings and width.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
