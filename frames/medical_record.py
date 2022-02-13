@@ -171,7 +171,6 @@ class MedicalRecord(tk.Toplevel):
 
     def __init__(self, master, patient):
         super().__init__(master)
-        self.master = master
         width = self.master.winfo_width()
         height = self.master.winfo_height()
         self.geometry(f'{width}x{height}')
