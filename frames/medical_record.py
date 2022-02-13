@@ -146,6 +146,10 @@ class AppointmentHistory(tk.Frame):
         self.grid(row=0, column=0, sticky='nsew')
 
     def get_appointments(self):
+        """
+        Populate Tree with patient appoitnments.
+        """
+
         patient_id = self.patient['id']
         appointments = self.db.find('app_v', patient_id=patient_id)
         if appointments:
