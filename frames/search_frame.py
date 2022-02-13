@@ -12,7 +12,6 @@ class Search(tk.Frame):
 
     def __init__(self, master):
         super().__init__(master)
-        self.master = master
         self.lbl_title = tk.Label(self, text='Find Patients')
         self.lbl_title.grid(
             row=0, column=0, sticky='we', columnspan=6, pady=10)
