@@ -49,14 +49,14 @@ class Search(tk.Frame):
             command=lambda: self.tree.delete(*self.tree.get_children()))
         self.btn_clear.grid(row=0, column=2)
         self.grid(**APP_FRAMES_GRID)
-        self._configure_columns()
+        self.configure_columns()
         self.search_ent = {
             'first_name': self.ent_f_name,
             'last_name': self.ent_l_name,
             'document_no': self.ent_document
         }
 
-    def _configure_columns(self):
+    def configure_columns(self):
         """
         Set equal weight to frame columns
         """

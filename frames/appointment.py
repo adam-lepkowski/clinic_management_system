@@ -61,9 +61,9 @@ class Appointment(tk.Toplevel):
         )
         self.tree.bind('<Double-Button-1>', self.cancel_appointment)
         self.show_scheduled()
-        self._configure_columns()
+        self.configure_columns()
 
-    def _configure_columns(self):
+    def configure_columns(self):
         """
         Set equal weight to frame columns
         """

@@ -69,7 +69,7 @@ class PatientFrame(tk.Frame):
         self.lbl_document.grid(row=4, column=0, sticky='e')
         self.ent_document = tk.Entry(self)
         self.ent_document.grid(row=4, column=1, sticky='we')
-        self._configure_columns()
+        self.configure_columns()
         self.patient_ent = {
             'first_name': self.ent_f_name,
             'middle_name': self.ent_m_name,
@@ -83,7 +83,7 @@ class PatientFrame(tk.Frame):
             'document_no': self.ent_document
         }
 
-    def _configure_columns(self):
+    def configure_columns(self):
         """
         Set equal weight to frame columns
         """
