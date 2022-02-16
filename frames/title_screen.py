@@ -1,7 +1,7 @@
 import tkinter as tk
 from pathlib import Path
 
-from frames.const import APP_FRAMES_GRID
+from frames.const import APP_FRAMES_GRID, REGISTRATION, SEARCH, SCHEDULE
 
 
 class TitleScreen(tk.Frame):
@@ -24,15 +24,15 @@ class TitleScreen(tk.Frame):
         self.frm_buttons.grid(row=1, column=0, sticky='nsew')
         self.btn_reg = tk.Button(
             self.frm_buttons, text='Register', image=self.img_reg,
-            compound=tk.TOP, command=lambda: master.change_frame(1))
+            compound=tk.TOP, command=lambda: master.change_frame(REGISTRATION))
         self.btn_reg.grid(row=0, column=0)
         self.btn_find = tk.Button(
             self.frm_buttons, text='Find', image=self.img_find,
-            compound=tk.TOP, command=lambda: master.change_frame(2))
+            compound=tk.TOP, command=lambda: master.change_frame(SEARCH))
         self.btn_find.grid(row=0, column=1)
         self.btn_appointment = tk.Button(
             self.frm_buttons, text='Appointment', image=self.img_appointment,
-            compound=tk.TOP, command=lambda: master.change_frame(3)
+            compound=tk.TOP, command=lambda: master.change_frame(SCHEDULE)
         )
         self.btn_appointment.grid(row=0, column=2)
         self.grid(**APP_FRAMES_GRID)

@@ -4,7 +4,7 @@ import tkinter.messagebox as msg
 from tkcalendar import DateEntry
 
 from frames import PatientFrame
-from frames.const import APP_FRAMES_GRID
+from frames.const import APP_FRAMES_GRID, TITLE_SCRN
 
 
 class Registration(PatientFrame):
@@ -21,7 +21,7 @@ class Registration(PatientFrame):
         self.btn_register.grid(row=0, column=0)
         self.btn_return = tk.Button(
             self.frm_buttons, text='Return',
-            command=lambda: master.change_frame(0)
+            command=lambda: master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=0, column=1)
         self.grid(**APP_FRAMES_GRID)

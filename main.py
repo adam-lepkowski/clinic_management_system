@@ -2,6 +2,7 @@ import tkinter as tk
 
 from db import DB
 from frames import Registration, TitleScreen, Search, Schedule
+from frames.const import TITLE_SCRN, REGISTRATION, SEARCH, SCHEDULE
 
 
 class ClinicManagementSystem(tk.Tk):
@@ -34,10 +35,10 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(2, weight=1)
         self.db = db
         self.frames = {
-            0: TitleScreen(self),
-            1: Registration(self),
-            2: Search(self),
-            3: Schedule(self)
+            TITLE_SCRN: TitleScreen(self),
+            REGISTRATION: Registration(self),
+            SEARCH: Search(self),
+            SCHEDULE: Schedule(self)
         }
         self.frm_current = None
         self.change_frame(0)
