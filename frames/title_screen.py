@@ -1,6 +1,8 @@
 import tkinter as tk
 from pathlib import Path
 
+from frames.const import APP_FRAMES_GRID
+
 
 class TitleScreen(tk.Frame):
     """
@@ -33,4 +35,4 @@ class TitleScreen(tk.Frame):
             compound=tk.TOP, command=lambda: master.change_frame(3)
         )
         self.btn_appointment.grid(row=0, column=2)
-        self.grid(row=0, column=1, sticky='nsew')
+        self.grid(**APP_FRAMES_GRID)

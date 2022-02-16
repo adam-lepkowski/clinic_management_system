@@ -4,6 +4,7 @@ import tkinter.messagebox as msg
 from tkcalendar import DateEntry
 
 from frames import PatientFrame
+from frames.const import APP_FRAMES_GRID
 
 
 class Registration(PatientFrame):
@@ -23,7 +24,7 @@ class Registration(PatientFrame):
             command=lambda: master.change_frame(0)
         )
         self.btn_return.grid(row=0, column=1)
-        self.grid(row=0, column=1, sticky='nsew')
+        self.grid(**APP_FRAMES_GRID)
 
     def register(self):
         """

@@ -3,6 +3,7 @@ import tkinter.messagebox as msg
 from frames import Tree
 
 from frames import MedicalRecord
+from frames.const import APP_FRAMES_GRID
 
 
 class Search(tk.Frame):
@@ -47,7 +48,7 @@ class Search(tk.Frame):
         self.btn_clear = tk.Button(self.frm_buttons, text='Clear',
             command=lambda: self.tree.delete(*self.tree.get_children()))
         self.btn_clear.grid(row=0, column=2)
-        self.grid(row=0, column=1, sticky='nsew')
+        self.grid(**APP_FRAMES_GRID)
         self._configure_columns()
         self.search_ent = {
             'first_name': self.ent_f_name,
