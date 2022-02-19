@@ -124,14 +124,16 @@ class Appointment(tk.Toplevel):
         id_ = event.widget.focus()
         item = event.widget.item(id_)
         appointment = item['values']
-        doc_name = appointment[3]
-        doc_id = appointment[2]
-        title = 'Cancel appointment'
-        message = f"Are you sure you want to cancel {self.app_datetime}\
-                    appointment with doctor {doc_name}"
-        if msg.askyesno(title=title, message=message):
-            self.db.cancel_appointment(self.app_datetime, doc_id)
-            self.show_scheduled()
+        # if header is clicked appointment will be empty
+        if appointment:
+            doc_name = appointment[3]
+            doc_id = appointment[2]
+            title = 'Cancel appointment'
+            message = f"Are you sure you want to cancel {self.app_datetime}\
+                        appointment with doctor {doc_name}"
+            if msg.askyesno(title=title, message=message):
+                self.db.cancel_appointment(self.app_datetime, doc_id)
+                self.show_scheduled()
 
 
 class Schedule(tk.Frame):
