@@ -1,10 +1,12 @@
 import tkinter as tk
 import tkinter.messagebox as msg
-from frames import Tree
 from datetime import datetime, timedelta
 import itertools
 
 from tkcalendar import DateEntry
+
+from frames import Tree
+from frames.const import TITLE_SCRN
 
 
 class Appointment(tk.Toplevel):
@@ -205,7 +207,8 @@ class Schedule(tk.Frame):
             self.bind('<Configure>', self.configure_scroll)
             self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
         self.btn_return = tk.Button(
-            self, text='Return', command=lambda: self.master.change_frame(0)
+            self, text='Return',
+            command=lambda: self.master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=3, column=0, sticky='we')
         self.grid(row=0, column=1, sticky='nsew')
