@@ -165,40 +165,45 @@ class Schedule(tk.Frame):
         self.btn_fwd.grid(row=1, column=2, sticky='w')
         self.ent_date = DateEntry(self, date_pattern='y-mm-dd')
         self.ent_date.grid(row=1, column=1, sticky='we')
-        self.lbl_specialty = tk.Label(self, text='Specialty')
-        self.lbl_specialty.grid(row=1, column=3, sticky='we')
         self.specialties = {}
         self.set_specialties()
-        self.var_specialty = tk.StringVar(self)
-        self.var_specialty.set('All')
-        self.opt_specialty = tk.OptionMenu(
-            self, self.var_specialty, *list(self.specialties.keys()),
-            command=self.set_specialists
-        )
-        self.opt_specialty.grid(row=1, column=4, sticky='we')
-        self.lbl_doctor = tk.Label(self, text='Doctor')
-        self.lbl_doctor.grid(row=1, column=5, sticky='we')
-        self.var_doctor = tk.StringVar(self)
-        self.opt_doctor = tk.OptionMenu(
-            self, self.var_doctor, *self.specialties['All']
-        )
-        self.opt_doctor.grid(row=1, column=6, sticky='we')
-        self.cnv_appointment = tk.Canvas(self, bg='white')
-        self.cnv_appointment.grid(row=2, column=0, columnspan=7, sticky='nsew')
-        self.frm_hours = tk.Frame(self.cnv_appointment)
-        self.cnv_frm = self.cnv_appointment.create_window(
-            (0, 0), anchor=tk.NW, window=self.frm_hours)
-        self.scr_cnv = tk.Scrollbar(self, command=self.cnv_appointment.yview)
-        self.scr_cnv.grid(row=2, column=7, sticky='wns')
-        self.cnv_appointment.configure(yscrollcommand=self.scr_cnv.set)
-        self.colour_schemes = [
-            {'fg': 'black', 'bg': 'lightgrey'},
-            {'fg': 'white', 'bg': 'grey'}
-        ]
-        self.get_schedule()
-        self._configure_columns()
-        self.bind('<Configure>', self.configure_scroll)
-        self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
+        if self.specialties:
+            self.lbl_specialty = tk.Label(self, text='Specialty')
+            self.lbl_specialty.grid(row=1, column=3, sticky='we')
+            self.var_specialty = tk.StringVar(self)
+            self.var_specialty.set('All')
+            self.opt_specialty = tk.OptionMenu(
+                self, self.var_specialty, *list(self.specialties.keys()),
+                command=self.set_specialists
+            )
+            self.opt_specialty.grid(row=1, column=4, sticky='we')
+            self.lbl_doctor = tk.Label(self, text='Doctor')
+            self.lbl_doctor.grid(row=1, column=5, sticky='we')
+            self.var_doctor = tk.StringVar(self)
+            self.opt_doctor = tk.OptionMenu(
+                self, self.var_doctor, *self.specialties['All']
+            )
+            self.opt_doctor.grid(row=1, column=6, sticky='we')
+            self.cnv_appointment = tk.Canvas(self, bg='white')
+            self.cnv_appointment.grid(
+                row=2, column=0, columnspan=7, sticky='nsew'
+            )
+            self.frm_hours = tk.Frame(self.cnv_appointment)
+            self.cnv_frm = self.cnv_appointment.create_window(
+                (0, 0), anchor=tk.NW, window=self.frm_hours)
+            self.scr_cnv = tk.Scrollbar(
+                self, command=self.cnv_appointment.yview
+            )
+            self.scr_cnv.grid(row=2, column=7, sticky='wns')
+            self.cnv_appointment.configure(yscrollcommand=self.scr_cnv.set)
+            self.colour_schemes = [
+                {'fg': 'black', 'bg': 'lightgrey'},
+                {'fg': 'white', 'bg': 'grey'}
+            ]
+            self.get_schedule()
+            self._configure_columns()
+            self.bind('<Configure>', self.configure_scroll)
+            self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
         self.btn_return = tk.Button(
             self, text='Return', command=lambda: self.master.change_frame(0)
         )
