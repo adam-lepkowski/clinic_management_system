@@ -40,8 +40,7 @@ class ClinicManagementSystem(tk.Tk):
             SEARCH: Search(self),
             SCHEDULE: Schedule(self)
         }
-        self.frm_current = None
-        self.change_frame(0)
+        self.change_frame(TITLE_SCRN)
 
     def change_frame(self, index):
         """
@@ -54,5 +53,4 @@ class ClinicManagementSystem(tk.Tk):
         """
 
         frame = self.frames[index]
-        self.frm_current = frame
         frame.tkraise()
