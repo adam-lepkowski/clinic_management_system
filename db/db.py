@@ -167,3 +167,17 @@ class DB:
         """
         self.cur.execute(sql, (date, doctor_id))
         self.cur.connection.commit()
+
+    def create_user_account(self, emp_id):
+        result = self.find('employee', id=emp_id)
+        columns = self.get_columns('employee')
+        emp = {col: val for col, val in zip(columns, result[0])}
+        username = f"{emp['first_name']}.{emp['last_name']}".lower()
+        same_name_search = {
+            'first_name': emp['first_name'],
+            'last_name': emp['last_name']
+        }
+        results = self.find('employee', **same_name_search)
+        if len(results) > 1:
+            username += str(len(results))
+        self.insert('user', employee_id=emp['id'], username=username)
