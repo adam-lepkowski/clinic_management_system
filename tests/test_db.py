@@ -445,3 +445,17 @@ class TestFindFullAppointment(unittest.TestCase):
             ]
         result = self.db.find('app_v', app_datetime=date)
         self.assertEqual(expected, result)
+
+
+class TestCreateUserAccount(unittest.TestCase):
+
+    def setUp(self):
+        self.db = db_factory(employee=True)
+        self.emp =  EMPLOYEE_INPUT_1.copy()
+
+    def test_add_account(self):
+        self.db.create_user_account(self.emp['id'])
+        sql = "SELECT * FROM user"
+        result = self.db.cur.execute(sql).fetchone()
+        expected = (1, 'empfirst.emplast', None)
+        self.assertEqual(expected, result)
