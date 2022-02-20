@@ -28,6 +28,7 @@ class DB:
         self.cur.execute(CREATE_TRIGGER_APP_DATE)
         self.cur.execute(CREATE_TABLE_EMPLOYEE)
         self.cur.execute(CREATE_VIEW_APPOINTMENT)
+        self.cur.execute(CREATE_TABLE_USER)
         self.cur.execute('PRAGMA foreign_keys=on')
         self.cur.connection.commit()
 
