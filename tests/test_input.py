@@ -29,3 +29,7 @@ EMPLOYEE_INPUT_1 = {
 EMPLOYEE_INPUT_2 = [
     1, 'EmpFirst', 'EmpMiddle', 'EmpLast', 'EmpPosition', 'EmpSpecialty'
 ]
+
+USER_INPUT_1 = [
+    1, 'empfirst.emplast', None
+]
