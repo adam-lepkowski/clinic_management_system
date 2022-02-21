@@ -1,5 +1,7 @@
 import sqlite3
 
+import bcrypt
+
 from db.db_const import *
 
 
@@ -180,4 +182,4 @@ class DB:
         results = self.find('employee', **same_name_search)
         if len(results) > 1:
             username += str(len(results))
-        self.insert('user', employee_id=emp['id'], username=username)
+        self.insert('user', id=emp['id'], username=username)
