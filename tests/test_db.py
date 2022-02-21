@@ -2,6 +2,7 @@ import unittest
 import datetime
 
 from parameterized import parameterized
+import bcrypt
 
 from db import DB
 from tests.test_input import (PATIENT_INPUT_1, PATIENT_INPUT_2,
@@ -462,3 +463,15 @@ class TestCreateUserAccount(unittest.TestCase):
         result = self.db.cur.execute(sql).fetchone()
         expected = (1, 'empfirst.emplast', None)
         self.assertEqual(expected, result)
+
+class TestUpdatePassword(unittest.TestCase):
+
+    def setUp(self):
+        self.db = db_factory(employee=True, user=True)
+
+    def test_update_password(self):
+        pwd = 'testpwd1'
+        self.db.update_pwd(1, pwd)
+        sql = 'SELECT hash_pw FROM user WHERE id=1'
+        result = self.db.cur.execute(sql).fetchone()
+        self.assertTrue(bcrypt.checkpw(pwd.encode('utf-8'), result[0]))
