@@ -183,3 +183,7 @@ class DB:
         if len(results) > 1:
             username += str(len(results))
         self.insert('user', id=emp['id'], username=username)
+
+    def update_pwd(self, emp_id, pwd):
+        hash_pw = bcrypt.hashpw(pwd.encode('utf-8'), bcrypt.gensalt())
+        self.update('user', emp_id, hash_pw=hash_pw)
