@@ -5,7 +5,8 @@ from parameterized import parameterized
 
 from db import DB
 from tests.test_input import (PATIENT_INPUT_1, PATIENT_INPUT_2,
-                              EMPLOYEE_INPUT_1, EMPLOYEE_INPUT_2)
+                              EMPLOYEE_INPUT_1, EMPLOYEE_INPUT_2,
+                              USER_INPUT_1)
 
 
 def insert_test_values(db, table, values):
@@ -15,7 +16,7 @@ def insert_test_values(db, table, values):
     db.cur.connection.commit()
 
 
-def db_factory(patient=None, employee=None, app=None):
+def db_factory(patient=None, employee=None, app=None, user=None):
     db = DB(':memory:')
     if patient:
         insert_test_values(db, 'patient', PATIENT_INPUT_2)
@@ -25,6 +26,8 @@ def db_factory(patient=None, employee=None, app=None):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         values = (1, date, 1)
         insert_test_values(db, 'appointment', values)
+    if user:
+        insert_test_values(db, 'user', USER_INPUT_1)
     return db
 
 
