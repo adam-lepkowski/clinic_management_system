@@ -136,7 +136,7 @@ CREATE_VIEW_APPOINTMENT = """
 
 CREATE_TABLE_USER = """
     CREATE TABLE IF NOT EXISTS user (
-        employee_id     PRIMARY KEY REFERENCES employee (id),
+        id              PRIMARY KEY REFERENCES employee (id),
         username        TEXT NOT NULL UNIQUE,
         hash_pw         TEXT
     )
