@@ -30,6 +30,8 @@ class Login(tk.Frame):
         self.lbl_pwd_confirm.grid(row=5, column=0, sticky='e')
         self.ent_pwd_confirm = tk.Entry(self, show='*')
         self.ent_pwd_confirm.grid(row=5, column=1, sticky='w')
+        self.btn_register = tk.Button(self, text='Register')
+        self.btn_register.grid(row=6, column=1, sticky='w')
         self.configure_columns()
         self.grid(APP_FRAMES_GRID)
 
