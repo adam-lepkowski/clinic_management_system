@@ -5,8 +5,9 @@ from frames.const import APP_FRAMES_GRID
 
 class Login(tk.Frame):
 
-    def __init__(self, master):
+    def __init__(self, master, db):
         super().__init__(master)
+        self.db = db
         self.lbl_title = tk.Label(self, text='Set Up An Administrator Account')
         self.lbl_title.grid(row=0, column=0, columnspan=2, sticky='nsew')
         self.lbl_f_name = tk.Label(self, text='First Name')
