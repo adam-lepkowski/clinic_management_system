@@ -205,7 +205,7 @@ class Schedule(tk.Frame):
                 {'fg': 'white', 'bg': 'grey'}
             ]
             self.get_schedule()
-            self._configure_columns()
+            self.configure_columns()
             self.bind('<Configure>', self.configure_scroll)
             self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
         self.btn_return = tk.Button(
@@ -216,7 +216,7 @@ class Schedule(tk.Frame):
         self.grid(row=0, column=1, sticky='nsew')
 
 
-    def _configure_columns(self):
+    def configure_columns(self):
         """
         Set equal weight to frame columns
         """
