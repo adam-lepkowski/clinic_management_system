@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as msg
 
 from frames.const import APP_FRAMES_GRID
 
@@ -64,5 +65,12 @@ class Login(tk.Frame):
                 self.db.insert('employee', **employee)
                 self.db.create_user_account(1)
                 self.db.update_pwd(1, pwd)
+                message = 'Account created successfully'
+                title = 'Account created'
             except self.db.con.IntegrityError as e:
-                print('invalid employee data')
+                title = 'Account not created'
+                message = 'Invalid user details'
+        else:
+            title = "Invalid password"
+            message = "Passwords don't match"
+        msg.showinfo(title=title, message=message)
