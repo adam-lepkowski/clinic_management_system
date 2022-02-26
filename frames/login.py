@@ -91,4 +91,13 @@ class Login(tk.Frame):
         self.lbl_pwd.grid(row=2, column=0, sticky='e')
         self.ent_pwd = tk.Entry(self)
         self.ent_pwd.grid(row=2, column=1, sticky='w')
+        self.configure_columns()
         self.grid(APP_FRAMES_GRID)
+
+    def configure_columns(self):
+        """
+        Set equal weight to frame columns
+        """
+        columns, rows = self.grid_size()
+        for column in range(columns):
+            self.columnconfigure(column, weight=1)
