@@ -46,4 +46,23 @@ class Login(tk.Frame):
             self.columnconfigure(column, weight=1)
 
     def register(self):
-        pass
+        fname = self.ent_f_name.get()
+        mname = self.ent_m_name.get() if self.ent_m_name.get() != '' else None
+        lname = self.ent_l_name.get()
+        pwd = self.ent_pwd.get()
+        conf_pwd = self.ent_pwd_confirm.get()
+
+        if pwd == conf_pwd:
+            try:
+                employee = {
+                    'first_name': fname,
+                    'middle_name': mname,
+                    'last_name': lname,
+                    'position': 'admin',
+                    'specialty': None
+                }
+                self.db.insert('employee', **employee)
+                self.db.create_user_account(1)
+                self.db.update_pwd(1, pwd)
+            except self.db.con.IntegrityError as e:
+                print('invalid employee data')
