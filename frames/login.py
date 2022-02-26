@@ -4,7 +4,7 @@ import tkinter.messagebox as msg
 from frames.const import APP_FRAMES_GRID
 
 
-class Login(tk.Frame):
+class FirstLaunchScreen(tk.Frame):
 
     def __init__(self, master, db):
         super().__init__(master)
