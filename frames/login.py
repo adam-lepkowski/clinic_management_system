@@ -74,3 +74,13 @@ class FirstLaunchScreen(tk.Frame):
             title = "Invalid password"
             message = "Passwords don't match"
         msg.showinfo(title=title, message=message)
+
+
+class Login(tk.Frame):
+
+    def __init__(self, master, db):
+        super().__init__(master)
+        self.db = db
+        self.lbl_title = tk.Label(self, text='Sign in')
+        self.lbl_title.grid(row=0, column=0)
+        self.grid(APP_FRAMES_GRID)
