@@ -30,9 +30,6 @@ class ClinicManagementSystem(tk.Tk):
         width = self.winfo_screenwidth() // 2
         height = self.winfo_screenheight() // 2
         self.geometry(f'{width}x{height}+{width // 2}+{height // 2}')
-        self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
-        self.columnconfigure(2, weight=1)
         self.db = db
         self.frames = {
             TITLE_SCRN: TitleScreen(self),
@@ -40,7 +37,10 @@ class ClinicManagementSystem(tk.Tk):
             SEARCH: Search(self),
             SCHEDULE: Schedule(self)
         }
-        self.change_frame(TITLE_SCRN)
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
+        self.change_frame(0)
 
     def change_frame(self, index):
         """
