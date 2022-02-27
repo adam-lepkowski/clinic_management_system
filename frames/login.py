@@ -95,7 +95,7 @@ class Login(tk.Frame):
         self.ent_usrname.grid(row=1, column=1, sticky='w')
         self.lbl_pwd = tk.Label(self, text='Password')
         self.lbl_pwd.grid(row=2, column=0, sticky='e')
-        self.ent_pwd = tk.Entry(self)
+        self.ent_pwd = tk.Entry(self, show='*')
         self.ent_pwd.grid(row=2, column=1, sticky='w')
         self.btn_login = tk.Button(self, text='Sign in', command=self.login)
         self.btn_login.grid(row=3, column=0, columnspan=2)
