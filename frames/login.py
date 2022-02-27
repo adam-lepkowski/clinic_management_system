@@ -101,3 +101,11 @@ class Login(tk.Frame):
         columns, rows = self.grid_size()
         for column in range(columns):
             self.columnconfigure(column, weight=1)
+
+    def login(self):
+        username = self.ent_usrname.get()
+        pwd = self.ent_pwd.get().encode('utf-8')
+        match = self.db.find('user', username=username)
+        if match:
+            id_, user, hash_pw = match[0]
+            return True if hash_pw == pwd else False
