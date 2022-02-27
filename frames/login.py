@@ -65,8 +65,10 @@ class FirstLaunchScreen(tk.Frame):
                     'specialty': None
                 }
                 self.db.insert('employee', **employee)
-                self.db.create_user_account(1)
-                self.db.update_pwd(1, pwd)
+                emp = self.db.find('employee', position='admin')
+                emp_id = emp[0][0]
+                self.db.create_user_account(emp_id)
+                self.db.update_pwd(emp_id, pwd)
                 username = f'{fname}.{lname}'
                 message = f'Account created successfully. Username: {username}'
                 title = 'Account created'
