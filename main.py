@@ -42,6 +42,7 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.change_frame(0)
+        self.set_login_screen()
 
     def change_frame(self, index):
         """
@@ -55,3 +56,10 @@ class ClinicManagementSystem(tk.Tk):
 
         frame = self.frames[index]
         frame.tkraise()
+
+    def set_login_screen(self):
+        user = self.db.find('employee', position='admin')
+        if user:
+            Login(self, self.db)
+        else:
+            FirstLaunchScreen(self, self.db)
