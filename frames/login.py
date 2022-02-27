@@ -1,6 +1,8 @@
 import tkinter as tk
 import tkinter.messagebox as msg
 
+import bcrypt
+
 from frames.const import APP_FRAMES_GRID
 
 
@@ -112,4 +114,8 @@ class Login(tk.Frame):
         match = self.db.find('user', username=username)
         if match:
             id_, user, hash_pw = match[0]
-            return True if hash_pw == pwd else False
+            if bcrypt.checkpw(pwd, hash_pw):
+                self.master.set_title_screen()
+                self.destroy()
+        else:
+            msg.showerror(title='Login failed', message='Invalid credentials')
