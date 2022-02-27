@@ -65,8 +65,10 @@ class FirstLaunchScreen(tk.Frame):
                 self.db.insert('employee', **employee)
                 self.db.create_user_account(1)
                 self.db.update_pwd(1, pwd)
-                message = 'Account created successfully'
+                username = f'{fname}.{lname}'
+                message = f'Account created successfully. Username: {username}'
                 title = 'Account created'
+                self.master.set_login_screen()
             except self.db.con.IntegrityError as e:
                 title = 'Account not created'
                 message = 'Invalid user details'
