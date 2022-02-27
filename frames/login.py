@@ -91,6 +91,8 @@ class Login(tk.Frame):
         self.lbl_pwd.grid(row=2, column=0, sticky='e')
         self.ent_pwd = tk.Entry(self)
         self.ent_pwd.grid(row=2, column=1, sticky='w')
+        self.btn_login = tk.Button(self, text='Sign in', command=self.login)
+        self.btn_login.grid(row=3, column=0, columnspan=2)
         self.configure_columns()
         self.grid(APP_FRAMES_GRID)
 
