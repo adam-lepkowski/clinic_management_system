@@ -41,7 +41,7 @@ class ClinicManagementSystem(tk.Tk):
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
-        self.change_frame(0)
+        self.change_frame(TITLE_SCRN)
         self.set_login_screen()
 
     def change_frame(self, index):
