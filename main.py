@@ -1,7 +1,8 @@
 import tkinter as tk
 
 from db import DB
-from frames import Registration, TitleScreen, Search, Schedule
+from frames import (Registration, TitleScreen, Search, Schedule,
+                    FirstLaunchScreen, Login)
 from frames.const import TITLE_SCRN, REGISTRATION, SEARCH, SCHEDULE
 
 
