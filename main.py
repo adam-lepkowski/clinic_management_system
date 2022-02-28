@@ -2,8 +2,8 @@ import tkinter as tk
 
 from db import DB
 from frames import (Registration, TitleScreen, Search, Schedule,
-                    FirstLaunchScreen, Login)
-from frames.const import TITLE_SCRN, REGISTRATION, SEARCH, SCHEDULE
+                    FirstLaunchScreen, Login, AdminPanel)
+from frames.const import TITLE_SCRN, REGISTRATION, SEARCH, SCHEDULE, ADMIN
 
 
 class ClinicManagementSystem(tk.Tk):
@@ -56,7 +56,8 @@ class ClinicManagementSystem(tk.Tk):
             TITLE_SCRN: TitleScreen(self),
             REGISTRATION: Registration(self),
             SEARCH: Search(self),
-            SCHEDULE: Schedule(self)
+            SCHEDULE: Schedule(self),
+            ADMIN: AdminPanel(self)
         }
         self.change_frame(TITLE_SCRN)
 
