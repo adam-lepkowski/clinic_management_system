@@ -1,7 +1,7 @@
 import tkinter as tk
 from pathlib import Path
 
-from frames.const import APP_FRAMES_GRID, REGISTRATION, SEARCH, SCHEDULE
+from frames.const import APP_FRAMES_GRID, REGISTRATION, SEARCH, SCHEDULE, ADMIN
 
 
 class TitleScreen(tk.Frame):
@@ -39,7 +39,7 @@ class TitleScreen(tk.Frame):
         self.btn_appointment.grid(row=0, column=2)
         self.btn_adm = tk.Button(
             self.frm_buttons, text='Admin', image=self.img_admin,
-            compound=tk.TOP
+            compound=tk.TOP, command=lambda: master.change_frame(ADMIN)
         )
         self.btn_adm.grid(row=0, column=3)
         self.grid(**APP_FRAMES_GRID)
