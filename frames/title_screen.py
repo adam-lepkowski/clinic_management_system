@@ -17,9 +17,11 @@ class TitleScreen(tk.Frame):
         register = Path('images/resized/register.png')
         find = Path('images/resized/find.png')
         appointment = Path('images/resized/appointment.png')
+        admin = Path('images/resized/admin.png')
         self.img_reg = tk.PhotoImage(file=register)
         self.img_find = tk.PhotoImage(file=find)
         self.img_appointment = tk.PhotoImage(file=appointment)
+        self.img_admin = tk.PhotoImage(file=admin)
         self.frm_buttons = tk.Frame(self)
         self.frm_buttons.grid(row=1, column=0, sticky='nsew')
         self.btn_reg = tk.Button(
@@ -35,4 +37,9 @@ class TitleScreen(tk.Frame):
             compound=tk.TOP, command=lambda: master.change_frame(SCHEDULE)
         )
         self.btn_appointment.grid(row=0, column=2)
+        self.btn_adm = tk.Button(
+            self.frm_buttons, text='Admin', image=self.img_admin,
+            compound=tk.TOP
+        )
+        self.btn_adm.grid(row=0, column=3)
         self.grid(**APP_FRAMES_GRID)
