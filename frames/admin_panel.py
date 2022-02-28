@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter.ttk import Notebook
 
-from const import APP_FRAMES_GRID
+from frames.const import APP_FRAMES_GRID
 
 class AdminPanel(Notebook):
 
