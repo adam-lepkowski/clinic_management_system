@@ -101,8 +101,6 @@ class PatientFrame(tk.Frame):
             patient column name: value
         """
 
-        patient_details = {}
-        for col_name, widget in self.patient_ent.items():
-            value = widget.get() if widget.get() != '' else None
-            patient_details[col_name] = value
+        patient_details = {col: (val.get() if val.get() != '' else None)
+                           for col, val in self.patient_ent.items()}
         return patient_details
