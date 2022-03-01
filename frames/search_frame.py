@@ -1,8 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as msg
-from frames import Tree
 
-from frames import MedicalRecord
+from frames import MedicalRecord, Tree
 from frames.const import APP_FRAMES_GRID, TITLE_SCRN
 
 
