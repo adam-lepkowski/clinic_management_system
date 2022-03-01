@@ -28,6 +28,8 @@ class Employee(tk.Frame):
         self.lbl_spec.grid(row=0, column=8, sticky='e')
         self.ent_spec = tk.Entry(self)
         self.ent_spec.grid(row=0, column=9, sticky='we')
+        self.btn_add_emp = tk.Button(self, text='Add Employee')
+        self.btn_add_emp.grid(row=1, column=0, sticky='w')
 
 
 class AdminPanel(Notebook):
