@@ -28,7 +28,9 @@ class Employee(tk.Frame):
         self.lbl_spec.grid(row=0, column=8, sticky='e')
         self.ent_spec = tk.Entry(self)
         self.ent_spec.grid(row=0, column=9, sticky='we')
-        self.btn_add_emp = tk.Button(self, text='Add Employee')
+        self.btn_add_emp = tk.Button(
+            self, text='Add Employee', command=self.get_employee
+        )
         self.btn_add_emp.grid(row=1, column=0, sticky='w')
         self.emp_ent = {
             'first_name': self.ent_f_name,
@@ -37,6 +39,11 @@ class Employee(tk.Frame):
             'position': self.ent_pos,
             'specialty': self.ent_spec,
         }
+
+    def get_employee(self):
+        emp = {col: (val.get() if val.get() != '' else None)
+               for col, val in self.emp_ent.items()}
+        return emp
 
 
 class AdminPanel(Notebook):
