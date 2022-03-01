@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter.ttk import Notebook
+import tkinter.messagebox as msg
 
 from frames.const import APP_FRAMES_GRID
 
@@ -29,7 +30,7 @@ class Employee(tk.Frame):
         self.ent_spec = tk.Entry(self)
         self.ent_spec.grid(row=0, column=9, sticky='we')
         self.btn_add_emp = tk.Button(
-            self, text='Add Employee', command=self.get_employee
+            self, text='Add Employee', command=self.add_employee
         )
         self.btn_add_emp.grid(row=1, column=0, sticky='w')
         self.emp_ent = {
@@ -44,6 +45,16 @@ class Employee(tk.Frame):
         emp = {col: (val.get() if val.get() != '' else None)
                for col, val in self.emp_ent.items()}
         return emp
+
+    def add_employee(self):
+        emp = self.get_employee()
+        try:
+            self.master.db.insert('employee', **emp)
+            title = 'Registration successful'
+            msg.showinfo(title=title, message='Employee added to db')
+        except self.master.db.con.IntegrityError as e:
+            title = 'Registration failed'
+            msg.showerror(title=title, message=str(e))
 
 
 class AdminPanel(Notebook):
