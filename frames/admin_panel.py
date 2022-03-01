@@ -48,8 +48,9 @@ class Employee(tk.Frame):
 
 class AdminPanel(Notebook):
 
-    def __init__(self, master):
+    def __init__(self, master, db):
         super().__init__(master)
+        self.db = db
         self.frm_emp = Employee(self)
         self.frm_create_usr = tk.Frame(self)
         self.add(self.frm_emp, text='Add Employee')
