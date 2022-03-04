@@ -51,6 +51,7 @@ class Employee(tk.Frame):
         }
         self.acc_menu = tk.Menu(self, tearoff=0)
         self.acc_menu.add_command(label='Create Account')
+        self.tree.bind('<Double-Button-1>', self.menu_popup)
         self.configure_columns()
 
     def configure_columns(self):
@@ -88,6 +89,15 @@ class Employee(tk.Frame):
         for index, emp in enumerate(employees):
             self.tree.insert(parent='', index=index, values=emp)
 
+    def menu_popup(self, event):
+        id_ = event.widget.focus()
+        item = event.widget.item(id_)
+        vals = item['values']
+        if vals:
+            try:
+                self.acc_menu.tk_popup(event.x_root, event.y_root)
+            finally:
+                self.acc_menu.grab_release()
 
 class AdminPanel(Notebook):
 
