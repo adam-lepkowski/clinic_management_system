@@ -3,6 +3,7 @@ from tkinter.ttk import Notebook
 import tkinter.messagebox as msg
 
 from frames.const import APP_FRAMES_GRID
+from frames import Tree
 
 
 class Employee(tk.Frame):
@@ -33,6 +34,11 @@ class Employee(tk.Frame):
             self, text='Add Employee', command=self.add_employee
         )
         self.btn_add_emp.grid(row=1, column=0, sticky='w')
+        self.frm_tree = tk.Frame(self)
+        self.frm_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
+        columns = self.master.db.get_columns('employee')
+        self.tree = Tree(self.frm_tree, columns=columns, show='headings')
+        self.tree.grid(row=0, column=0, sticky='nsew')
         self.emp_ent = {
             'first_name': self.ent_f_name,
             'middle_name': self.ent_m_name,
