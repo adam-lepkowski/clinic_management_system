@@ -46,6 +46,17 @@ class Employee(tk.Frame):
             'position': self.ent_pos,
             'specialty': self.ent_spec,
         }
+        self.configure_columns()
+
+    def configure_columns(self):
+        """
+        Set equal weight to frame columns
+        """
+
+        columns, rows = self.grid_size()
+        for column in range(columns):
+            self.columnconfigure(column, weight=1)
+        self.frm_tree.columnconfigure(0, weight=1)
 
     def get_employee(self):
         emp = {col: (val.get() if val.get() != '' else None)
