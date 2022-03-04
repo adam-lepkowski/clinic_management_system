@@ -73,6 +73,16 @@ class Employee(tk.Frame):
             title = 'Registration failed'
             msg.showerror(title=title, message=str(e))
 
+    def find_employee(self):
+        self.tree.delete(*self.tree.get_children())
+        employee = self.get_employee()
+        employee = {col: val for col, val in employee.items() if val is not None}
+        employees = self.master.db.find(
+            'employee', partial_match=True, **employee
+        )
+        for index, emp in enumerate(employees):
+            self.tree.insert(parent='', index=index, values=emp)
+
 
 class AdminPanel(Notebook):
 
