@@ -34,6 +34,9 @@ class Employee(tk.Frame):
             self, text='Add Employee', command=self.add_employee
         )
         self.btn_add_emp.grid(row=1, column=0, sticky='w')
+        self.btn_find_emp = tk.Button(
+            self, text='Find Employee', command=self.find_employee)
+        self.btn_find_emp.grid(row=1, column=1, sticky='w')
         self.frm_tree = tk.Frame(self)
         self.frm_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
         columns = self.master.db.get_columns('employee')
