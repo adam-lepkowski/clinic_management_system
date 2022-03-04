@@ -49,6 +49,8 @@ class Employee(tk.Frame):
             'position': self.ent_pos,
             'specialty': self.ent_spec,
         }
+        self.acc_menu = tk.Menu(self, tearoff=0)
+        self.acc_menu.add_command(label='Create Account')
         self.configure_columns()
 
     def configure_columns(self):
