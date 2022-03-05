@@ -51,7 +51,7 @@ class Employee(tk.Frame):
         }
         self.acc_menu = tk.Menu(self, tearoff=0)
         self.acc_menu.add_command(
-            label='Create Account', command=self.create_account
+            label='Create Account', command=self.create_account_popup
         )
         self.tree.bind('<Double-Button-1>', self.menu_popup)
         self.configure_columns()
@@ -114,6 +114,23 @@ class Employee(tk.Frame):
         except self.master.db.con.IntegrityError as e:
             title = "Error occured"
             msg.showerror(title=title, message=e)
+
+    def create_account_popup(self):
+        self.frm_pwd = tk.Toplevel(self)
+        lbl_title = tk.Label(self.frm_pwd, text='Set up a temporary password')
+        lbl_title.grid(row=0, column=0, columnspan=2, sticky='we')
+        lbl_pwd = tk.Label(self.frm_pwd, text='Password')
+        lbl_pwd.grid(row=1, column=0, sticky='e')
+        ent_pwd = tk.Entry(self.frm_pwd, show='*', name='pwd')
+        ent_pwd.grid(row=1, column=1, sticky='w')
+        lbl_pwd_confirm = tk.Label(self.frm_pwd, text='Confirm Password')
+        lbl_pwd_confirm.grid(row=2, column=0, sticky='e')
+        ent_pwd_confirm = tk.Entry(self.frm_pwd, show='*', name='c_pwd')
+        ent_pwd_confirm.grid(row=2, column=1, sticky='w')
+        btn_register = tk.Button(
+            self.frm_pwd, text='Create Account', command=self.create_account
+        )
+        btn_register.grid(row=3, column=1, sticky='we')
 
 
 class AdminPanel(Notebook):
