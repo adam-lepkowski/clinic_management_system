@@ -105,15 +105,22 @@ class Employee(tk.Frame):
         id_ = self.tree.focus()
         item = self.tree.item(id_)
         emp_id = item['values'][0]
-        try:
-            self.master.db.create_user_account(emp_id)
-            username = self.master.db.find('user', id=emp_id)[0][1]
-            msg.showinfo(
-                title='Account created', message=f'Username: {username}'
-            )
-        except self.master.db.con.IntegrityError as e:
-            title = "Error occured"
-            msg.showerror(title=title, message=e)
+        pwd = self.frm_pwd.nametowidget('pwd').get()
+        conf_pwd = self.frm_pwd.nametowidget('c_pwd').get()
+        if (pwd == conf_pwd) and (pwd != ''):
+            try:
+                self.master.db.create_user_account(emp_id)
+                username = self.master.db.find('user', id=emp_id)[0][1]
+                self.master.db.update_pwd(emp_id, pwd)
+                msg.showinfo(
+                    title='Account created', message=f'Username: {username}'
+                )
+                self.frm_pwd.destroy()
+            except self.master.db.con.IntegrityError as e:
+                title = "Error occured"
+                msg.showerror(title=title, message=e)
+        else:
+            msg.showerror('Invalid Password', 'Invalid password')
 
     def create_account_popup(self):
         self.frm_pwd = tk.Toplevel(self)
