@@ -50,7 +50,9 @@ class Employee(tk.Frame):
             'specialty': self.ent_spec,
         }
         self.acc_menu = tk.Menu(self, tearoff=0)
-        self.acc_menu.add_command(label='Create Account')
+        self.acc_menu.add_command(
+            label='Create Account', command=self.create_account
+        )
         self.tree.bind('<Double-Button-1>', self.menu_popup)
         self.configure_columns()
 
@@ -98,6 +100,21 @@ class Employee(tk.Frame):
                 self.acc_menu.tk_popup(event.x_root, event.y_root)
             finally:
                 self.acc_menu.grab_release()
+
+    def create_account(self):
+        id_ = self.tree.focus()
+        item = self.tree.item(id_)
+        emp_id = item['values'][0]
+        try:
+            self.master.db.create_user_account(emp_id)
+            username = self.master.db.find('user', id=emp_id)[0][1]
+            msg.showinfo(
+                title='Account created', message=f'Username: {username}'
+            )
+        except self.master.db.con.IntegrityError as e:
+            title = "Error occured"
+            msg.showerror(title=title, message=e)
+
 
 class AdminPanel(Notebook):
 
