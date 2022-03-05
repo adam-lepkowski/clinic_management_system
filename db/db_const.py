@@ -138,6 +138,6 @@ CREATE_TABLE_USER = """
     CREATE TABLE IF NOT EXISTS user (
         id              PRIMARY KEY REFERENCES employee (id),
         username        TEXT NOT NULL UNIQUE,
-        hash_pw         TEXT
+        hash_pw         TEXT CHECK (hash_pw != '')
     )
 """
