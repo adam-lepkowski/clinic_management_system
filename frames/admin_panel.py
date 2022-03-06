@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as msg
 
-from frames.const import APP_FRAMES_GRID
+from frames.const import APP_FRAMES_GRID, TITLE_SCRN
 from frames import Tree
 
 
@@ -33,10 +33,15 @@ class AdminPanel(tk.Frame):
         self.btn_add_emp = tk.Button(
             self, text='Add Employee', command=self.add_employee
         )
-        self.btn_add_emp.grid(row=1, column=0, sticky='w')
+        self.btn_add_emp.grid(row=1, column=0, sticky='we')
         self.btn_find_emp = tk.Button(
             self, text='Find Employee', command=self.find_employee)
-        self.btn_find_emp.grid(row=1, column=1, sticky='w')
+        self.btn_find_emp.grid(row=1, column=1, sticky='we')
+        self.btn_return = tk.Button(
+            self, text='Return',
+            command=lambda: self.master.change_frame(TITLE_SCRN)
+        )
+        self.btn_return.grid(row=1, column=2, sticky='we')
         self.frm_tree = tk.Frame(self)
         self.frm_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
         columns = self.db.get_columns('employee')
