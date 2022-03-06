@@ -51,7 +51,7 @@ class AdminPanel(tk.Frame):
         }
         self.acc_menu = tk.Menu(self, tearoff=0)
         self.acc_menu.add_command(
-            label='Create Account', command=self.password_popup
+            label='Create/Update Account', command=self.password_popup
         )
         self.tree.bind('<Double-Button-1>', self.menu_popup)
         self.configure_columns()
