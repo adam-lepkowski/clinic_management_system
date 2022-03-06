@@ -139,9 +139,28 @@ class Employee(tk.Frame):
         )
         btn_register.grid(row=3, column=1, sticky='we')
         btn_update_pwd = tk.Button(
-            self.frm_pwd, text='Update password'
+            self.frm_pwd, text='Update password', command=self.update_pwd
         )
         btn_update_pwd.grid(row=3, column=0)
+
+    def update_pwd(self):
+        id_ = self.tree.focus()
+        item = self.tree.item(id_)
+        emp_id = item['values'][0]
+        pwd = self.frm_pwd.nametowidget('pwd').get()
+        conf_pwd = self.frm_pwd.nametowidget('c_pwd').get()
+        if (pwd == conf_pwd) and (pwd != ''):
+            try:
+                username = self.master.db.find('user', id=emp_id)[0][1]
+                self.master.db.update_pwd(emp_id, pwd)
+                message = f'Password for user: {username} updated'
+                msg.showinfo(title='Account created', message=message)
+                self.frm_pwd.destroy()
+            except self.master.db.con.IntegrityError as e:
+                title = "Error occured"
+                msg.showerror(title=title, message=e)
+        else:
+            msg.showerror('Invalid Password', 'Invalid password')
 
 
 class AdminPanel(Notebook):
