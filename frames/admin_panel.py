@@ -51,7 +51,7 @@ class Employee(tk.Frame):
         }
         self.acc_menu = tk.Menu(self, tearoff=0)
         self.acc_menu.add_command(
-            label='Create Account', command=self.create_account_popup
+            label='Create Account', command=self.password_popup
         )
         self.tree.bind('<Double-Button-1>', self.menu_popup)
         self.configure_columns()
@@ -122,7 +122,7 @@ class Employee(tk.Frame):
         else:
             msg.showerror('Invalid Password', 'Invalid password')
 
-    def create_account_popup(self):
+    def password_popup(self):
         self.frm_pwd = tk.Toplevel(self)
         lbl_title = tk.Label(self.frm_pwd, text='Set up a temporary password')
         lbl_title.grid(row=0, column=0, columnspan=2, sticky='we')
