@@ -1,15 +1,15 @@
 import tkinter as tk
-from tkinter.ttk import Notebook
 import tkinter.messagebox as msg
 
 from frames.const import APP_FRAMES_GRID
 from frames import Tree
 
 
-class Employee(tk.Frame):
+class AdminPanel(tk.Frame):
 
-    def __init__(self, master):
+    def __init__(self, master, db):
         super().__init__(master)
+        self.db = db
         self.lbl_f_name = tk.Label(self, text='First Name')
         self.lbl_f_name.grid(row=0, column=0, sticky='e')
         self.ent_f_name = tk.Entry(self)
@@ -39,7 +39,7 @@ class Employee(tk.Frame):
         self.btn_find_emp.grid(row=1, column=1, sticky='w')
         self.frm_tree = tk.Frame(self)
         self.frm_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
-        columns = self.master.db.get_columns('employee')
+        columns = self.db.get_columns('employee')
         self.tree = Tree(self.frm_tree, columns=columns, show='headings')
         self.tree.grid(row=0, column=0, sticky='nsew')
         self.emp_ent = {
@@ -55,6 +55,7 @@ class Employee(tk.Frame):
         )
         self.tree.bind('<Double-Button-1>', self.menu_popup)
         self.configure_columns()
+        self.grid(APP_FRAMES_GRID)
 
     def configure_columns(self):
         """
@@ -74,10 +75,10 @@ class Employee(tk.Frame):
     def add_employee(self):
         emp = self.get_employee()
         try:
-            self.master.db.insert('employee', **emp)
+            self.db.insert('employee', **emp)
             title = 'Registration successful'
             msg.showinfo(title=title, message='Employee added to db')
-        except self.master.db.con.IntegrityError as e:
+        except self.db.con.IntegrityError as e:
             title = 'Registration failed'
             msg.showerror(title=title, message=str(e))
 
@@ -85,7 +86,7 @@ class Employee(tk.Frame):
         self.tree.delete(*self.tree.get_children())
         employee = self.get_employee()
         employee = {col: val for col, val in employee.items() if val is not None}
-        employees = self.master.db.find(
+        employees = self.db.find(
             'employee', partial_match=True, **employee
         )
         for index, emp in enumerate(employees):
@@ -109,14 +110,14 @@ class Employee(tk.Frame):
         conf_pwd = self.frm_pwd.nametowidget('c_pwd').get()
         if (pwd == conf_pwd) and (pwd != ''):
             try:
-                self.master.db.create_user_account(emp_id)
-                username = self.master.db.find('user', id=emp_id)[0][1]
-                self.master.db.update_pwd(emp_id, pwd)
+                self.db.create_user_account(emp_id)
+                username = self.db.find('user', id=emp_id)[0][1]
+                self.db.update_pwd(emp_id, pwd)
                 msg.showinfo(
                     title='Account created', message=f'Username: {username}'
                 )
                 self.frm_pwd.destroy()
-            except self.master.db.con.IntegrityError as e:
+            except self.db.con.IntegrityError as e:
                 title = "Error occured"
                 msg.showerror(title=title, message=e)
         else:
@@ -151,25 +152,13 @@ class Employee(tk.Frame):
         conf_pwd = self.frm_pwd.nametowidget('c_pwd').get()
         if (pwd == conf_pwd) and (pwd != ''):
             try:
-                username = self.master.db.find('user', id=emp_id)[0][1]
-                self.master.db.update_pwd(emp_id, pwd)
+                username = self.db.find('user', id=emp_id)[0][1]
+                self.db.update_pwd(emp_id, pwd)
                 message = f'Password for user: {username} updated'
                 msg.showinfo(title='Account created', message=message)
                 self.frm_pwd.destroy()
-            except self.master.db.con.IntegrityError as e:
+            except self.db.con.IntegrityError as e:
                 title = "Error occured"
                 msg.showerror(title=title, message=e)
         else:
             msg.showerror('Invalid Password', 'Invalid password')
-
-
-class AdminPanel(Notebook):
-
-    def __init__(self, master, db):
-        super().__init__(master)
-        self.db = db
-        self.frm_emp = Employee(self)
-        self.frm_create_usr = tk.Frame(self)
-        self.add(self.frm_emp, text='Add Employee')
-        self.add(self.frm_create_usr, text='Create User Account')
-        self.grid(APP_FRAMES_GRID)
