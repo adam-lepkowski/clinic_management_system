@@ -138,6 +138,10 @@ class Employee(tk.Frame):
             self.frm_pwd, text='Create Account', command=self.create_account
         )
         btn_register.grid(row=3, column=1, sticky='we')
+        btn_update_pwd = tk.Button(
+            self.frm_pwd, text='Update password'
+        )
+        btn_update_pwd.grid(row=3, column=0)
 
 
 class AdminPanel(Notebook):
