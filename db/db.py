@@ -152,9 +152,16 @@ class DB:
             self.cur.execute(sql, tuple(values))
             self.cur.connection.commit()
 
-    def delete(self, table, id_):
-        sql = f'DELETE FROM {table} WHERE id=?'
-        self.cur.execute(sql,(id_,))
+    def delete(self, table, **kwargs):
+        delete_dict = self.map_column_value(table, **kwargs)
+        if delete_dict:
+            sql = f'DELETE FROM {table} WHERE '
+            values = []
+            for column, value in delete_dict.items():
+                sql += f'{column}=?, '
+                values.append(value)
+        sql = sql.strip(', ')
+        self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
 
     def cancel_appointment(self, date, doctor_id):
