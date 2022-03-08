@@ -78,7 +78,7 @@ CREATE_TRIGGER_PHONE = """
 
 CREATE_TABLE_APPOINTMENT = """
     CREATE TABLE IF NOT EXISTS appointment (
-        patient_id      INTEGER NOT NULL REFERENCES patient(id),
+        patient_id      INTEGER NOT NULL REFERENCES patient(id) ON DELETE CASCADE,
         app_datetime    TEXT NOT NULL CHECK (app_datetime != ''),
         doctor_id       INTEGER NOT NULL REFERENCES employee(id),
         PRIMARY KEY     (app_datetime, doctor_id)
