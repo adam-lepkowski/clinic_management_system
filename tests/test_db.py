@@ -491,7 +491,7 @@ class TestDelete(unittest.TestCase):
         patients = self.db.cur.execute(self.pat_sql).fetchall()
         self.assertEqual(len(patients), 1)
         self.assertEqual(len(appointments), 1)
-        self.db.delete('patient', 1)
+        self.db.delete('patient', id=1)
         appointments = self.db.cur.execute(self.app_sql).fetchall()
         patients = self.db.cur.execute(self.pat_sql).fetchall()
         self.assertEqual(len(patients), 0)
