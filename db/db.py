@@ -58,6 +58,12 @@ class DB:
             return column_names
         return None
 
+    def map_column_value(self, table, **kwargs):
+        columns = self.get_columns(table)
+        table_dict = {column: value for column, value in kwargs.items()
+                      if column in columns}
+        return table_dict
+
     def insert(self, table, **kwargs):
         """
         Insert values into table
@@ -70,13 +76,11 @@ class DB:
             table_field: value
         """
 
-        columns = self.get_columns(table)
-        patient = {column: value for column, value in kwargs.items()
-                   if column in columns}
+        insert_dict = self.map_column_value(table, **kwargs)
         columns = ''
         placeholders = ''
         values = []
-        for column, value in patient.items():
+        for column, value in insert_dict.items():
             columns += f'{column}, '
             placeholders += '?, '
             values.append(value)
@@ -107,14 +111,12 @@ class DB:
             an empty list
         """
 
-        columns = self.get_columns(table)
-        search_conditions = {column: value for column, value in kwargs.items()
-                   if column in columns}
+        find_dict = self.map_column_value(table, **kwargs)
         results = []
-        if search_conditions:
+        if find_dict:
             values = []
             sql = f"SELECT * FROM {table} WHERE "
-            for column, value in search_conditions.items():
+            for column, value in find_dict.items():
                 sql += f'{column} LIKE ? AND '
                 if partial_match:
                     value = f'%{value}%'
@@ -137,13 +139,11 @@ class DB:
             update values provided in table_field: value format
         """
 
-        columns = self.get_columns(table)
-        updated_values = {column: value for column, value in kwargs.items()
-                          if column in columns}
-        if updated_values:
+        update_dict = self.map_column_value(table, **kwargs)
+        if update_dict:
             values = []
             sql = f"""UPDATE {table} SET """
-            for column, value in updated_values.items():
+            for column, value in update_dict.items():
                 sql += f'{column}=?, '
                 values.append(value)
             sql = sql.strip(', ')
