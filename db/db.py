@@ -152,6 +152,11 @@ class DB:
             self.cur.execute(sql, tuple(values))
             self.cur.connection.commit()
 
+    def delete(self, table, id_):
+        sql = f'DELETE FROM {table} WHERE id=?'
+        self.cur.execute(sql,(id_,))
+        self.cur.connection.commit()
+
     def cancel_appointment(self, date, doctor_id):
         """
         Delete a single appointment from table appointment
