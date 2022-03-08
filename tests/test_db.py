@@ -475,3 +475,24 @@ class TestUpdatePassword(unittest.TestCase):
         sql = 'SELECT hash_pw FROM user WHERE id=1'
         result = self.db.cur.execute(sql).fetchone()
         self.assertTrue(bcrypt.checkpw(pwd.encode('utf-8'), result[0]))
+
+
+class TestDelete(unittest.TestCase):
+
+    def setUp(self):
+        self.db = db_factory(patient=True, employee=True, app=True, user=True)
+        self.app_sql = 'SELECT * FROM appointment'
+        self.pat_sql = 'SELECT * FROM patient'
+        self.emp_sql = 'SELECT * FROM employee'
+        self.usr_sql = 'SELECT * FROM user'
+
+    def test_delete_patient(self):
+        appointments = self.db.cur.execute(self.app_sql).fetchall()
+        patients = self.db.cur.execute(self.pat_sql).fetchall()
+        self.assertEqual(len(patients), 1)
+        self.assertEqual(len(appointments), 1)
+        self.db.delete('patient', 1)
+        appointments = self.db.cur.execute(self.app_sql).fetchall()
+        patients = self.db.cur.execute(self.pat_sql).fetchall()
+        self.assertEqual(len(patients), 0)
+        self.assertEqual(len(appointments), 0)
