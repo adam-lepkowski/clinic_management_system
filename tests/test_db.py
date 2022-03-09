@@ -499,3 +499,12 @@ class TestDelete(unittest.TestCase):
         emp = self.db.cur.execute(self.emp_sql).fetchall()
         self.assertEqual(len(emp), 0)
         self.assertEqual(len(appointments), 0)
+
+    def test_delete_user(self):
+        usr = self.db.cur.execute(self.usr_sql).fetchall()
+        self.assertEqual(len(usr), 1)
+        self.db.delete('user', id=1)
+        usr = self.db.cur.execute(self.usr_sql).fetchall()
+        emp = self.db.cur.execute(self.emp_sql).fetchall()
+        self.assertEqual(len(usr), 0)
+        self.assertEqual(len(emp), 1)
