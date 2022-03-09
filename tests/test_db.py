@@ -496,3 +496,23 @@ class TestDelete(unittest.TestCase):
         patients = self.db.cur.execute(self.pat_sql).fetchall()
         self.assertEqual(len(patients), 0)
         self.assertEqual(len(appointments), 0)
+
+    def test_delete_appointment(self):
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        self.db.delete('appointment', app_datetime=date, doctor_id=1)
+        expected = None
+        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
+        self.assertEqual(expected, result)
+
+    @parameterized.expand([
+        ("date", {'app_datetime': 'invalid_date', 'doctor_id': 1}),
+        ('doctor_id', {'app_datetime': '', 'doctor_id': 2})
+    ])
+    def test_delete_appointment_invalid_input(self, name, vals):
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        if name != 'date':
+            vals['app_datetime'] = date
+        self.db.delete('appointment', **vals)
+        expected = (1, date, 1)
+        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
+        self.assertEqual(expected, result)
