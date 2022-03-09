@@ -336,34 +336,6 @@ class TestRegisterAppointment(unittest.TestCase):
         self.assertEqual(expected, result)
 
 
-class TestCancelAppointment(unittest.TestCase):
-
-    def setUp(self):
-        self.pat = PATIENT_INPUT_2.copy()
-        self.doc =  EMPLOYEE_INPUT_2.copy()
-        self.db = db_factory(patient=True, employee=True, app=True)
-
-    def test_cancel_appointment(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        self.db.cancel_appointment(date, 1)
-        expected = None
-        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
-        self.assertEqual(expected, result)
-
-    @parameterized.expand([
-        ("date", ['invalid_date', 1]),
-        ('doctor_id', ['', 2])
-    ])
-    def test_cancel_appointment_invalid_input(self, name, vals):
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        if name != 'date':
-            vals[0] = date
-        self.db.cancel_appointment(*vals)
-        expected = (1, date, 1)
-        result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
-        self.assertEqual(expected, result)
-
-
 class TestFindAppointment(unittest.TestCase):
 
     def setUp(self):
