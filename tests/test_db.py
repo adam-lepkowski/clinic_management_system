@@ -488,3 +488,14 @@ class TestDelete(unittest.TestCase):
         expected = (1, date, 1)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
+
+    def test_delete_employee(self):
+        appointments = self.db.cur.execute(self.app_sql).fetchall()
+        emp = self.db.cur.execute(self.emp_sql).fetchall()
+        self.assertEqual(len(emp), 1)
+        self.assertEqual(len(appointments), 1)
+        self.db.delete('employee', id=1)
+        appointments = self.db.cur.execute(self.app_sql).fetchall()
+        emp = self.db.cur.execute(self.emp_sql).fetchall()
+        self.assertEqual(len(emp), 0)
+        self.assertEqual(len(appointments), 0)
