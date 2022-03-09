@@ -121,7 +121,7 @@ class DB:
                 if partial_match:
                     value = f'%{value}%'
                 values.append(value)
-            sql = sql.strip('AND ')
+            sql = sql.rstrip('AND ')
             results = self.cur.execute(sql, tuple(values)).fetchall()
         return results
 
@@ -158,9 +158,9 @@ class DB:
             sql = f'DELETE FROM {table} WHERE '
             values = []
             for column, value in delete_dict.items():
-                sql += f'{column}=?, '
+                sql += f'{column}=? AND '
                 values.append(value)
-        sql = sql.strip(', ')
+        sql = sql.rstrip('AND ')
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
 
