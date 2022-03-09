@@ -80,7 +80,7 @@ CREATE_TABLE_APPOINTMENT = """
     CREATE TABLE IF NOT EXISTS appointment (
         patient_id      INTEGER NOT NULL REFERENCES patient(id) ON DELETE CASCADE,
         app_datetime    TEXT NOT NULL CHECK (app_datetime != ''),
-        doctor_id       INTEGER NOT NULL REFERENCES employee(id),
+        doctor_id       INTEGER NOT NULL REFERENCES employee(id) ON DELETE CASCADE,
         PRIMARY KEY     (app_datetime, doctor_id)
     )
 """
@@ -136,7 +136,7 @@ CREATE_VIEW_APPOINTMENT = """
 
 CREATE_TABLE_USER = """
     CREATE TABLE IF NOT EXISTS user (
-        id              PRIMARY KEY REFERENCES employee (id),
+        id              PRIMARY KEY REFERENCES employee (id) ON DELETE CASCADE,
         username        TEXT NOT NULL UNIQUE,
         hash_pw         TEXT CHECK (hash_pw != '')
     )
