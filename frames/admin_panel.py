@@ -45,8 +45,8 @@ class AdminPanel(tk.Frame):
         self.frm_tree = tk.Frame(self)
         self.frm_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
         columns = self.db.get_columns('employee')
-        self.tree = Tree(self.frm_tree, columns=columns, show='headings')
-        self.tree.grid(row=0, column=0, sticky='nsew')
+        self.emp_tree = Tree(self.frm_tree, columns=columns, show='headings')
+        self.emp_tree.grid(row=0, column=0, sticky='nsew')
         self.emp_ent = {
             'first_name': self.ent_f_name,
             'middle_name': self.ent_m_name,
@@ -58,7 +58,7 @@ class AdminPanel(tk.Frame):
         self.acc_menu.add_command(
             label='Create/Update Account', command=self.password_popup
         )
-        self.tree.bind('<Double-Button-1>', self.menu_popup)
+        self.emp_tree.bind('<Double-Button-1>', self.menu_popup)
         self.configure_columns()
         self.grid(APP_FRAMES_GRID)
 
@@ -88,14 +88,14 @@ class AdminPanel(tk.Frame):
             msg.showerror(title=title, message=str(e))
 
     def find_employee(self):
-        self.tree.delete(*self.tree.get_children())
+        self.emp_tree.delete(*self.emp_tree.get_children())
         employee = self.get_employee()
         employee = {col: val for col, val in employee.items() if val is not None}
         employees = self.db.find(
             'employee', partial_match=True, **employee
         )
         for index, emp in enumerate(employees):
-            self.tree.insert(parent='', index=index, values=emp)
+            self.emp_tree.insert(parent='', index=index, values=emp)
 
     def menu_popup(self, event):
         id_ = event.widget.focus()
@@ -108,8 +108,8 @@ class AdminPanel(tk.Frame):
                 self.acc_menu.grab_release()
 
     def create_account(self):
-        id_ = self.tree.focus()
-        item = self.tree.item(id_)
+        id_ = self.emp_tree.focus()
+        item = self.emp_tree.item(id_)
         emp_id = item['values'][0]
         pwd = self.frm_pwd.nametowidget('pwd').get()
         conf_pwd = self.frm_pwd.nametowidget('c_pwd').get()
@@ -150,8 +150,8 @@ class AdminPanel(tk.Frame):
         btn_update_pwd.grid(row=3, column=0)
 
     def update_pwd(self):
-        id_ = self.tree.focus()
-        item = self.tree.item(id_)
+        id_ = self.emp_tree.focus()
+        item = self.emp_tree.item(id_)
         emp_id = item['values'][0]
         pwd = self.frm_pwd.nametowidget('pwd').get()
         conf_pwd = self.frm_pwd.nametowidget('c_pwd').get()
