@@ -32,15 +32,17 @@ class AdminPanel(tk.Frame):
         self.lbl_spec.grid(row=0, column=8, sticky='e')
         self.ent_spec = tk.Entry(self.frm_emp)
         self.ent_spec.grid(row=0, column=9, sticky='we')
+        self.frm_btn = tk.Frame(self)
+        self.frm_btn.grid(row=1, column=0, sticky='nsew')
         self.btn_add_emp = tk.Button(
-            self, text='Add Employee', command=self.add_employee
+            self.frm_btn, text='Add Employee', command=self.add_employee
         )
         self.btn_add_emp.grid(row=1, column=0, sticky='we')
         self.btn_find_emp = tk.Button(
-            self, text='Find Employee', command=self.find_employee)
+            self.frm_btn, text='Find Employee', command=self.find_employee)
         self.btn_find_emp.grid(row=1, column=1, sticky='we')
         self.btn_return = tk.Button(
-            self, text='Return',
+            self.frm_btn, text='Return',
             command=lambda: self.master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=1, column=2, sticky='we')
