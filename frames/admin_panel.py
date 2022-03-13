@@ -100,11 +100,13 @@ class AdminPanel(tk.Frame):
         """
         Set equal weight to frame columns
         """
-
-        columns, rows = self.grid_size()
-        for column in range(columns):
-            self.columnconfigure(column, weight=1)
+        frames = [self, self.frm_emp, self.frm_usr]
+        for frame in frames:
+            columns, rows = frame.grid_size()
+            for column in range(columns):
+                frame.columnconfigure(column, weight=1)
         self.frm_emp_tree.columnconfigure(0, weight=1)
+        self.frm_usr_tree.columnconfigure(0, weight=1)
 
     def get_employee(self):
         emp = {col: (val.get() if val.get() != '' else None)
