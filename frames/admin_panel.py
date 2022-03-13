@@ -10,7 +10,7 @@ class AdminPanel(tk.Frame):
     def __init__(self, master, db):
         super().__init__(master)
         self.db = db
-        # employee frame and tree
+        # employee frame
         self.frm_emp = tk.Frame(self)
         self.frm_emp.grid(row=0, column=0, sticky='nsew')
         self.lbl_f_name = tk.Label(self.frm_emp, text='First Name')
@@ -48,6 +48,7 @@ class AdminPanel(tk.Frame):
             command=lambda: self.master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=1, column=2, sticky='we')
+        # employee tree
         self.frm_emp_tree = tk.Frame(self)
         self.frm_emp_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
         columns = self.db.get_columns('employee')
