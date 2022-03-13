@@ -50,11 +50,13 @@ class AdminPanel(tk.Frame):
         self.btn_return.grid(row=0, column=2, sticky='we')
         self.var_frame = tk.IntVar(self)
         self.btn_usr = tk.Radiobutton(
-            self.frm_btn, text='Employee', variable=self.var_frame, value=0
+            self.frm_btn, text='Employee', variable=self.var_frame, value=0,
+            command=self.change_panel
         )
         self.btn_usr.grid(row=0, column=3)
         self.btn_emp = tk.Radiobutton(
-            self.frm_btn, text='User', variable=self.var_frame, value=1
+            self.frm_btn, text='User', variable=self.var_frame, value=1,
+            command=self.change_panel
         )
         self.btn_emp.grid(row=0, column=4)
         # employee tree
