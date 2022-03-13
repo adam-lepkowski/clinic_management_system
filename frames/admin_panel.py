@@ -10,6 +10,7 @@ class AdminPanel(tk.Frame):
     def __init__(self, master, db):
         super().__init__(master)
         self.db = db
+        # employee frame and tree
         self.frm_emp = tk.Frame(self)
         self.frm_emp.grid(row=0, column=0, sticky='nsew')
         self.lbl_f_name = tk.Label(self.frm_emp, text='First Name')
@@ -32,6 +33,7 @@ class AdminPanel(tk.Frame):
         self.lbl_spec.grid(row=0, column=8, sticky='e')
         self.ent_spec = tk.Entry(self.frm_emp)
         self.ent_spec.grid(row=0, column=9, sticky='we')
+        # common buttons
         self.frm_btn = tk.Frame(self)
         self.frm_btn.grid(row=1, column=0, sticky='nsew')
         self.btn_add_emp = tk.Button(
@@ -63,6 +65,7 @@ class AdminPanel(tk.Frame):
             label='Create/Update Account', command=self.password_popup
         )
         self.emp_tree.bind('<Double-Button-1>', self.menu_popup)
+        # user frame and tree
         self.configure_columns()
         self.grid(APP_FRAMES_GRID)
 
