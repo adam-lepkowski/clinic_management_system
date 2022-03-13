@@ -96,6 +96,7 @@ class AdminPanel(tk.Frame):
         )
         self.usr_tree.grid(row=0, column=0, sticky='nsew')
         self.configure_columns()
+        self.change_panel()
         self.grid(APP_FRAMES_GRID)
 
     def configure_columns(self):
