@@ -66,6 +66,16 @@ class AdminPanel(tk.Frame):
         )
         self.emp_tree.bind('<Double-Button-1>', self.menu_popup)
         # user frame and tree
+        self.frm_usr = tk.Frame(self)
+        self.frm_usr.grid(row=0, column=0, sticky='nsew')
+        self.lbl_usr_id = tk.Label(self.frm_usr, text='User ID')
+        self.lbl_usr_id.grid(row=0, column=0, sticky='e')
+        self.ent_usr_id = tk.Entry(self.frm_usr)
+        self.ent_usr_id.grid(row=0, column=1, sticky='we')
+        self.lbl_username = tk.Label(self.frm_usr, text='Username')
+        self.lbl_username.grid(row=0, column=2, sticky='e')
+        self.ent_username = tk.Entry(self.frm_usr)
+        self.ent_username.grid(row=0, column=3, sticky='we')
         self.configure_columns()
         self.grid(APP_FRAMES_GRID)
 
