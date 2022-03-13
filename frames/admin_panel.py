@@ -76,6 +76,13 @@ class AdminPanel(tk.Frame):
         self.lbl_username.grid(row=0, column=2, sticky='e')
         self.ent_username = tk.Entry(self.frm_usr)
         self.ent_username.grid(row=0, column=3, sticky='we')
+        self.frm_usr_tree = tk.Frame(self)
+        self.frm_usr_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
+        usr_columns = ['id', 'username']
+        self.usr_tree = Tree(
+            self.frm_usr_tree, columns=usr_columns, show='headings'
+        )
+        self.usr_tree.grid(row=0, column=0, sticky='nsew')
         self.configure_columns()
         self.grid(APP_FRAMES_GRID)
 
