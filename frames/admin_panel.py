@@ -46,10 +46,10 @@ class AdminPanel(tk.Frame):
             command=lambda: self.master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=1, column=2, sticky='we')
-        self.frm_tree = tk.Frame(self)
-        self.frm_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
+        self.frm_emp_tree = tk.Frame(self)
+        self.frm_emp_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
         columns = self.db.get_columns('employee')
-        self.emp_tree = Tree(self.frm_tree, columns=columns, show='headings')
+        self.emp_tree = Tree(self.frm_emp_tree, columns=columns, show='headings')
         self.emp_tree.grid(row=0, column=0, sticky='nsew')
         self.emp_ent = {
             'first_name': self.ent_f_name,
@@ -74,7 +74,7 @@ class AdminPanel(tk.Frame):
         columns, rows = self.grid_size()
         for column in range(columns):
             self.columnconfigure(column, weight=1)
-        self.frm_tree.columnconfigure(0, weight=1)
+        self.frm_emp_tree.columnconfigure(0, weight=1)
 
     def get_employee(self):
         emp = {col: (val.get() if val.get() != '' else None)
