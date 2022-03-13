@@ -108,6 +108,15 @@ class AdminPanel(tk.Frame):
         self.frm_emp_tree.columnconfigure(0, weight=1)
         self.frm_usr_tree.columnconfigure(0, weight=1)
 
+    def change_panel(self):
+        option = self.var_frame.get()
+        if option == 0:
+            self.frm_emp.tkraise()
+            self.frm_emp_tree.tkraise()
+        else:
+            self.frm_usr.tkraise()
+            self.frm_usr_tree.tkraise()
+
     def get_employee(self):
         emp = {col: (val.get() if val.get() != '' else None)
                for col, val in self.emp_ent.items()}
