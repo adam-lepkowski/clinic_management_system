@@ -118,9 +118,15 @@ class AdminPanel(tk.Frame):
         if option == 0:
             self.frm_emp.tkraise()
             self.frm_emp_tree.tkraise()
+            self.btn_find_usr['state'] = 'disabled'
+            self.btn_find_emp['state'] = 'normal'
+            self.btn_add_emp['state'] = 'normal'
         else:
             self.frm_usr.tkraise()
             self.frm_usr_tree.tkraise()
+            self.btn_find_usr['state'] = 'normal'
+            self.btn_find_emp['state'] = 'disabled'
+            self.btn_add_emp['state'] = 'disabled'
 
     def get_employee(self):
         emp = {col: (val.get() if val.get() != '' else None)
