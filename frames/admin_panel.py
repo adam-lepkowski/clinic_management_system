@@ -43,22 +43,24 @@ class AdminPanel(tk.Frame):
         self.btn_find_emp = tk.Button(
             self.frm_btn, text='Find Employee', command=self.find_employee)
         self.btn_find_emp.grid(row=0, column=1, sticky='we')
+        self.btn_find_usr = tk.Button(self.frm_btn, text='Find User')
+        self.btn_find_usr.grid(row=0, column=2)
         self.btn_return = tk.Button(
             self.frm_btn, text='Return',
             command=lambda: self.master.change_frame(TITLE_SCRN)
         )
-        self.btn_return.grid(row=0, column=2, sticky='we')
+        self.btn_return.grid(row=0, column=3, sticky='we')
         self.var_frame = tk.IntVar(self)
         self.btn_usr = tk.Radiobutton(
             self.frm_btn, text='Employee', variable=self.var_frame, value=0,
             command=self.change_panel
         )
-        self.btn_usr.grid(row=0, column=3)
+        self.btn_usr.grid(row=0, column=4)
         self.btn_emp = tk.Radiobutton(
             self.frm_btn, text='User', variable=self.var_frame, value=1,
             command=self.change_panel
         )
-        self.btn_emp.grid(row=0, column=4)
+        self.btn_emp.grid(row=0, column=5)
         # employee tree
         self.frm_emp_tree = tk.Frame(self)
         self.frm_emp_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
