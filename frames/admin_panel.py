@@ -43,7 +43,9 @@ class AdminPanel(tk.Frame):
         self.btn_find_emp = tk.Button(
             self.frm_btn, text='Find Employee', command=self.find_employee)
         self.btn_find_emp.grid(row=0, column=1, sticky='we')
-        self.btn_find_usr = tk.Button(self.frm_btn, text='Find User')
+        self.btn_find_usr = tk.Button(
+            self.frm_btn, text='Find User', command=self.find_user
+        )
         self.btn_find_usr.grid(row=0, column=2)
         self.btn_return = tk.Button(
             self.frm_btn, text='Return',
@@ -223,3 +225,20 @@ class AdminPanel(tk.Frame):
                 msg.showerror(title=title, message=e)
         else:
             msg.showerror('Invalid Password', 'Invalid password')
+
+    def find_user(self):
+        self.usr_tree.delete(*self.usr_tree.get_children())
+        id_ = self.ent_usr_id.get() if self.ent_usr_id.get() != '' else None
+        username = self.ent_username.get() if self.ent_username.get() != '' else None
+        if id_ and username:
+            results = self.db.find(
+                'user', id=id_, partial_match=True,username=username
+            )
+        elif id_:
+            results = self.db.find('user', id=id_)
+        else:
+            results = self.db.find(
+                'user', partial_match=True, username=username
+            )
+        for index, result in enumerate(results):
+            self.usr_tree.insert(parent='', index=index, value=result[:-1])
