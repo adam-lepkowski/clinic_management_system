@@ -63,7 +63,7 @@ class AdminPanel(tk.Frame):
         self.btn_emp.grid(row=0, column=5)
         # employee tree
         self.frm_emp_tree = tk.Frame(self)
-        self.frm_emp_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
+        self.frm_emp_tree.grid(row=2, column=0, sticky='nsew')
         columns = self.db.get_columns('employee')
         self.emp_tree = Tree(self.frm_emp_tree, columns=columns, show='headings')
         self.emp_tree.grid(row=0, column=0, sticky='nsew')
@@ -91,7 +91,7 @@ class AdminPanel(tk.Frame):
         self.ent_username = tk.Entry(self.frm_usr)
         self.ent_username.grid(row=0, column=3, sticky='we')
         self.frm_usr_tree = tk.Frame(self)
-        self.frm_usr_tree.grid(row=2, column=0, columnspan=10, sticky='nsew')
+        self.frm_usr_tree.grid(row=2, column=0, sticky='nsew')
         usr_columns = ['id', 'username']
         self.usr_tree = Tree(
             self.frm_usr_tree, columns=usr_columns, show='headings'
