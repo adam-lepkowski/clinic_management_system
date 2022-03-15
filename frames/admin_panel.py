@@ -80,7 +80,7 @@ class AdminPanel(tk.Frame):
         }
         self.emp_menu = tk.Menu(self, tearoff=0)
         self.emp_menu.add_command(
-            label='Create/Update Account', command=self.password_popup
+            label='Create Account', command=lambda: self.password_popup('create')
         )
         self.emp_tree.bind('<Double-Button-1>', self.menu_popup)
         # user frame and tree
@@ -193,7 +193,7 @@ class AdminPanel(tk.Frame):
         else:
             msg.showerror('Invalid Password', 'Invalid password')
 
-    def password_popup(self):
+    def password_popup(self, action):
         self.frm_pwd = tk.Toplevel(self)
         lbl_title = tk.Label(self.frm_pwd, text='Set up a temporary password')
         lbl_title.grid(row=0, column=0, columnspan=2, sticky='we')
@@ -205,14 +205,17 @@ class AdminPanel(tk.Frame):
         lbl_pwd_confirm.grid(row=2, column=0, sticky='e')
         ent_pwd_confirm = tk.Entry(self.frm_pwd, show='*', name='c_pwd')
         ent_pwd_confirm.grid(row=2, column=1, sticky='w')
-        btn_register = tk.Button(
-            self.frm_pwd, text='Create Account', command=self.create_account
-        )
-        btn_register.grid(row=3, column=1, sticky='we')
-        btn_update_pwd = tk.Button(
-            self.frm_pwd, text='Update password', command=self.update_pwd
-        )
-        btn_update_pwd.grid(row=3, column=0)
+        if action == 'create':
+            btn_register = tk.Button(
+                self.frm_pwd, text='Create Account',
+                command=self.create_account
+            )
+            btn_register.grid(row=3, column=1, sticky='we')
+        if action == 'update':
+            btn_update_pwd = tk.Button(
+                self.frm_pwd, text='Update password', command=self.update_pwd
+            )
+            btn_update_pwd.grid(row=3, column=1, sticky='we')
 
     def update_pwd(self):
         id_ = self.emp_tree.focus()
