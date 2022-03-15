@@ -102,6 +102,7 @@ class AdminPanel(tk.Frame):
             name='usr_tree'
         )
         self.usr_tree.grid(row=0, column=0, sticky='nsew')
+        self.usr_tree.bind('<Double-Button-1>', self.menu_popup)
         self.usr_menu = tk.Menu(self, tearoff=0)
         self.usr_menu.add_command(label='Delete User')
         self.configure_columns()
