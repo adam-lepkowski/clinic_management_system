@@ -225,7 +225,7 @@ class AdminPanel(tk.Frame):
                 username = self.db.find('user', id=emp_id)[0][1]
                 self.db.update_pwd(emp_id, pwd)
                 message = f'Password for user: {username} updated'
-                msg.showinfo(title='Account created', message=message)
+                msg.showinfo(title='Password updated', message=message)
                 self.frm_pwd.destroy()
             except self.db.con.IntegrityError as e:
                 title = "Error occured"
