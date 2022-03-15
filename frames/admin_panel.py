@@ -218,15 +218,15 @@ class AdminPanel(tk.Frame):
             btn_update_pwd.grid(row=3, column=1, sticky='we')
 
     def update_pwd(self):
-        id_ = self.emp_tree.focus()
-        item = self.emp_tree.item(id_)
-        emp_id = item['values'][0]
+        id_ = self.usr_tree.focus()
+        item = self.usr_tree.item(id_)
+        usr_id = item['values'][0]
+        username = item['values'][1]
         pwd = self.frm_pwd.nametowidget('pwd').get()
         conf_pwd = self.frm_pwd.nametowidget('c_pwd').get()
         if (pwd == conf_pwd) and (pwd != ''):
             try:
-                username = self.db.find('user', id=emp_id)[0][1]
-                self.db.update_pwd(emp_id, pwd)
+                self.db.update_pwd(usr_id, pwd)
                 message = f'Password for user: {username} updated'
                 msg.showinfo(title='Password updated', message=message)
                 self.frm_pwd.destroy()
