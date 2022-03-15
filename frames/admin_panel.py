@@ -105,6 +105,9 @@ class AdminPanel(tk.Frame):
         self.usr_tree.bind('<Double-Button-1>', self.menu_popup)
         self.usr_menu = tk.Menu(self, tearoff=0)
         self.usr_menu.add_command(label='Delete User')
+        self.usr_menu.add_command(
+            label='Update Password', command=lambda:self.pwd_popup('update')
+        )
         self.configure_columns()
         self.change_panel()
         self.grid(APP_FRAMES_GRID)
