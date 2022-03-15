@@ -80,7 +80,7 @@ class AdminPanel(tk.Frame):
         }
         self.emp_menu = tk.Menu(self, tearoff=0)
         self.emp_menu.add_command(
-            label='Create Account', command=lambda: self.password_popup('create')
+            label='Create Account', command=lambda: self.pwd_popup('create')
         )
         self.emp_tree.bind('<Double-Button-1>', self.menu_popup)
         # user frame and tree
@@ -193,7 +193,7 @@ class AdminPanel(tk.Frame):
         else:
             msg.showerror('Invalid Password', 'Invalid password')
 
-    def password_popup(self, action):
+    def pwd_popup(self, action):
         self.frm_pwd = tk.Toplevel(self)
         lbl_title = tk.Label(self.frm_pwd, text='Set up a temporary password')
         lbl_title.grid(row=0, column=0, columnspan=2, sticky='we')
