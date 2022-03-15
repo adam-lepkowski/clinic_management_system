@@ -164,11 +164,12 @@ class AdminPanel(tk.Frame):
         id_ = event.widget.focus()
         item = event.widget.item(id_)
         vals = item['values']
+        menu = self.emp_menu if 'emp' in str(event.widget) else self.usr_menu
         if vals:
             try:
-                self.emp_menu.tk_popup(event.x_root, event.y_root)
+                menu.tk_popup(event.x_root, event.y_root)
             finally:
-                self.emp_menu.grab_release()
+                menu.grab_release()
 
     def create_account(self):
         id_ = self.emp_tree.focus()
