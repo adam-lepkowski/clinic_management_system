@@ -76,8 +76,8 @@ class AdminPanel(tk.Frame):
             'position': self.ent_pos,
             'specialty': self.ent_spec,
         }
-        self.acc_menu = tk.Menu(self, tearoff=0)
-        self.acc_menu.add_command(
+        self.emp_menu = tk.Menu(self, tearoff=0)
+        self.emp_menu.add_command(
             label='Create/Update Account', command=self.password_popup
         )
         self.emp_tree.bind('<Double-Button-1>', self.menu_popup)
@@ -161,9 +161,9 @@ class AdminPanel(tk.Frame):
         vals = item['values']
         if vals:
             try:
-                self.acc_menu.tk_popup(event.x_root, event.y_root)
+                self.emp_menu.tk_popup(event.x_root, event.y_root)
             finally:
-                self.acc_menu.grab_release()
+                self.emp_menu.grab_release()
 
     def create_account(self):
         id_ = self.emp_tree.focus()
