@@ -255,3 +255,17 @@ class AdminPanel(tk.Frame):
             )
         for index, result in enumerate(results):
             self.usr_tree.insert(parent='', index=index, value=result[:-1])
+
+    def delete_user(self):
+        id_ = self.usr_tree.focus()
+        item = self.usr_tree.item(id_)
+        usr_id = item['values'][0]
+        username = item['values'][1]
+        title = f'Delete user {username}'
+        message = f'Are you sure you want to delete user account: {username}?'
+        if msg.askyesno(title=title, message=message):
+            self.db.delete('user', id=usr_id)
+            title = 'Account deleted'
+            message = f'{username} account deleted'
+            msg.showinfo(title=title, message=message)
+            self.find_user()
