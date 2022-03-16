@@ -2,8 +2,9 @@ import tkinter as tk
 
 from db import DB
 from frames import (Registration, TitleScreen, Search, Schedule,
-                    FirstLaunchScreen, Login, AdminPanel)
-from frames.const import TITLE_SCRN, REGISTRATION, SEARCH, SCHEDULE, ADMIN
+                    FirstLaunchScreen, Login, AdminPanel, UserPanel)
+from frames.const import (TITLE_SCRN, REGISTRATION, SEARCH, SCHEDULE, ADMIN,
+                          USER)
 
 
 class ClinicManagementSystem(tk.Tk):
