@@ -45,7 +45,7 @@ class Appointment(tk.Toplevel):
         self.opt_specialty.grid(row=0, column=1)
         if doctor != '':
             self.var_spec.set(doctor)
-        self.lbl_pat = tk.Label(self, text='Patient')
+        self.lbl_pat = tk.Label(self, text='Patient ID')
         self.lbl_pat.grid(row=0, column=2)
         self.ent_pat = tk.Entry(self)
         self.ent_pat.grid(row=0, column=3)
