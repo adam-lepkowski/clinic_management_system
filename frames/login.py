@@ -80,6 +80,8 @@ class FirstLaunchScreen(tk.Frame):
             title = "Invalid password"
             message = "Passwords don't match"
         msg.showinfo(title=title, message=message)
+        if title == 'Account created':
+            self.destroy()
 
 
 class Login(tk.Frame):
