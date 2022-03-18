@@ -1,7 +1,8 @@
 import tkinter as tk
 from pathlib import Path
 
-from frames.const import APP_FRAMES_GRID, REGISTRATION, SEARCH, SCHEDULE, ADMIN
+from frames.const import (APP_FRAMES_GRID, REGISTRATION, SEARCH, SCHEDULE,
+                          ADMIN, USER)
 
 
 class TitleScreen(tk.Frame):
@@ -18,10 +19,12 @@ class TitleScreen(tk.Frame):
         find = Path('images/resized/find.png')
         appointment = Path('images/resized/appointment.png')
         admin = Path('images/resized/admin.png')
+        user = Path('images/resized/user.png')
         self.img_reg = tk.PhotoImage(file=register)
         self.img_find = tk.PhotoImage(file=find)
         self.img_appointment = tk.PhotoImage(file=appointment)
         self.img_admin = tk.PhotoImage(file=admin)
+        self.img_user = tk.PhotoImage(file=user)
         self.frm_buttons = tk.Frame(self)
         self.frm_buttons.grid(row=1, column=0, sticky='nsew')
         self.btn_reg = tk.Button(
@@ -42,4 +45,9 @@ class TitleScreen(tk.Frame):
             compound=tk.TOP, command=lambda: master.change_frame(ADMIN)
         )
         self.btn_adm.grid(row=0, column=3)
+        self.btn_usr = tk.Button(
+            self.frm_buttons, text='User', image=self.img_user,
+            compound=tk.TOP, command=lambda: master.change_frame(USER)
+        )
+        self.btn_usr.grid(row=0, column=4)
         self.grid(**APP_FRAMES_GRID)
