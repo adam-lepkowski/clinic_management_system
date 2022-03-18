@@ -59,7 +59,8 @@ class ClinicManagementSystem(tk.Tk):
             REGISTRATION: Registration(self),
             SEARCH: Search(self),
             SCHEDULE: Schedule(self),
-            ADMIN: AdminPanel(self, self.db)
+            ADMIN: AdminPanel(self, self.db),
+            USER: UserPanel(self)
         }
         self.change_frame(TITLE_SCRN)
 
