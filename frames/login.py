@@ -120,6 +120,7 @@ class Login(tk.Frame):
             id_, user, hash_pw = match[0]
             position = self.db.find('employee', id=id_)[0][4]
             current_user = {
+                'id': id_,
                 'username': username,
                 'position': position
             }
