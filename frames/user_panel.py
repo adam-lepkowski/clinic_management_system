@@ -3,7 +3,7 @@ import tkinter.messagebox as msg
 
 import bcrypt
 
-from frames.const import APP_FRAMES_GRID
+from frames.const import APP_FRAMES_GRID, TITLE_SCRN
 
 
 class UserPanel(tk.Frame):
@@ -25,7 +25,12 @@ class UserPanel(tk.Frame):
         self.btn_update = tk.Button(
             self, text='Update Password', command=self.update_pwd
         )
-        self.btn_update.grid(row=3, column=1, sticky='w')
+        self.btn_update.grid(row=3, column=1, sticky='we')
+        self.btn_return = tk.Button(
+            self, text='Return',
+            command=lambda:self.master.change_frame(TITLE_SCRN)
+        )
+        self.btn_return.grid(row=3, column=0, sticky='we')
         self.grid(**APP_FRAMES_GRID)
 
     def update_pwd(self):
