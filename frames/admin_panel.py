@@ -1,5 +1,8 @@
 import tkinter as tk
 import tkinter.messagebox as msg
+from tkinter import filedialog as fd
+
+import csv
 
 from frames.const import APP_FRAMES_GRID, TITLE_SCRN
 from frames import Tree
@@ -290,5 +293,34 @@ class AdminPanel(tk.Frame):
                 frm, text=table, var=var, value=table
             ).grid(row=0, column=index)
         tk.Button(
-            frm, text='Submit'
+            frm, text='Submit', command=lambda:self.select_file(var.get())
         ).grid(row=0, column=len(tables) + 1)
+
+    def select_file(self, table):
+        filetypes = (
+            ('csv', '*.csv'),
+            ('all files', '*.*')
+        )
+        filename = fd.askopenfilename(
+            title='Select a csv file containing db rows',
+            filetypes=filetypes
+        )
+        with open(filename, 'r') as file:
+            reader = csv.DictReader(file)
+            IntegrityError = self.db.con.IntegrityError
+            OperationalError = self.db.con.OperationalError
+            for row in reader:
+                for key, value in row.items():
+                    if value == '':
+                        row[key] = None
+                try:
+                    self.db.insert(table, **row)
+                except (IntegrityError, OperationalError) as e:
+                    title = 'An error has occured'
+                    message = f"Row:{row} raised an error {e}"
+                    msg.showerror(title=title, message=message)
+                    break
+            else:
+                title = 'Records added'
+                message = 'Records added successfully'
+                msg.showinfo(title=title, message=message)
