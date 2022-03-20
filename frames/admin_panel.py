@@ -47,7 +47,9 @@ class AdminPanel(tk.Frame):
             self.frm_btn, text='Find User', command=self.find_user
         )
         self.btn_find_usr.grid(row=0, column=2)
-        self.btn_add_multiple = tk.Button(self.frm_btn, text='Add multiple')
+        self.btn_add_multiple = tk.Button(
+            self.frm_btn, text='Add multiple', command=self.add_multiple_popup
+        )
         self.btn_add_multiple.grid(row=0, column=3, sticky='we')
         self.btn_return = tk.Button(
             self.frm_btn, text='Return',
@@ -273,3 +275,20 @@ class AdminPanel(tk.Frame):
             message = f'{username} account deleted'
             msg.showinfo(title=title, message=message)
             self.find_user()
+
+    def add_multiple_popup(self):
+        frm = tk.Toplevel(self)
+        swidth = frm.winfo_screenwidth() // 2
+        sheight = frm.winfo_screenheight() // 2
+        frm.geometry(f"+{swidth // 2}+{sheight // 2}")
+        sql = "SELECT name FROM sqlite_master WHERE type='table'"
+        tables = self.db.cur.execute(sql).fetchall()
+        tables = [table[0] for table in tables]
+        var = tk.StringVar(frm, value=tables[0])
+        for index, table in enumerate(tables):
+            tk.Radiobutton(
+                frm, text=table, var=var, value=table
+            ).grid(row=0, column=index)
+        tk.Button(
+            frm, text='Submit'
+        ).grid(row=0, column=len(tables) + 1)
