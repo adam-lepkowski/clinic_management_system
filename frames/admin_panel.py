@@ -10,9 +10,9 @@ from frames import Tree
 
 class AdminPanel(tk.Frame):
 
-    def __init__(self, master, db):
+    def __init__(self, master):
         super().__init__(master)
-        self.db = db
+        self.db = self.master.db
         # employee frame
         self.frm_emp = tk.Frame(self)
         self.frm_emp.grid(row=0, column=0, sticky='nsew')
