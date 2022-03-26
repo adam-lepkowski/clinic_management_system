@@ -12,15 +12,15 @@ class UserPanel(tk.Frame):
         super().__init__(master)
         self.lbl_curr_pwd = tk.Label(self, text='Current Password')
         self.lbl_curr_pwd.grid(row=0, column=0, sticky='e')
-        self.ent_curr_pwd = tk.Entry(self)
+        self.ent_curr_pwd = tk.Entry(self, show='*')
         self.ent_curr_pwd.grid(row=0, column=1, sticky='w')
         self.lbl_new_pwd = tk.Label(self, text='New Password')
         self.lbl_new_pwd.grid(row=1, column=0, sticky='e')
-        self.ent_new_pwd = tk.Entry(self)
+        self.ent_new_pwd = tk.Entry(self, show='*')
         self.ent_new_pwd.grid(row=1, column=1, sticky='w')
         self.lbl_con_pwd = tk.Label(self, text='Confirm Password')
         self.lbl_con_pwd.grid(row=2, column=0, sticky='e')
-        self.ent_con_pwd = tk.Entry(self)
+        self.ent_con_pwd = tk.Entry(self, show='*')
         self.ent_con_pwd.grid(row=2, column=1, sticky='w')
         self.btn_update = tk.Button(
             self, text='Update Password', command=self.update_pwd
