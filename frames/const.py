@@ -12,3 +12,14 @@ ADMIN_TITLE_SCREEN = {
     ADMIN: 'admin',
     USER: 'user'
 }
+DOCTOR_TITLE_SCREEN = {
+    SEARCH: 'find',
+    SCHEDULE: 'appointment',
+    USER:'user'
+}
+REGISTRATION_TITLE_SCREEN = {
+    REGISTRATION: 'register',
+    SEARCH: 'find',
+    SCHEDULE: 'appointment',
+    USER: 'user'
+}
