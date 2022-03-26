@@ -4,7 +4,8 @@ from db import DB
 from frames import (Registration, TitleScreen, Search, Schedule,
                     FirstLaunchScreen, Login, AdminPanel, UserPanel)
 from frames.const import (TITLE_SCRN, REGISTRATION, SEARCH, SCHEDULE, ADMIN,
-                          USER)
+                          USER, ADMIN_TITLE_SCREEN, DOCTOR_TITLE_SCREEN,
+                          REGISTRATION_TITLE_SCREEN)
 
 
 class ClinicManagementSystem(tk.Tk):
@@ -33,7 +34,14 @@ class ClinicManagementSystem(tk.Tk):
         height = self.winfo_screenheight() // 2
         self.geometry(f'{width}x{height}+{width // 2}+{height // 2}')
         self.db = db
-        self.frames = {}
+        self.frames = {
+            TITLE_SCRN: TitleScreen,
+            REGISTRATION: Registration,
+            SEARCH: Search,
+            SCHEDULE: Schedule,
+            ADMIN: AdminPanel,
+            USER: UserPanel
+        }
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
@@ -54,14 +62,15 @@ class ClinicManagementSystem(tk.Tk):
         frame.tkraise()
 
     def set_title_screen(self):
-        self.frames = {
-            TITLE_SCRN: TitleScreen(self),
-            REGISTRATION: Registration(self),
-            SEARCH: Search(self),
-            SCHEDULE: Schedule(self),
-            ADMIN: AdminPanel(self),
-            USER: UserPanel(self)
-        }
+        self.frames[TITLE_SCRN] = self.frames[TITLE_SCRN](self)
+        if self.current_user['position'] == 'admin':
+            screen = ADMIN_TITLE_SCREEN
+        elif self.current_user['position'] == 'doctor':
+            screen = DOCTOR_TITLE_SCREEN
+        else:
+            screen = REGISTRATION_TITLE_SCREEN
+        for screen_idx in screen:
+            self.frames[screen_idx] = self.frames[screen_idx](self)
         self.change_frame(TITLE_SCRN)
 
     def set_login_screen(self):
