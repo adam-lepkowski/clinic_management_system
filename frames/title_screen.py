@@ -34,11 +34,10 @@ class TitleScreen(tk.Frame):
         self.btn_find = tk.Button(
             self.frm_buttons, text='Find', image=self.img_find,
             compound=tk.TOP, command=lambda: master.change_frame(SEARCH))
-        self.btn_appointment = tk.Button(
+        self.btn_schedule = tk.Button(
             self.frm_buttons, text='Appointment', image=self.img_appointment,
             compound=tk.TOP, command=lambda: master.change_frame(SCHEDULE)
         )
-        self.btn_appointment.grid(row=0, column=2)
         self.btn_admin = tk.Button(
             self.frm_buttons, text='Admin', image=self.img_admin,
             compound=tk.TOP, command=lambda: master.change_frame(ADMIN)

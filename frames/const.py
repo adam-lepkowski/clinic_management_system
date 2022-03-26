@@ -8,18 +8,18 @@ USER = 5
 ADMIN_TITLE_SCREEN = {
     REGISTRATION: 'register',
     SEARCH: 'find',
-    SCHEDULE: 'appointment',
+    SCHEDULE: 'schedule',
     ADMIN: 'admin',
     USER: 'user'
 }
 DOCTOR_TITLE_SCREEN = {
     SEARCH: 'find',
-    SCHEDULE: 'appointment',
+    SCHEDULE: 'schedule',
     USER:'user'
 }
 REGISTRATION_TITLE_SCREEN = {
     REGISTRATION: 'register',
     SEARCH: 'find',
-    SCHEDULE: 'appointment',
+    SCHEDULE: 'schedule',
     USER: 'user'
 }
