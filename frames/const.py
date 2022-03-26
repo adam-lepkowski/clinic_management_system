@@ -5,4 +5,10 @@ SEARCH = 2
 SCHEDULE = 3
 ADMIN = 4
 USER = 5
-ADMIN_TITLE_SCREEN = ['register', 'find', 'appointment', 'admin', 'user']
+ADMIN_TITLE_SCREEN = {
+    REGISTRATION: 'register',
+    SEARCH: 'find',
+    SCHEDULE: 'appointment',
+    ADMIN: 'admin',
+    USER: 'user'
+}
