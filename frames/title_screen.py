@@ -2,7 +2,8 @@ import tkinter as tk
 from pathlib import Path
 
 from frames.const import (APP_FRAMES_GRID, REGISTRATION, SEARCH, SCHEDULE,
-                          ADMIN, USER)
+                          ADMIN, USER, ADMIN_TITLE_SCREEN, DOCTOR_TITLE_SCREEN,
+                          REGISTRATION_TITLE_SCREEN)
 
 
 class TitleScreen(tk.Frame):
@@ -27,27 +28,31 @@ class TitleScreen(tk.Frame):
         self.img_user = tk.PhotoImage(file=user)
         self.frm_buttons = tk.Frame(self)
         self.frm_buttons.grid(row=1, column=0, sticky='nsew')
-        self.btn_reg = tk.Button(
+        self.btn_register = tk.Button(
             self.frm_buttons, text='Register', image=self.img_reg,
             compound=tk.TOP, command=lambda: master.change_frame(REGISTRATION))
-        self.btn_reg.grid(row=0, column=0)
         self.btn_find = tk.Button(
             self.frm_buttons, text='Find', image=self.img_find,
             compound=tk.TOP, command=lambda: master.change_frame(SEARCH))
-        self.btn_find.grid(row=0, column=1)
         self.btn_appointment = tk.Button(
             self.frm_buttons, text='Appointment', image=self.img_appointment,
             compound=tk.TOP, command=lambda: master.change_frame(SCHEDULE)
         )
         self.btn_appointment.grid(row=0, column=2)
-        self.btn_adm = tk.Button(
+        self.btn_admin = tk.Button(
             self.frm_buttons, text='Admin', image=self.img_admin,
             compound=tk.TOP, command=lambda: master.change_frame(ADMIN)
         )
-        self.btn_adm.grid(row=0, column=3)
-        self.btn_usr = tk.Button(
+        self.btn_user = tk.Button(
             self.frm_buttons, text='User', image=self.img_user,
             compound=tk.TOP, command=lambda: master.change_frame(USER)
         )
-        self.btn_usr.grid(row=0, column=4)
+        if self.master.current_user['position'] == 'admin':
+            screen = ADMIN_TITLE_SCREEN
+        elif self.master.current_user['position'] == 'doctor':
+            screen = DOCTOR_TITLE_SCREEN
+        else:
+            screen = REGISTRATION_TITLE_SCREEN
+        for column, button in enumerate(screen.values()):
+            getattr(self, f'btn_{button}').grid(row=0, column=column)
         self.grid(**APP_FRAMES_GRID)
