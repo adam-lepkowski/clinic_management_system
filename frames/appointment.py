@@ -132,7 +132,11 @@ class Appointment(tk.Toplevel):
             message = f"Are you sure you want to cancel {self.app_datetime}\
                         appointment with doctor {doc_name}"
             if msg.askyesno(title=title, message=message):
-                self.db.cancel_appointment(self.app_datetime, doc_id)
+                del_params = {
+                    'app_datetime': self.app_datetime,
+                    'doctor_id': doc_id
+                }
+                self.db.delete('appointment', **del_params)
                 self.show_scheduled()
 
 
