@@ -164,24 +164,6 @@ class DB:
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
 
-    def cancel_appointment(self, date, doctor_id):
-        """
-        Delete a single appointment from table appointment
-
-        Parameters
-        ---------------
-        date : string
-            datetime string in format %Y-%m-%d %H:%M
-        doctor_id : int
-            doctor's id
-        """
-
-        sql = """
-            DELETE FROM appointment WHERE app_datetime=? and doctor_id=?
-        """
-        self.cur.execute(sql, (date, doctor_id))
-        self.cur.connection.commit()
-
     def create_user_account(self, emp_id):
         result = self.find('employee', id=emp_id)
         columns = self.get_columns('employee')
