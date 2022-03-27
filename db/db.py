@@ -197,7 +197,7 @@ class DB:
         emp_id : int
             employee id
         """
-        
+
         result = self.find('employee', id=emp_id)
         columns = self.get_columns('employee')
         emp = {col: val for col, val in zip(columns, result[0])}
@@ -212,5 +212,16 @@ class DB:
         self.insert('user', id=emp['id'], username=username)
 
     def update_pwd(self, emp_id, pwd):
+        """
+        Set up user's password and store it's hash in db
+
+        Parameters
+        ---------------
+        emp_id : int
+            employee id
+        pwd : str
+            string containing a password
+        """
+        
         hash_pw = bcrypt.hashpw(pwd.encode('utf-8'), bcrypt.gensalt())
         self.update('user', emp_id, hash_pw=hash_pw)
