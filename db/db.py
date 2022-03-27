@@ -47,6 +47,8 @@ class DB:
         ---------------
         list
             a list of column headers
+            OR
+            an empty list
         """
         sql_tables = """SELECT name FROM sqlite_master WHERE type in ('table', 'view')"""
         tables =  self.cur.execute(sql_tables).fetchall()
@@ -56,7 +58,7 @@ class DB:
             columns = self.cur.execute(sql).fetchall()
             column_names = [column[1] for column in columns]
             return column_names
-        return None
+        return []
 
     def map_column_value(self, table, **kwargs):
         columns = self.get_columns(table)
