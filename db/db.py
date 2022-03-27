@@ -166,6 +166,17 @@ class DB:
             self.cur.connection.commit()
 
     def delete(self, table, **kwargs):
+        """
+        Delete records from table.
+
+        Parameters
+        ---------------
+        table : string
+            table name
+        **kwargs
+            delete conditionals
+        """
+        
         delete_dict = self.map_column_value(table, **kwargs)
         if delete_dict:
             sql = f'DELETE FROM {table} WHERE '
