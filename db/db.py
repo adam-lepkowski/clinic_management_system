@@ -61,6 +61,17 @@ class DB:
         return []
 
     def map_column_value(self, table, **kwargs):
+        """
+        Check if columns provided by user are valid table fields.
+        Remove if not.
+
+        Returns
+        ---------------
+        dict
+            column: value dictionary
+        list
+            an empty list
+        """
         columns = self.get_columns(table)
         table_dict = {column: value for column, value in kwargs.items()
                       if column in columns}
