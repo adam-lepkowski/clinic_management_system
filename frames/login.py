@@ -7,6 +7,16 @@ from frames.const import APP_FRAMES_GRID
 
 
 class FirstLaunchScreen(tk.Frame):
+    """
+    Register an admin user when the app is launched for the first time
+
+    Parameters
+    ---------------
+    master
+        tk parent container widget
+    db : database
+        object representing a database connection
+    """
 
     def __init__(self, master, db):
         super().__init__(master)
@@ -49,6 +59,10 @@ class FirstLaunchScreen(tk.Frame):
             self.columnconfigure(column, weight=1)
 
     def register(self):
+        """
+        Register an admin and destroy self
+        """
+
         fname = self.ent_f_name.get()
         mname = self.ent_m_name.get() if self.ent_m_name.get() != '' else None
         lname = self.ent_l_name.get()
@@ -85,6 +99,9 @@ class FirstLaunchScreen(tk.Frame):
 
 
 class Login(tk.Frame):
+    """
+    Verify user credentials
+    """
 
     def __init__(self, master, db):
         super().__init__(master)
@@ -113,6 +130,9 @@ class Login(tk.Frame):
             self.columnconfigure(column, weight=1)
 
     def login(self):
+        """
+        Login a user into the ClinicManagementSystem
+        """
         username = self.ent_usrname.get()
         pwd = self.ent_pwd.get().encode('utf-8')
         match = self.db.find('user', username=username)
