@@ -7,6 +7,9 @@ from frames.const import APP_FRAMES_GRID, TITLE_SCRN
 
 
 class UserPanel(tk.Frame):
+    """
+    Display user panel with possible actions
+    """
 
     def __init__(self, master):
         super().__init__(master)
@@ -34,6 +37,9 @@ class UserPanel(tk.Frame):
         self.grid(**APP_FRAMES_GRID)
 
     def update_pwd(self):
+        """
+        Update current user's password
+        """
         emp_id = self.master.current_user['id']
         current_pwd = self.ent_curr_pwd.get().encode('utf-8')
         current_hash = self.master.db.find('user', id=emp_id)[0][2]
