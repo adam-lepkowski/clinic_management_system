@@ -176,7 +176,7 @@ class DB:
         **kwargs
             delete conditionals
         """
-        
+
         delete_dict = self.map_column_value(table, **kwargs)
         if delete_dict:
             sql = f'DELETE FROM {table} WHERE '
@@ -189,6 +189,15 @@ class DB:
         self.cur.connection.commit()
 
     def create_user_account(self, emp_id):
+        """
+        Create a single user account
+
+        Parameters
+        ---------------
+        emp_id : int
+            employee id
+        """
+        
         result = self.find('employee', id=emp_id)
         columns = self.get_columns('employee')
         emp = {col: val for col, val in zip(columns, result[0])}
