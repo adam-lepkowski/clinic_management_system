@@ -9,6 +9,14 @@ from frames import Tree
 
 
 class AdminPanel(tk.Frame):
+    """
+    Represent admin panel to completely manage ClinicManagementSystem database.
+
+    Parameters
+    ---------------
+    master
+        tk parent container widget
+    """
 
     def __init__(self, master):
         super().__init__(master)
@@ -134,6 +142,10 @@ class AdminPanel(tk.Frame):
         self.frm_usr_tree.columnconfigure(0, weight=1)
 
     def change_panel(self):
+        """
+        Raise appropriate frames and and enable/disable widgets
+        """
+
         option = self.var_frame.get()
         if option == 0:
             self.frm_emp.tkraise()
@@ -149,11 +161,19 @@ class AdminPanel(tk.Frame):
             self.btn_add_emp['state'] = 'disabled'
 
     def get_employee(self):
+        """
+        Get values from employee related entries
+        """
+
         emp = {col: (val.get() if val.get() != '' else None)
                for col, val in self.emp_ent.items()}
         return emp
 
     def add_employee(self):
+        """
+        Add an employee to db
+        """
+
         emp = self.get_employee()
         try:
             self.db.insert('employee', **emp)
@@ -164,6 +184,10 @@ class AdminPanel(tk.Frame):
             msg.showerror(title=title, message=str(e))
 
     def find_employee(self):
+        """
+        Display employees meeting the search criteria in emp_tree
+        """
+
         self.emp_tree.delete(*self.emp_tree.get_children())
         employee = self.get_employee()
         employee = {col: val for col, val in employee.items() if val is not None}
@@ -174,6 +198,10 @@ class AdminPanel(tk.Frame):
             self.emp_tree.insert(parent='', index=index, values=emp)
 
     def menu_popup(self, event):
+        """
+        Show popup menus when doubleclicked on a record in emp_tree or usr_tree
+        """
+
         id_ = event.widget.focus()
         item = event.widget.item(id_)
         vals = item['values']
@@ -185,6 +213,10 @@ class AdminPanel(tk.Frame):
                 menu.grab_release()
 
     def create_account(self):
+        """
+        Create an user account and set up an temporary password
+        """
+
         id_ = self.emp_tree.focus()
         item = self.emp_tree.item(id_)
         emp_id = item['values'][0]
@@ -206,6 +238,15 @@ class AdminPanel(tk.Frame):
             msg.showerror('Invalid Password', 'Invalid password')
 
     def pwd_popup(self, action):
+        """
+        Set up or reset users password
+
+        Parameters
+        ---------------
+        action : str
+            str containg an action to be taken. should be "update" or "create"
+        """
+
         self.frm_pwd = tk.Toplevel(self)
         lbl_title = tk.Label(self.frm_pwd, text='Set up a temporary password')
         lbl_title.grid(row=0, column=0, columnspan=2, sticky='we')
@@ -230,6 +271,9 @@ class AdminPanel(tk.Frame):
             btn_update_pwd.grid(row=3, column=1, sticky='we')
 
     def update_pwd(self):
+        """
+        Update/reset a user's password
+        """
         id_ = self.usr_tree.focus()
         item = self.usr_tree.item(id_)
         usr_id = item['values'][0]
@@ -249,6 +293,10 @@ class AdminPanel(tk.Frame):
             msg.showerror('Invalid Password', 'Invalid password')
 
     def find_user(self):
+        """
+        Display users meeting the search criteria in usr_tree
+        """
+
         self.usr_tree.delete(*self.usr_tree.get_children())
         id_ = self.ent_usr_id.get() if self.ent_usr_id.get() != '' else None
         username = self.ent_username.get() if self.ent_username.get() != '' else None
@@ -266,6 +314,10 @@ class AdminPanel(tk.Frame):
             self.usr_tree.insert(parent='', index=index, value=result[:-1])
 
     def delete_user(self):
+        """
+        Delete a single user from db
+        """
+
         id_ = self.usr_tree.focus()
         item = self.usr_tree.item(id_)
         usr_id = item['values'][0]
@@ -280,6 +332,10 @@ class AdminPanel(tk.Frame):
             self.find_user()
 
     def add_multiple_popup(self):
+        """
+        Insert multiple rows to a chosen table from a csv file
+        """
+
         frm = tk.Toplevel(self)
         swidth = frm.winfo_screenwidth() // 2
         sheight = frm.winfo_screenheight() // 2
@@ -297,6 +353,15 @@ class AdminPanel(tk.Frame):
         ).grid(row=0, column=len(tables) + 1)
 
     def select_file(self, table):
+        """
+        Select a csv file containing table rows
+
+        Parameters
+        ---------------
+        table : str
+            name of the table to insert the values into
+        """
+
         filetypes = (
             ('csv', '*.csv'),
             ('all files', '*.*')
