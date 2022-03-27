@@ -17,6 +17,8 @@ class PatientDetails(PatientFrame):
         tk parent container widget
     patient: dict
         dictionary containing patient details
+    db : database
+        object representing a database connection
     """
 
     def __init__(self, master, patient, db):
