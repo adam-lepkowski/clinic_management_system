@@ -62,6 +62,11 @@ class ClinicManagementSystem(tk.Tk):
         frame.tkraise()
 
     def set_title_screen(self):
+        """
+        Set up a title screen. Available screens dependent on current_user's
+        position
+        """
+
         self.frames[TITLE_SCRN] = self.frames[TITLE_SCRN](self)
         if self.current_user['position'] == 'admin':
             screen = ADMIN_TITLE_SCREEN
@@ -74,6 +79,10 @@ class ClinicManagementSystem(tk.Tk):
         self.change_frame(TITLE_SCRN)
 
     def set_login_screen(self):
+        """
+        Display. If there is no admin (first launch). Display FirstLaunchScreen
+        """
+        
         user = self.db.find('employee', position='admin')
         if user:
             Login(self, self.db)
