@@ -6,7 +6,7 @@ import itertools
 from tkcalendar import DateEntry
 
 from frames import Tree
-from frames.const import TITLE_SCRN
+from frames.const import TITLE_SCRN, APP_FRAMES_GRID
 
 
 class Appointment(tk.Toplevel):
@@ -217,7 +217,7 @@ class Schedule(tk.Frame):
             command=lambda: self.master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=3, column=0, sticky='we')
-        self.grid(row=0, column=1, sticky='nsew')
+        self.grid(**APP_FRAMES_GRID)
 
 
     def configure_columns(self):
