@@ -217,8 +217,8 @@ class Schedule(tk.Frame):
             command=lambda: self.master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=3, column=0, sticky='we')
+        self.set_current_doctor()
         self.grid(**APP_FRAMES_GRID)
-
 
     def configure_columns(self):
         """
@@ -349,3 +349,15 @@ class Schedule(tk.Frame):
         spec = self.specialties[self.var_specialty.get()]
         db = self.master.db
         Appointment(self, datetime, doc, spec, db)
+
+    def set_current_doctor(self):
+        if self.master.current_user['position'] == 'doctor':
+            specialty = self.master.current_user['specialty']
+            doc_id = str(self.master.current_user['id'])
+            for doctor in self.specialties[specialty]:
+                if doctor.startswith(doc_id):
+                    self.var_doctor.set(doctor)
+                    self.var_specialty.set(specialty)
+                    self.opt_doctor.configure(state='disabled')
+                    self.opt_specialty.configure(state='disabled')
+                    break

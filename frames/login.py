@@ -138,12 +138,14 @@ class Login(tk.Frame):
         match = self.db.find('user', username=username)
         if match:
             id_, user, hash_pw = match[0]
-            position = self.db.find('employee', id=id_)[0][4]
+            emp = self.db.find('employee', id=id_)[0]
+            cols = self.db.get_columns('employee')
+            emp = {col: val for col, val in zip(cols, emp)}
             current_user = {
                 'id': id_,
                 'username': username,
-                'position': position
             }
+            current_user.update(emp)
             if bcrypt.checkpw(pwd, hash_pw):
                 self.master.current_user = current_user
                 self.master.set_title_screen()
