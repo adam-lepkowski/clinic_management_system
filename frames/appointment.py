@@ -173,9 +173,9 @@ class Schedule(tk.Frame):
         self.btn_fwd.grid(row=1, column=2, sticky='w')
         self.ent_date = DateEntry(self, date_pattern='y-mm-dd')
         self.ent_date.grid(row=1, column=1, sticky='we')
-        self.specialties = {}
-        self.set_specialties()
-        if self.specialties:
+        if self.master.db.find('employee', position='doctor'):
+            self.specialties = {}
+            self.set_specialties()
             self.lbl_specialty = tk.Label(self, text='Specialty')
             self.lbl_specialty.grid(row=1, column=3, sticky='we')
             self.var_specialty = tk.StringVar(self)
