@@ -139,8 +139,7 @@ class Login(tk.Frame):
         if match:
             id_, user, hash_pw = match[0]
             emp = self.db.find('employee', id=id_)[0]
-            cols = self.db.get_columns('employee')
-            emp = {col: val for col, val in zip(cols, emp)}
+            emp = self.db.row_to_dict('employee', emp)
             current_user = {
                 'id': id_,
                 'username': username,
