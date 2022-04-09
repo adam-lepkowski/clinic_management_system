@@ -222,6 +222,26 @@ class DB:
         pwd : str
             string containing a password
         """
-        
+
         hash_pw = bcrypt.hashpw(pwd.encode('utf-8'), bcrypt.gensalt())
         self.update('user', emp_id, hash_pw=hash_pw)
+
+    def row_to_dict(self, table, row):
+        """
+        Map columns to values from a row
+
+        Parameters
+        ---------------
+        table : str
+            table name
+        row : tuple
+            a single row from given table
+
+        Returns
+        ---------------
+        a dictionary
+        
+        """
+        columns = self.get_columns(table)
+        row = {col: val for col, val in zip(columns, row)}
+        return row
