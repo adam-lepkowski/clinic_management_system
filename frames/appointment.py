@@ -365,3 +365,31 @@ class Schedule(tk.Frame):
                     self.opt_doctor.configure(state='disabled')
                     self.opt_specialty.configure(state='disabled')
                     break
+
+    def get_appointment(self, doc_id, app_datetime):
+        """
+        Get scheduled appointment
+
+        Parameters
+        ---------------
+        doc_id : int or str
+            doctor's id
+        app_datetime : datetime or str
+            datetime in format YYYY-MM-DD HH:MM
+
+        Returns
+        ---------------
+        dictionary
+        OR
+        empty list
+        """
+
+        columns = self.master.db.get_columns('appointment')
+        appointment = self.master.db.find(
+            'appointment', doctor_id=doc_id, app_datetime=app_datetime
+        )
+        if appointment:
+            appointment = {
+                col: val for col, val in zip(columns, appointment[0])
+            }
+        return appointment
