@@ -351,6 +351,10 @@ class Schedule(tk.Frame):
         Appointment(self, datetime, doc, spec, db)
 
     def set_current_doctor(self):
+        """
+        Lock current user's schedule if position == doctor.
+        """
+
         if self.master.current_user['position'] == 'doctor':
             specialty = self.master.current_user['specialty']
             doc_id = str(self.master.current_user['id'])
