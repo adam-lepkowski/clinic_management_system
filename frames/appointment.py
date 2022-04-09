@@ -140,6 +140,12 @@ class ScheduleAppointment(tk.Toplevel):
                 self.show_scheduled()
 
 
+class Appointment(tk.Toplevel):
+
+    def __init__(self, master, doctor_id, app_datetime, patient_id):
+        super().__init__(master)
+
+
 class Schedule(tk.Frame):
     """
     Represent appointment schedule and doctor availability for given date.
@@ -243,8 +249,9 @@ class Schedule(tk.Frame):
         """
 
         doctors = self.master.db.find('employee', position='doctor')
-        emp = self.master.db.get_columns('employee')
-        doctors = [{col: val for col, val in zip(emp, doc)} for doc in doctors]
+        doctors = [
+            self.master.db.row_to_dict('employee', doc) for doc in doctors
+        ]
         return doctors
 
     def set_specialties(self):
