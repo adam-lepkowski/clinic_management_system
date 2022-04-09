@@ -9,7 +9,7 @@ from frames import Tree
 from frames.const import TITLE_SCRN, APP_FRAMES_GRID
 
 
-class Appointment(tk.Toplevel):
+class ScheduleAppointment(tk.Toplevel):
     """
     Represent frame to schedule appoitnments in given datetime.
 
@@ -339,7 +339,7 @@ class Schedule(tk.Frame):
 
     def schedule_appointment(self, event):
         """
-        Instatiate Appointment class to set up an appointment.
+        Instatiate ScheduleAppointment class to set up an appointment.
         """
 
         date = self.ent_date.get()
@@ -348,7 +348,7 @@ class Schedule(tk.Frame):
         doc = self.var_doctor.get()
         spec = self.specialties[self.var_specialty.get()]
         db = self.master.db
-        Appointment(self, datetime, doc, spec, db)
+        ScheduleAppointment(self, datetime, doc, spec, db)
 
     def set_current_doctor(self):
         """
