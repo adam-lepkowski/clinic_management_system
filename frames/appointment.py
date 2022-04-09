@@ -384,12 +384,9 @@ class Schedule(tk.Frame):
         empty list
         """
 
-        columns = self.master.db.get_columns('appointment')
         appointment = self.master.db.find(
             'appointment', doctor_id=doc_id, app_datetime=app_datetime
         )
         if appointment:
-            appointment = {
-                col: val for col, val in zip(columns, appointment[0])
-            }
+            self.master.db.row_to_dict('appointment', appointment)
         return appointment
