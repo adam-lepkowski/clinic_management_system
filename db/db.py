@@ -103,7 +103,7 @@ class DB:
         self.cur.execute(sql, tuple(values))
         self.cur.connection.commit()
 
-    def find(self, table, partial_match=False, **kwargs):
+    def find(self, table, partial_match=False, result_dict=False, **kwargs):
         """
         Find records in table
 
@@ -113,13 +113,15 @@ class DB:
             table name
         partial_match : bool, default=False
             default False, True to allow partial matches
+        result_dict : bool, default=False
+            default False, results as list of dictionaries col: val
         **kwargs
             table_field: value search criteria
 
         Returns
         ---------------
         list
-            a list of tuples with matches
+            a list of dictionaries with matches
             OR
             an empty list
         """
@@ -136,6 +138,10 @@ class DB:
                 values.append(value)
             sql = sql.rstrip('AND ')
             results = self.cur.execute(sql, tuple(values)).fetchall()
+            if results and result_dict:
+                results = [
+                    self.row_to_dict(table, result) for result in results
+                ]
         return results
 
     def update(self, table, id_, **kwargs):
@@ -240,7 +246,7 @@ class DB:
         Returns
         ---------------
         a dictionary
-        
+
         """
         columns = self.get_columns(table)
         row = {col: val for col, val in zip(columns, row)}
