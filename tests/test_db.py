@@ -508,3 +508,17 @@ class TestDelete(unittest.TestCase):
         emp = self.db.cur.execute(self.emp_sql).fetchall()
         self.assertEqual(len(usr), 0)
         self.assertEqual(len(emp), 1)
+
+
+class TestFindResultDict(unittest.TestCase):
+
+    def setUp(self):
+        self.db = db_factory(patient=True, employee=True)
+
+    @parameterized.expand([
+        ('patient', PATIENT_INPUT_1),
+        ('employee', EMPLOYEE_INPUT_1)
+    ])
+    def test_find_patient_dict(self, table, expected):
+        result = self.db.find(table, result_dict=True, id=1)[0]
+        self.assertEqual(result, expected)
