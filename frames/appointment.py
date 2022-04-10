@@ -140,12 +140,6 @@ class ScheduleAppointment(tk.Toplevel):
                 self.show_scheduled()
 
 
-class Appointment(tk.Toplevel):
-
-    def __init__(self, master, doctor_id, app_datetime, patient_id):
-        super().__init__(master)
-
-
 class Schedule(tk.Frame):
     """
     Represent appointment schedule and doctor availability for given date.
@@ -315,6 +309,7 @@ class Schedule(tk.Frame):
             )
             lbl_hour.grid(row=row, column=0, sticky='we')
             lbl_hour.configure(**scheme)
+            print(self.get_appointment(19, date.strftime("%Y-%m-%d %H:%M")))
             available_hour = tk.Label(
                 self.frm_hours, bg='lightgrey', name=lbl_text
             )
@@ -395,5 +390,5 @@ class Schedule(tk.Frame):
             'appointment', doctor_id=doc_id, app_datetime=app_datetime
         )
         if appointment:
-            self.master.db.row_to_dict('appointment', appointment)
+            appointment = self.master.db.row_to_dict('appointment', appointment[0])
         return appointment
