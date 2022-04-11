@@ -223,7 +223,7 @@ class Schedule(tk.Frame):
                 {'fg': 'black', 'bg': 'lightgrey'},
                 {'fg': 'white', 'bg': 'grey'}
             ]
-            self.get_schedule()
+            self.get_schedule(8, 16, 30)
             self.configure_columns()
             self.bind('<Configure>', self.configure_scroll)
             self.cnv_appointment.bind('<Configure>', self.set_schedule_width)
@@ -303,33 +303,45 @@ class Schedule(tk.Frame):
         self.opt_doctor = tk.OptionMenu(self, self.var_doctor, *doctors)
         self.opt_doctor.grid(row=1, column=6, sticky='we')
 
-    def get_schedule(self):
+    def get_schedule(self, start, end, app_time):
         """
         Populate cnv_appointment with labels representing appointment datetimes
+
+        Parameters
+        ---------------
+        start : int
+            clinic starting hour
+        end : int
+            clinic closing hour
+        app_time : int
+            appointment duration in minutes
         """
 
-        start_hour = 8
-        end_hour = 16
-        app_time = timedelta(minutes=30)
+        app_time = timedelta(minutes=app_time)
         date = self.ent_date.get()
-        date = datetime.strptime(date, '%Y-%m-%d').replace(hour=start_hour)
+        date = datetime.strptime(date, '%Y-%m-%d').replace(hour=start)
         row = 0
         schemes = itertools.cycle(self.colour_schemes)
-        while date.hour != end_hour:
+        while date.hour != end:
             scheme = next(schemes)
             lbl_text = date.strftime('%H:%M')
-            date += app_time
-            lbl_hour = tk.Label(
-                self.frm_hours, text=lbl_text, bg='grey'
-            )
+            lbl_hour = tk.Label(self.frm_hours, text=lbl_text)
             lbl_hour.grid(row=row, column=0, sticky='we')
             lbl_hour.configure(**scheme)
-            available_hour = tk.Label(
-                self.frm_hours, bg='lightgrey', name=lbl_text
-            )
+            available_hour = tk.Label(self.frm_hours, name=lbl_text)
             available_hour.configure(**scheme)
             available_hour.grid(row=row, column=1, sticky='we')
             available_hour.bind('<Double-Button-1>', self.schedule_appointment)
+            if self.master.current_user['position'] == 'doctor':
+                doc_id = self.master.current_user['id']
+                appointment = self.db.find(
+                    'app_v', result_dict=True, doctor_id=doc_id,
+                    app_datetime=date.strftime('%Y-%m-%d %H:%M')
+                )
+                if appointment:
+                    patient_name = appointment[0]["p_full_name"]
+                    available_hour.configure(text=patient_name)
+            date += app_time
             row += 1
 
     def set_schedule_width(self, event):
