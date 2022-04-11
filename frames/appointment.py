@@ -173,6 +173,7 @@ class Schedule(tk.Frame):
 
     def __init__(self, master):
         super().__init__(master)
+        self.db = self.master.db
         self.lbl_title = tk.Label(self, text='Appointment Schedule')
         self.lbl_title.grid(
             row=0, column=0, sticky='nsew', pady=10, columnspan=7
@@ -187,7 +188,7 @@ class Schedule(tk.Frame):
         self.btn_fwd.grid(row=1, column=2, sticky='w')
         self.ent_date = DateEntry(self, date_pattern='y-mm-dd')
         self.ent_date.grid(row=1, column=1, sticky='we')
-        if self.master.db.find('employee', position='doctor'):
+        if self.db.find('employee', position='doctor'):
             self.specialties = {}
             self.set_specialties()
             self.lbl_specialty = tk.Label(self, text='Specialty')
@@ -256,9 +257,9 @@ class Schedule(tk.Frame):
             dictionary containing doctor details column_name: value
         """
 
-        doctors = self.master.db.find('employee', position='doctor')
+        doctors = self.db.find('employee', position='doctor')
         doctors = [
-            self.master.db.row_to_dict('employee', doc) for doc in doctors
+            self.db.row_to_dict('employee', doc) for doc in doctors
         ]
         return doctors
 
@@ -362,8 +363,7 @@ class Schedule(tk.Frame):
         datetime = f'{date} {hour}'
         doc = self.var_doctor.get()
         spec = self.specialties[self.var_specialty.get()]
-        db = self.master.db
-        ScheduleAppointment(self, datetime, doc, spec, db)
+        ScheduleAppointment(self, datetime, doc, spec, self.db)
 
     def set_current_doctor(self):
         """
