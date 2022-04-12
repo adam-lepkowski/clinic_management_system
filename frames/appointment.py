@@ -420,3 +420,17 @@ class Schedule(tk.Frame):
                     self.opt_doctor.configure(state='disabled')
                     self.opt_specialty.configure(state='disabled')
                     break
+
+    def start_appointment(self, event):
+        """
+        Start a scheduled appointment
+        """
+
+        id_ = self.master.current_user['id']
+        date = self.ent_date.get()
+        hour = str(event.widget).split('.')[-1]
+        dt = f'{date} {hour}'
+        appointment = self.db.find(
+            'app_v', result_dict=True, app_datetime=dt, doctor_id=id_
+        )[0]
+        Appointment(self, appointment)
