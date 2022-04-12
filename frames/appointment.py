@@ -359,7 +359,6 @@ class Schedule(tk.Frame):
             available_hour = tk.Label(self.frm_hours, name=lbl_text)
             available_hour.configure(**scheme)
             available_hour.grid(row=row, column=1, sticky='we')
-            available_hour.bind('<Double-Button-1>', self.schedule_appointment)
             if self.master.current_user['position'] == 'doctor':
                 doc_id = self.master.current_user['id']
                 appointment = self.db.find(
@@ -368,7 +367,10 @@ class Schedule(tk.Frame):
                 )
                 if appointment:
                     patient_name = appointment[0]["p_full_name"]
+                    available_hour.bind('<Double-Button-1>', self.start_appointment)
                     available_hour.configure(text=patient_name)
+            else:
+                available_hour.bind('<Double-Button-1>', self.schedule_appointment)
             date += app_time
             row += 1
 
