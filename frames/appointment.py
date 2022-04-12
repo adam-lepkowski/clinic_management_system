@@ -148,10 +148,38 @@ class Appointment(tk.Toplevel):
     ---------------
     master : container
         tk container object
+    appointment : dict
+        dict containing appointment details from app_v view
     """
 
-    def __init__(self, master):
+    def __init__(self, master, appointment):
         super().__init__(master)
+        self.db = self.master.db
+        self.appointment = appointment
+        self.resizable(False, False)
+        self.title(f'Patient: {self.appointment["p_full_name"]}')
+        self.lbl_comp = tk.Label(self, text='Complaint')
+        self.lbl_comp.grid(row=0, column=0)
+        self.txt_comp = tk.Text(self, height=2)
+        self.txt_comp.grid(row=1, column=0)
+        self.lbl_exam = tk.Label(self, text='Examination')
+        self.lbl_exam.grid(row=2, column=0)
+        self.txt_exam = tk.Text(self, height=3)
+        self.txt_exam.grid(row=3, column=0)
+        self.lbl_diag = tk.Label(self, text='Diagnosis')
+        self.lbl_diag.grid(row=4, column=0)
+        self.txt_diag = tk.Text(self, height=2)
+        self.txt_diag.grid(row=5, column=0)
+        self.lbl_pscript = tk.Label(self, text='Prescription')
+        self.lbl_pscript.grid(row=6, column=0)
+        self.txt_pscript = tk.Text(self, height=3)
+        self.txt_pscript.grid(row=7, column=0)
+        self.lbl_recom = tk.Label(self, text='Recommendations')
+        self.lbl_recom.grid(row=8, column=0)
+        self.txt_recom = tk.Text(self, height=2)
+        self.txt_recom.grid(row=9, column=0)
+        self.btn_submit = tk.Button(self, text='Submit')
+        self.btn_submit.grid(row=10, column=0, sticky='we')
 
 
 class Schedule(tk.Frame):
