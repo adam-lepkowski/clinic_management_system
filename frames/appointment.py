@@ -260,6 +260,7 @@ class Schedule(tk.Frame):
             command=lambda: self.master.change_frame(TITLE_SCRN)
         )
         self.btn_return.grid(row=3, column=0, sticky='we')
+        self.bind_all('<MouseWheel>', self.mouse_scroll)
         self.set_current_doctor()
         self.grid(**APP_FRAMES_GRID)
 
@@ -318,6 +319,21 @@ class Schedule(tk.Frame):
         self.cnv_appointment.configure(
             scrollregion=self.cnv_appointment.bbox('all')
         )
+
+    def mouse_scroll(self, event):
+        """
+        Set up Windows and Linux scroll
+        """
+        if event.delta:
+            self.cnv_appointment.yview_scroll(
+                int(-1*(event.delta/120)), 'units'
+            )
+        else:
+            if event.num == 5:
+                move = 1
+            else:
+                move = -1
+            self.cnv_appointment.yview_scroll(move, 'units')
 
     def set_specialists(self, event):
         """
