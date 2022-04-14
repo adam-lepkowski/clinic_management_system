@@ -25,7 +25,7 @@ def db_factory(patient=None, employee=None, app=None, user=None):
         insert_test_values(db, 'employee', EMPLOYEE_INPUT_2)
     if app:
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        values = (1, date, 1)
+        values = (1, date, 1, None, None, None, None, None)
         insert_test_values(db, 'appointment', values)
     if user:
         insert_test_values(db, 'user', USER_INPUT_1)
@@ -285,38 +285,45 @@ class TestUpdatePatient(unittest.TestCase):
 class TestRegisterAppointment(unittest.TestCase):
 
     def setUp(self):
-        self.pat = PATIENT_INPUT_2.copy()
         self.doc =  EMPLOYEE_INPUT_2.copy()
         self.db = db_factory(patient=True, employee=True)
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        self.test_input = {
+            'patient_id': 1,
+            'app_datetime': date,
+            'doctor_id': 1,
+            'complaint': None,
+            'examination': None,
+            'diagnosis': None,
+            'prescription': None,
+            'recommendations': None,
+            }
+        self.test_input_2 = self.test_input.copy()
+        self.test_input_2['doctor_id'] = 2
+        self.expected_1 = tuple(self.test_input.values())
+        self.expected_2 = tuple(self.test_input_2.values())
 
     def test_register_appointment(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        test_input = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 1}
-        expected = tuple(test_input.values())
-        self.db.insert('appointment', **test_input)
+        self.db.insert('appointment', **self.test_input)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
-        self.assertEqual(expected, result)
+        self.assertEqual(self.expected_1, result)
 
     def test_register_appointment_invalid_patient_id(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        test_input = {'patient_id': 3, 'app_datetime': date, 'doctor_id': 1}
+        self.test_input['patient_id'] = 2
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.insert('appointment', **test_input)
+            self.db.insert('appointment', **self.test_input)
 
     def test_invalid_date_raises_error(self):
-        test_input = {'patient_id': 1, 'app_datetime': 'date', 'doctor_id': 1}
+        self.test_input['app_datetime'] = '20-10-2022'
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.insert('appointment', **test_input)
+            self.db.insert('appointment', **self.test_input)
 
     def test_same_dates_same_doc_raises_error(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        test_input = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 1}
-        expected = tuple(test_input.values())
-        self.db.insert('appointment', **test_input)
+        self.db.insert('appointment', **self.test_input)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
-        self.assertEqual(expected, result)
+        self.assertEqual(self.expected_1, result)
         with self.assertRaises(self.db.con.IntegrityError):
-            self.db.insert('appointment', **test_input)
+            self.db.insert('appointment', **self.test_input)
 
     def test_same_date_diff_doc(self):
         date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -325,14 +332,10 @@ class TestRegisterAppointment(unittest.TestCase):
         doc_sql = f"""INSERT INTO employee VALUES
                       ({doc_placeholders.strip(', ')})"""
         self.db.cur.execute(doc_sql, tuple(self.doc))
-        test_input_1 = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 1}
-        test_input_2 = {'patient_id': 1, 'app_datetime': date, 'doctor_id': 2}
-        expected_1 = tuple(test_input_1.values())
-        expected_2 = tuple(test_input_2.values())
-        self.db.insert('appointment', **test_input_1)
-        self.db.insert('appointment', **test_input_2)
+        self.db.insert('appointment', **self.test_input)
+        self.db.insert('appointment', **self.test_input_2)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchall()
-        expected = [expected_1, expected_2]
+        expected = [self.expected_1, self.expected_2]
         self.assertEqual(expected, result)
 
 
@@ -349,12 +352,12 @@ class TestFindAppointment(unittest.TestCase):
         ('doctor', {'doctor_id': 1})
     ])
     def test_find_appointment(self, name, search_condition):
-        expected = [(1, self.date, 1)]
+        expected = [(1, self.date, 1, None, None, None, None, None)]
         result = self.db.find('appointment', **search_condition)
         self.assertEqual(expected, result)
 
     def test_find_appointment_by_datetime(self):
-        expected = [(1, self.date, 1)]
+        expected = [(1, self.date, 1, None, None, None, None, None)]
         result = self.db.find('appointment', app_datetime=self.date)
         self.assertEqual(expected, result)
 
@@ -457,6 +460,7 @@ class TestDelete(unittest.TestCase):
         self.pat_sql = 'SELECT * FROM patient'
         self.emp_sql = 'SELECT * FROM employee'
         self.usr_sql = 'SELECT * FROM user'
+        self.date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
 
     def test_delete_patient(self):
         appointments = self.db.cur.execute(self.app_sql).fetchall()
@@ -470,8 +474,7 @@ class TestDelete(unittest.TestCase):
         self.assertEqual(len(appointments), 0)
 
     def test_delete_appointment(self):
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-        self.db.delete('appointment', app_datetime=date, doctor_id=1)
+        self.db.delete('appointment', app_datetime=self.date, doctor_id=1)
         expected = None
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
@@ -481,11 +484,10 @@ class TestDelete(unittest.TestCase):
         ('doctor_id', {'app_datetime': '', 'doctor_id': 2})
     ])
     def test_delete_appointment_invalid_input(self, name, vals):
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
         if name != 'date':
-            vals['app_datetime'] = date
+            vals['app_datetime'] = self.date
         self.db.delete('appointment', **vals)
-        expected = (1, date, 1)
+        expected = (1, self.date, 1, None, None, None, None, None)
         result = self.db.cur.execute('SELECT * FROM appointment').fetchone()
         self.assertEqual(expected, result)
 
