@@ -178,7 +178,9 @@ class Appointment(tk.Toplevel):
         self.lbl_recom.grid(row=8, column=0)
         self.txt_recom = tk.Text(self, height=2)
         self.txt_recom.grid(row=9, column=0)
-        self.btn_submit = tk.Button(self, text='Submit')
+        self.btn_submit = tk.Button(
+            self, text='Submit', command=self.submit_app_details
+        )
         self.btn_submit.grid(row=10, column=0, sticky='we')
         self.app_details = {
             'complaint': self.txt_comp,
@@ -187,6 +189,33 @@ class Appointment(tk.Toplevel):
             'prescription': self.txt_pscript,
             'recommendations': self.txt_recom
         }
+
+    def submit_app_details(self):
+        """
+        Update appointment details
+        """
+
+        details = {
+            col: (val.get(0.0, tk.END).strip() if val.get(0.0, tk.END).strip() != '' else None)
+            for col, val in self.app_details.items()
+        }
+        sql = "UPDATE appointment SET "
+        vals = []
+        for col, val in details.items():
+            sql += f'{col}=?, '
+            vals.append(val)
+        sql = sql.strip(', ')
+        doc_id = self.appointment['emp_id']
+        app_dt = self.appointment['app_datetime']
+        where_clause = f" WHERE doctor_id={doc_id} AND app_datetime='{app_dt}'"
+        sql += where_clause
+        try:
+            self.db.cur.execute(sql, tuple(vals))
+            self.db.cur.connection.commit()
+            message = 'Successfully updated appointment details'
+            msg.showinfo('Appointment updated', message)
+        except self.db.con.OperationalError as e:
+            msg.showerror('An error has occured', str(e))
 
 
 class Schedule(tk.Frame):
