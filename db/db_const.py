@@ -81,6 +81,11 @@ CREATE_TABLE_APPOINTMENT = """
         patient_id      INTEGER NOT NULL REFERENCES patient(id) ON DELETE CASCADE,
         app_datetime    TEXT NOT NULL CHECK (app_datetime != ''),
         doctor_id       INTEGER NOT NULL REFERENCES employee(id) ON DELETE CASCADE,
+        complaint       TEXT,
+        examination     TEXT,
+        diagnosis       TEXT,
+        prescription    TEXT,
+        recommendations TEXT,
         PRIMARY KEY     (app_datetime, doctor_id)
     )
 """
@@ -139,5 +144,16 @@ CREATE_TABLE_USER = """
         id              PRIMARY KEY REFERENCES employee (id) ON DELETE CASCADE,
         username        TEXT NOT NULL UNIQUE,
         hash_pw         TEXT CHECK (hash_pw != '')
+    )
+"""
+
+CREATE_TABLE_APP_DETAILS = """
+    CREATE TABLE IF NOT EXISTS app_details (
+        complaint       TEXT,
+        examination     TEXT,
+        diagnosis       TEXT,
+        prescription    TEXT,
+        recommendations TEXT,
+
     )
 """
