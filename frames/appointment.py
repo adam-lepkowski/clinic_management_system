@@ -180,6 +180,13 @@ class Appointment(tk.Toplevel):
         self.txt_recom.grid(row=9, column=0)
         self.btn_submit = tk.Button(self, text='Submit')
         self.btn_submit.grid(row=10, column=0, sticky='we')
+        self.app_details = {
+            'complaint': self.txt_comp,
+            'examination': self.txt_exam,
+            'diagnosis': self.txt_diag,
+            'prescription': self.txt_pscript,
+            'recommendations': self.txt_recom
+        }
 
 
 class Schedule(tk.Frame):
