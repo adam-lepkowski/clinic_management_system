@@ -39,10 +39,9 @@ Update your password.
 
 ## Roles
 There are 3 roles:
-Admin – all frames and functionalities (besides filling up appointment details form) available.
-Doctor – available frames – Find, Medical Record, Appointment (only to manage own schedule) and User panel
-Others – Registration,  Find,  Medical Record,  Appointment (to schedule appointments)
-The last one is made for nurses and employees responsible for setting up appointments and giving patients required information.
+* Admin – all frames and functionalities (besides filling up appointment details form) available.
+* Doctor – available frames – Find, Medical Record, Appointment (only to manage own schedule) and User panel
+* Others – Registration,  Find,  Medical Record,  Appointment (to schedule appointments). Made for nurses and employees responsible for setting up appointments and giving patients required information.
 
 ## Used graphics
 The icons I used in the project are under Reshot Free License [Reshot license](https://www.reshot.com/license/)
