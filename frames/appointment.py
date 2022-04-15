@@ -446,6 +446,9 @@ class Schedule(tk.Frame):
         else:
             date = datetime.strptime(date, '%Y-%m-%d') - delta
         self.ent_date.set_date(date)
+        for widget in self.frm_hours.winfo_children():
+            widget.destroy()
+        self.get_schedule(8, 16, 30)
 
     def schedule_appointment(self, event):
         """
