@@ -174,6 +174,10 @@ class AppointmentHistory(tk.Frame):
                 'appointment', result_dict=True, doctor_id=doc_id,
                 app_datetime=app_dt
             )[0]
+            app_details = {
+                col: (val if val is not None else '')
+                for col, val in app_details.items()
+            }
             frm = tk.Toplevel(self)
             lbl_comp = tk.Label(frm, text='Complaint')
             lbl_comp.grid(row=0, column=0)
