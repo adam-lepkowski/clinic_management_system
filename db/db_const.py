@@ -146,14 +146,3 @@ CREATE_TABLE_USER = """
         hash_pw         TEXT CHECK (hash_pw != '')
     )
 """
-
-CREATE_TABLE_APP_DETAILS = """
-    CREATE TABLE IF NOT EXISTS app_details (
-        complaint       TEXT,
-        examination     TEXT,
-        diagnosis       TEXT,
-        prescription    TEXT,
-        recommendations TEXT,
-
-    )
-"""
