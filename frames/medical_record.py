@@ -145,6 +145,7 @@ class AppointmentHistory(tk.Frame):
         self.tree = Tree(self, columns=columns, show='headings')
         self.get_appointments()
         self.columnconfigure(0, weight=1)
+        self.tree.bind('<Double-Button-1>', self.show_app_details)
         self.grid(row=0, column=0, sticky='nsew')
 
     def get_appointments(self):
@@ -157,6 +158,23 @@ class AppointmentHistory(tk.Frame):
         if appointments:
             for i, appointment in enumerate(appointments):
                 self.tree.insert(parent='', index=i, values=appointment)
+
+    def show_app_details(self, event):
+        """
+        Display an appointment's details
+        """
+
+        id_ = event.widget.focus()
+        item = event.widget.item(id_)
+        vals = item['values']
+        if vals:
+            vals = self.db.row_to_dict('app_v', vals)
+            doc_id, app_dt = vals['emp_id'], vals['app_datetime']
+            app_details = self.db.find(
+                'appointment', result_dict=True, doctor_id=doc_id,
+                app_datetime=app_dt
+            )[0]
+            return app_details
 
 
 class MedicalRecord(tk.Toplevel):
