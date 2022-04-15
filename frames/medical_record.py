@@ -174,7 +174,32 @@ class AppointmentHistory(tk.Frame):
                 'appointment', result_dict=True, doctor_id=doc_id,
                 app_datetime=app_dt
             )[0]
-            return app_details
+            frm = tk.Toplevel(self)
+            lbl_comp = tk.Label(frm, text='Complaint')
+            lbl_comp.grid(row=0, column=0)
+            txt_comp = tk.Text(frm, height=4)
+            txt_comp.insert(0.0, app_details['complaint'])
+            txt_comp.grid(row=1, column=0)
+            lbl_exam = tk.Label(frm, text='Examination')
+            lbl_exam.grid(row=2, column=0)
+            txt_exam = tk.Text(frm, height=4)
+            txt_exam.insert(0.0, app_details['examination'])
+            txt_exam.grid(row=3, column=0)
+            lbl_diag = tk.Label(frm, text='Diagnosis')
+            lbl_diag.grid(row=4, column=0)
+            txt_diag = tk.Text(frm, height=4)
+            txt_diag.insert(0.0, app_details['diagnosis'])
+            txt_diag.grid(row=5, column=0)
+            lbl_pscript = tk.Label(frm, text='Prescription')
+            lbl_pscript.grid(row=6, column=0)
+            txt_pscript = tk.Text(frm, height=4)
+            txt_pscript.insert(0.0, app_details['prescription'])
+            txt_pscript.grid(row=7, column=0)
+            lbl_recom = tk.Label(frm, text='Recommendations')
+            lbl_recom.grid(row=8, column=0)
+            txt_recom = tk.Text(frm, height=4)
+            txt_recom.insert(0.0, app_details['recommendations'])
+            txt_recom.grid(row=9, column=0)
 
 
 class MedicalRecord(tk.Toplevel):
