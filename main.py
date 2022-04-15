@@ -29,7 +29,6 @@ class ClinicManagementSystem(tk.Tk):
     def __init__(self, db):
         super().__init__()
         self.title("Clinic Management System")
-        # set geometry and centre the window
         width = self.winfo_screenwidth() // 2
         height = self.winfo_screenheight() // 2
         self.geometry(f'{width}x{height}+{width // 2}+{height // 2}')
@@ -82,7 +81,7 @@ class ClinicManagementSystem(tk.Tk):
         """
         Display. If there is no admin (first launch). Display FirstLaunchScreen
         """
-        
+
         user = self.db.find('employee', position='admin')
         if user:
             Login(self, self.db)
